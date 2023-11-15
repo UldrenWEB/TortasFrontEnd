@@ -1,17 +1,19 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-const AnimatedSroll = ({ animation, duration = 1000, children }) => {
+const AnimatedScroll = ({ animation, duration = 1000, children }) => {
     useEffect(() => {
         AOS.init({
-            duration: duration
-        }); // Inicializa AOS
+            duration: duration,
+            once: true, // La animación solo se ejecutará una vez por elemento
+            mirror: false, // La animación no se repetirá en sentido inverso
+        });
 
         return () => {
             AOS.refresh(); // Actualiza AOS al desmontar el componente
         };
-    }, []);
+    }, [duration]);
 
     return (
         <div data-aos={animation}>
@@ -20,4 +22,4 @@ const AnimatedSroll = ({ animation, duration = 1000, children }) => {
     );
 };
 
-export default AnimatedSroll;
+export default AnimatedScroll;
