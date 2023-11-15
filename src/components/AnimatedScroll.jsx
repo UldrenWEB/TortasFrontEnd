@@ -6,7 +6,7 @@ const AnimatedScroll = ({ animation, duration = 1000, children }) => {
     useEffect(() => {
         AOS.init({
             duration: duration,
-            once: true, // La animación solo se ejecutará una vez por elemento
+            once: false, // La animación solo se ejecutará una vez por elemento
             mirror: false, // La animación no se repetirá en sentido inverso
         });
 
