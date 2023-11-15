@@ -13,7 +13,7 @@ const Prueba = () => {
         <li><Link to="/">Inicio</Link></li>
         <li><Link to="/home">Home</Link></li>
       </ul>
-      <AnimatedSroll animation={"fade-up"}>
+      <AnimatedSroll animation={"fade-left"}>
         <div className='testDivs'></div>
       </AnimatedSroll>
       <AnimatedSroll animation={"fade-up"}>
@@ -40,11 +40,13 @@ const Prueba = () => {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<NavBar />} />
-      <Route path='/home' element={<Home />} />
-      <Route path='/prueba' element={<Prueba />} />
-    </Routes>
+    // <Routes>
+    //   <Route path="/" element={<NavBar />} />
+    //   <Route path='/home' element={<Home />} />
+    //   <Route path='/prueba' element={<Prueba />} />
+    // </Routes>
+
+    <NavBar/>
   );
 }
 
