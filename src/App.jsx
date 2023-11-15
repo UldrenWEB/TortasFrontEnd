@@ -40,11 +40,13 @@ const Prueba = () => {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<NavBar />} />
-      <Route path='/home' element={<Home />} />
-      <Route path='/prueba' element={<Prueba />} />
-    </Routes>
+    // <Routes>
+    //   <Route path="/" element={<NavBar />} />
+    //   <Route path='/home' element={<Home />} />
+    //   <Route path='/prueba' element={<Prueba />} />
+    // </Routes>
+
+    <NavBar/>
   );
 }
 
