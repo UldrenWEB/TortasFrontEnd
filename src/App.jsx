@@ -3,7 +3,7 @@ import NavBar from './components/Navbar';
 import AnimatedSroll from './components/AnimatedScroll';
 import { Route, Routes, Link } from 'react-router-dom';
 import { useState } from 'react'
-import './App.css'
+import './styles/App.css'
 
 const Prueba = () => {
   return (
@@ -13,25 +13,25 @@ const Prueba = () => {
         <li><Link to="/">Inicio</Link></li>
         <li><Link to="/home">Home</Link></li>
       </ul>
-      <AnimatedSroll animation={"fade-up"}>
+      <AnimatedSroll animation={"fade-left"}>
         <div className='testDivs'></div>
       </AnimatedSroll>
-      <AnimatedSroll animation={"fade-up"}>
+      <AnimatedSroll animation={"fade-left"}>
         <div className='testDivs'></div>
       </AnimatedSroll>
-      <AnimatedSroll animation={"fade-up"}>
+      <AnimatedSroll animation={"fade-left"}>
         <div className='testDivs'></div>
       </AnimatedSroll>
-      <AnimatedSroll animation={"fade-up"}>
+      <AnimatedSroll animation={"fade-left"}>
         <div className='testDivs'></div>
       </AnimatedSroll>
-      <AnimatedSroll animation={"fade-up"}>
+      <AnimatedSroll animation={"fade-left"}>
         <div className='testDivs'></div>
       </AnimatedSroll>
-      <AnimatedSroll animation={"fade-up"}>
+      <AnimatedSroll animation={"fade-left"}>
         <div className='testDivs'></div>
       </AnimatedSroll>
-      <AnimatedSroll animation={"fade-up"}>
+      <AnimatedSroll animation={"fade-left"}>
         <div className='testDivs'></div>
       </AnimatedSroll>
     </div>
