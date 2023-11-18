@@ -8,6 +8,7 @@ import Home from './components/Home';
 import MyRoute from './components/Route';
 
 import './styles/App.css'
+import Prueba from './components/Prueba';
 // const Prueba = () => {
 //   return (
 //     <div>
@@ -71,7 +72,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<NavBar />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Prueba />} />
         <Route path="/prueba" element={<MyRoute />} />
       </Routes>
     </>
