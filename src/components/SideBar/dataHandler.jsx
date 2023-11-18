@@ -1,3 +1,5 @@
+//!NOTA: NO TRATAR DE ENTENDER ESTE CODIGO, NI YO LO ENTIENDO Y LO QUE HACE ES MANEJAR OBJETOS PARA QUE SEAN USADOS EN EL SIDEBAR
+
 import { HomeOutlined, AppstoreOutlined } from "@ant-design/icons";
 import enumIcons from "../../enums/enumIcons";
 import enumRoutes from "../../enums/enumRoutes";
