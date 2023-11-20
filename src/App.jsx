@@ -15,6 +15,8 @@ function App() {
   const changeTheme = () => setDrakTheme(!darkTheme);
   const changeCollapsed = () => setCollapsed(!collapsed);
 
+  //TODO: REALIZAR EL HOOK QUE SE CONECTA PARA OBTENER LA INFORMACION
+
   return (
     <>
       <Layout className="main" onClick={!collapsed ? changeCollapsed : null}>
