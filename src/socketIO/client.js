@@ -25,7 +25,6 @@ class Client {
                     ...user,
                     timeStamp: 0
                 },
-                withCredentials: true,
                 extraHeaders: {
                     "my-custom-header": "abcd"
                 }
@@ -65,9 +64,10 @@ class Client {
             return false;
         }
         try {
-            socketEmit.emit('message_zone', { socketEmit, room, message });
+            socketEmit.emit('message zone', { socketEmit, room, message });
             return true;
         } catch (error) {
+            console.error(error.message)
             return { error: error.message }
         }
     }
@@ -75,7 +75,7 @@ class Client {
     sendMessageBroadcast = ({ socket, message }) => {
         try {
             console.log('HOla');
-            socket.emit('general_message', { socket, namespace: this.namespace, message })
+            socket.emit('general message', { socket, namespace: this.namespace, message })
             return true;
         } catch (error) {
             return { error: error.message }
@@ -85,7 +85,7 @@ class Client {
     // Envía un mensaje directo a un usuario
     sendDirectMessage = ({ socketEmit, user, message }) => {
         try {
-            socketEmit.emit('direct_message', { socketEmit, user, message });
+            socketEmit.emit('direct message', { socketEmit, user, message });
             return true;
         } catch (error) {
             return { error: error.message }
@@ -132,9 +132,9 @@ class Client {
     //*Escucha los diferentes eventos del cliente
     listenEvents = (socket) => {
         // /*
-        socket.on('room_message', this.#eventRoomMessage);
-        socket.on('broadcast_message', this.#eventBroadcastMessage);
-        socket.on('direct_message', this.#eventDirectMessage);
+        socket.on('room message', this.#eventRoomMessage);
+        socket.on('broadcast message', this.#eventBroadcastMessage);
+        socket.on('direct message', this.#eventDirectMessage);
         // */
         // //!Iterando
         // const events = this.receivedEvent;
