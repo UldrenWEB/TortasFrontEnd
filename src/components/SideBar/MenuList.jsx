@@ -1,10 +1,13 @@
 import { Menu } from "antd";
 import { transformData } from "./dataHandler";
 
-const MenuList = ({ darkTheme, data = [], navigate }) => {
+const MenuList = ({ darkTheme, data = [], navigate, changeCollapsed, collapsed }) => {
   const items = transformData(data);
 
-  const handleClick = ({ key }) => navigate(key);
+  const handleClick = ({ key }) => {
+    navigate(key)
+    if(!collapsed) changeCollapsed()
+  };
 
   return (
     <Menu
