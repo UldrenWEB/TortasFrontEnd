@@ -39,12 +39,12 @@
   /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: center;
 }
 
 .main-elements-home h1 {
-  font-size: 3rem;
+  font-size: 3.2rem;
   font-weight: 600;
   color: #fff;
   margin-bottom: 1rem;
@@ -116,6 +116,106 @@
 
 .logo-torta-home img {
   width: 80%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
+}
+
+@media (max-width: 1200px) {
+    .container-home-grid{
+        grid-template-columns: 50% 50%;
+        width: 90%;
+    }
+
+    .logo-torta-home img{
+        width: 70%;
+    }
+
+    .container-home{
+        background-position-x: -100px ;
+    }
+
+}
+
+@media (max-width: 900px) {
+    .container-home-grid{
+        grid-template-columns: 65% 35%;
+        width: 90%;
+    }
+
+
+    .logo-torta-home img{
+        width: 100%;
+    }
+
+    .container-home{
+        background-position-x: -250px ;
+    }
+
+}
+
+@media(max-width: 600px){
+    .container-home{
+        background-image: url('../imgs/slidePhone.svg');
+        background-position-x: 0;
+        box-sizing: border-box !important;
+    }
+
+    .container-home-grid{
+        grid-template-columns: 100%;
+        width: 100%;
+        height: 100%;
+    }
+
+    .main-elements-home{
+        align-items: center !important;
+        
+    }
+
+    .logo-torta-home{
+        width: 100%;
+    }
+
+    .logo-torta-home img{
+        width: 70%;
+    }
+
+    .main-elements-home{
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main-elements-home > *{
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .p-home{
+        display: none;
+    }
+
+.containerButton{
+    margin-top: 3rem;
+    flex-direction: column;
+    align-items: space-between;
+}
+
+    .btn-home{
+        width: 100%;
+        font-size: 1.3rem;
+    }
+
+    .btn-home-2{
+        background-color: #42231f !important;
+        border: #42231f !important;
+        color: #fb5361 !important;
+    }
+
+    .container-home-grid > :nth-child(1){
+        order: 1;
+    }
+
+    .main-elements-home h1{
+        font-size: 2.5rem;
+    }
 }

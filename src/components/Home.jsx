@@ -49,7 +49,7 @@ const Home = () => {
         <div className="container-home-grid">
           <div className="main-elements-home">
             <h1 className="main-letter">
-            Controla tus ventas como un {" "}
+            Controla tus ventas como un <br />
               <span className="main-letter-home"></span>
             </h1>
 
