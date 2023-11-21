@@ -1,8 +1,9 @@
 import Home from "./Home";
 import Login from "./Login";
 import Logout from "./Logout";
-import MyRoute from "./MyRoute";
 import { Route, Routes } from "react-router-dom";
+import Reports from "./Reports";
+import MyRoute from "./MyRoute";
 
 const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
   return (
@@ -46,7 +47,13 @@ const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
           />
         }
       />
+
+      <Route path="/reports" element={
+        <MyRoute className={darkMode ? "darkMode" : "lightMode"} />
+      } />
+
     </Routes>
+
   );
 };
 

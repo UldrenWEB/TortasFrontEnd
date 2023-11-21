@@ -33,13 +33,13 @@ const ComponentTable = ({ data, customHeaders }) => {
   };
 
   return (
-    <table>
+    <Table className="table table-striped">
       <thead>
         <tr>
           {headers.map((header) => (
             <th key={header}>{header}</th>
           ))}
-          <th>Botones</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -49,12 +49,22 @@ const ComponentTable = ({ data, customHeaders }) => {
               <td key={columnIndex}>{value}</td>
             ))}
             <td>
-              <button onClick={() => handleButtonClick(row)}>Botón</button>
+              <div className="d-flex flex-column flex-sm-row">
+                <Button className="icon-button p-2 m-1 p-sm-0" variant='link' onClick={() => handleButtonView(row)}>
+                  <img src={eye} alt="Icon eye" style={{ width: '16px', height: '16px' }} />
+                </Button>
+                <Button className="icon-button p-2 m-1 p-sm-0" variant='link' onClick={() => handleButtonEdit(row)}>
+                  <img src={pencil} alt="Icon pencil" style={{ width: '16px', height: '16px' }} />
+                </Button>
+                <Button className="icon-button p-2 m-1 p-sm-0" variant='link' onClick={() => handleButtonDelete(row)}>
+                  <img src={trash} alt="Icon trash " style={{ width: '16px', height: '16px' }} />
+                </Button>
+              </div >
             </td>
           </tr>
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 };
 
