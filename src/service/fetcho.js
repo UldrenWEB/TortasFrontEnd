@@ -20,15 +20,17 @@ const fetcho = async ({ url, method, body }) => {
     
       const response = await fetch(url, config);
     
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
+      // if (!response.ok) {
+      //   throw new Error(response.statusText);
+      // }
     
       const data = await response.json();
-    
+
       return data;
   } catch (error) {
     console.error(`Ocurrio un error realizando un fetch, donde la url era ${url} y el error fue ${error.message}`)
     return false
   }
 };
+
+export default fetcho
