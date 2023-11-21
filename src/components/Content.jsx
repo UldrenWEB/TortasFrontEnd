@@ -1,9 +1,9 @@
-import Home from './Home'
-import Login from './Login';
+import Home from "./Home";
+import Login from "./Login";
 import MyRoute from "./MyRoute";
 import { Route, Routes } from "react-router-dom";
 
-const Content = ({ darkMode, setLogger, setDataNav , navigate}) => {
+const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
   return (
     //TODO: MODIFICAR AQUI ESTO QUE LOS ELEMENTOS USAN
     //TODO: ADEMAS RECORDAR QUE TODOS LOS COMPONENTES QUE CARGUEN DEBERAN USAR SU WITDH 100%
@@ -24,7 +24,11 @@ const Content = ({ darkMode, setLogger, setDataNav , navigate}) => {
         element={
           <Login
             className={darkMode ? "darkMode" : "lightMode"}
-            style={{ width: "100%" }} setLogger={setLogger} setDataNav={setDataNav} navigate={navigate}
+            style={{ width: "100%" }}
+            setLogger={setLogger}
+            setDataNav={setDataNav}
+            navigate={navigate}
+            isLogged={isLogged}
           >
             Home
           </Login>
