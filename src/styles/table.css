@@ -1,0 +1,5 @@
+.tableContainer {
+    margin: 5em;
+    width: 300px;
+    overflow: auto;
+}
