@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 //Importar css de la tabla
 
 //!Componente el cual Renderiza en una tabla una consulta SQL y muestra cada registro
-const Table = ({ data, customHeaders }) => {
+const ComponentTable = ({ data, customHeaders }) => {
   const [tableData, setTableData] = useState(data);
   const [headers, setHeaders] = useState([]);
 

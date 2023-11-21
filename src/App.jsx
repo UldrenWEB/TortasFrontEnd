@@ -39,12 +39,21 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<NavBar />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/prueba" element={<MyRoute />} />
-      </Routes>
-    </>
+    <Layout className="main" onClick={!collapsed ? changeCollapsed : null}>
+      {isLogged && (
+        <SideBar
+          darkTheme={darkTheme}
+          changeTheme={changeTheme}
+          collapsed={collapsed}
+          changeCollapsed={changeCollapsed}
+          infoMethod={dataInfo}
+          navigate={navigate}
+        />
+      )}
+
+      <Content darkMode={darkTheme}/>
+    </Layout>
+  </>
 
     // <NavBar />
     // <Table data={pruebaData} customHeaders={['Hola1', 'Hola2', 'Hola3', 'Hola5', 'holaUltimo']} />
