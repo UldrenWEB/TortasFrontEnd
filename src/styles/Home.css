@@ -159,6 +159,7 @@
 @media (max-width: 600px) {
   .container-home {
     background-image: url("../imgs/slidePhone.svg");
+    background-position-y: -160px; 
     background-position-x: 0;
     box-sizing: border-box !important;
   }

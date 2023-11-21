@@ -1,5 +1,6 @@
 import Home from "./Home";
 import Login from "./Login";
+import Logout from "./Logout";
 import MyRoute from "./MyRoute";
 import { Route, Routes } from "react-router-dom";
 
@@ -35,10 +36,12 @@ const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
         }
       />
       <Route
-        path="/prueba"
+        path="/logout"
         element={
-          <MyRoute
+          <Logout
             className={darkMode ? "darkMode" : "lightMode"}
+            setLogger={setLogger}
+            isLogged={isLogged}
             style={{ width: "100%" }}
           />
         }

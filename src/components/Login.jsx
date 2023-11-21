@@ -7,7 +7,6 @@ import { Button } from "antd";
 import torta2 from "../imgs/torta2.svg";
 import dinoLoginSvg from "../imgs/dinoLogin.svg";
 import fetcho from "../service/fetcho";
-import { URL_BASE } from "../constants/url";
 
 const Login = ({ setLogger, setDataNav, navigate, isLogged }) => {
   useEffect(() => {
@@ -26,10 +25,11 @@ const Login = ({ setLogger, setDataNav, navigate, isLogged }) => {
         password,
       };
 
-      const obj = { url: `${URL_BASE}/login`, method: "POST", body };
+      const obj = { url: '/login', method: "POST", body };
 
       const result = await fetcho(obj);
 
+      console.log(result)
       if(result?.error) console.log('AQUI MOSTRARE EL MODAL CON LA INFO' + result?.error)
 
       setLogger(true)
@@ -37,7 +37,7 @@ const Login = ({ setLogger, setDataNav, navigate, isLogged }) => {
         navigate("/setProfile")
       }
 
-    //   setDataNav()
+      setDataNav(result.permissions)
       navigate("/home");
 
     } catch (error) {

@@ -11,7 +11,7 @@ import Chat from "./components/Chat";
 function App() {
   const navigate = useNavigate();
   const [darkTheme, setDrakTheme] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
   const [dataNav, setDataNav] = useState({})
 

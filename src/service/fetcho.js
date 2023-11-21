@@ -1,3 +1,5 @@
+import { URL_BASE } from "../constants/url";
+
 const fetcho = async ({ url, method, body }) => {
   try {
     const configPost = {
@@ -18,7 +20,7 @@ const fetcho = async ({ url, method, body }) => {
     
       const config = method.toLowerCase() === "post" ? configPost : configGet;
     
-      const response = await fetch(url, config);
+      const response = await fetch(`${URL_BASE}${url}`, config);
     
       // if (!response.ok) {
       //   throw new Error(response.statusText);
