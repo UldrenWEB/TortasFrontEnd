@@ -38,7 +38,7 @@ const SideBar = ({
       />
       <InfoUser collapsed={collapsed} name={name} profile={profile} avatar={avatar}/>
 
-      <MenuList darkTheme={darkTheme} data={infoMethod} navigate={navigate} />
+      <MenuList darkTheme={darkTheme} data={infoMethod} navigate={navigate} changeCollapsed={changeCollapsed} collapsed={collapsed}/>
 
       <ToggleThemeButton darkTheme={darkTheme} toggleTheme={changeTheme} />
     </Sider>
