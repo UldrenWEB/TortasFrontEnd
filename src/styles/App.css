@@ -55,6 +55,7 @@ body{
 .inpt{
   padding: 0.8rem;
   background-color: #846c8c1e;
+  min-width: 10px;
 }
 
 .input-container > * {
