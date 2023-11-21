@@ -7,8 +7,8 @@
   border: none;
   outline: none;
   list-style: none;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box !important; 
+  font-family: 'Inter', sans-serif;
 }
 
 body{
@@ -52,3 +52,50 @@ body{
   border: none;
 }
 
+.inpt{
+  padding: 0.8rem;
+  background-color: #846c8c1e;
+}
+
+.input-container > * {
+  background-color: transparent !important;
+}
+
+
+.dino-login{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.container-dino-login{
+  width: 70%;
+  height: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.container-dino-login > h2{
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.container-dino-login > h2 > span{
+  color: #42231F;
+}
+
+.container-dino-login > img{
+  width: 80%;
+  height: 80%;
+}
+
+.btn-c :hover{
+  color: #fff !important;
+  opacity: 0.8 !important;
+  background-color: transparent;
+}
