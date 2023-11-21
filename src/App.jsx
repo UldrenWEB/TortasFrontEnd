@@ -32,7 +32,7 @@ function App() {
           />
         )}
 
-        <Content darkMode={darkTheme} setLogger={setIsLogged} setDataNav={setDataNav}/>
+        <Content darkMode={darkTheme} setLogger={setIsLogged} setDataNav={setDataNav} navigate={navigate}/>
 
       </Layout>
     </>
