@@ -3,6 +3,7 @@ import "../styles/Home.css";
 import torta from '../imgs/torta.svg'
 import TypeIt from "typeit";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   // const [info, setInfo] = useState();
@@ -59,8 +60,8 @@ const Home = () => {
             </p>
 
             <div className="containerButton">
-              <Button className="btn-home btn-home-1">Ingresar</Button>
-              <Button className="btn-home btn-home-2">Contacto</Button>
+              <Link to={"/login"} style={{width: '100%'}}><Button className="btn-home btn-home-1">Ingresar</Button></Link>
+              <Link to={"/contacto"}style={{width: '100%'}}><Button className="btn-home btn-home-2">Contacto</Button></Link>
             </div>
           </div>
 
