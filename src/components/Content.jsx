@@ -2,7 +2,7 @@ import Home from './Home'
 import MyRoute from "./MyRoute";
 import { Route, Routes } from "react-router-dom";
 
-const Content = ({ darkMode }) => {
+const Content = ({ darkMode, setLogger, setDataNav }) => {
   return (
     //TODO: MODIFICAR AQUI ESTO QUE LOS ELEMENTOS USAN
     //TODO: ADEMAS RECORDAR QUE TODOS LOS COMPONENTES QUE CARGUEN DEBERAN USAR SU WITDH 100%
@@ -19,7 +19,7 @@ const Content = ({ darkMode }) => {
         }
       />
       <Route
-        path="/home"
+        path="/login"
         element={
           <div
             className={darkMode ? "darkMode" : "lightMode"}

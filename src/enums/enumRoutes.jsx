@@ -1,5 +1,6 @@
 const enumRoutes = {
-    getRoutes: "/get?element=routes"
+    getRoutes: "/get?element=routes",
 }
+
 
 export default enumRoutes

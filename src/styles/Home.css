@@ -1,0 +1,121 @@
+.main-container-home > {
+  box-sizing: border-box !important;
+}
+
+.main-container-home {
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  background-color: #feebed;
+}
+
+.container-home {
+  background-image: url("../imgs/slide.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-home-grid {
+  height: 100%;
+  width: 80%;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  place-content: center;
+  /* border: 1px solid black; */
+}
+
+.main-elements-home {
+  width: 100%;
+  height: 100%;
+  padding: 0.7rem;
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-elements-home h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.main-elements-home h1 .main-letter-home {
+  color: #42231f;
+}
+
+.main-elements-home .p-home {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #42231f;
+  margin-bottom: 2rem;
+}
+
+.main-elements-home .p-home .main-letter-home {
+  color: #42231f;
+}
+
+.containerButton {
+  display: flex;
+  gap: 2rem;
+  align-items: start;
+  width: 100%;
+}
+
+.btn-home {
+  padding: 0.7rem 2rem !important;
+  height: auto !important;
+  font-weight: bold !important;
+  box-sizing: border-box !important;
+}
+
+.btn-home:active {
+  opacity: 0.4 !important;
+}
+
+.btn-home-1 {
+  background-color: #fff !important;
+  color: #fb5361 !important;
+}
+
+.btn-home-2 {
+  background-color: transparent !important;
+  border: 2px solid #fff !important;
+  color: #fff !important;
+}
+
+.btn-home-1:hover {
+  background-color: transparent !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
+}
+
+.btn-home-2:hover {
+  background-color: #fff !important;
+  color: #fb5361 !important;
+}
+
+.logo-torta-home {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+
+.logo-torta-home img {
+  width: 80%;
+  height: 100%;
+  object-fit: cover;
+}
