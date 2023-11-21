@@ -1,101 +1,21 @@
-import { Route, Routes, Link } from 'react-router-dom';
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { Layout } from "antd";
+import SideBar from "./components/Sidebar/SideBar";
+import Content from "./components/Content";
+import dataInfo from './constants/dataInfo'
+import "./styles/App.css";
 
-import AnimatedSroll from './components/AnimatedScroll';
-import ComponentTable from './components/Table';
-import NavBar from './components/Navbar';
-import Home from './components/Home';
-import MyRoute from './components/Route';
-import Chat from './components/Chat';
-import iClient from './instances/iClientSocket';
-import './styles/App.css'
-// const Prueba = () => {
-//   return (
-//     <div>
-//       <h1>Este es elemento de prueba</h1>
-//       <ul>
-//         <li><Link to="/">Inicio</Link></li>
-//         <li><Link to="/home">Home</Link></li>
-//       </ul>
-//       <AnimatedSroll animation={"fade-left"}>
-//         <div className='testDivs'></div>
-//       </AnimatedSroll>
-//       <AnimatedSroll animation={"fade-left"}>
-//         <div className='testDivs'></div>
-//       </AnimatedSroll>
-//       <AnimatedSroll animation={"fade-left"}>
-//         <div className='testDivs'></div>
-//       </AnimatedSroll>
-//       <AnimatedSroll animation={"fade-left"}>
-//         <div className='testDivs'></div>
-//       </AnimatedSroll>
-//       <AnimatedSroll animation={"fade-left"}>
-//         <div className='testDivs'></div>
-//       </AnimatedSroll>
-//       <AnimatedSroll animation={"fade-left"}>
-//         <div className='testDivs'></div>
-//       </AnimatedSroll>
-//       <AnimatedSroll animation={"fade-left"}>
-//         <div className='testDivs'></div>
-//       </AnimatedSroll>
-//     </div>
-//   )
-// }
-// let json;
-// getData().then(data => {
-//   json = data
-// }).catch(err => {
-//   console.error('Hubo un error:', err)
-// })
-function capFirst(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
-function generateName() {
-  let name1 = ["uldren", "julio", "erika", 'ramon', 'william', 'finol', 'garcia', 'gabi', 'sol']
-
-
-  var name = capFirst(name1[getRandomInt(0, name1.length + 1)]);
-  return name;
-
-}
-const objUser = {
-  user: generateName(),
-  password: '1234',
-  profile: '123'
-}
-const socketClient = iClient.createSocketClient(objUser)
-iClient.joinNamespace(socketClient);
-iClient.joinRoom(socketClient, 'el prado')
-iClient.listenEvents(socketClient)
 function App() {
-  const pruebaData =
-    [
-      {
-        "id": 1,
-        "nombre": "Juan",
-        "apellido": "Pérez",
-        "profesion": "Ingeniero",
-        "prueba": "Aqui probando una nueva fila"
-      },
-      {
-        "id": 2,
-        "nombre": "Ana",
-        "apellido": "Gómez",
-        "profesion": "Doctora",
-        "prueba": "Aqui probando una nueva fila"
-      },
-      {
-        "id": 3,
-        "nombre": "Carlos",
-        "apellido": "Rodríguez",
-        "profesion": "Abogado",
-        "prueba": "Aqui probando una nueva fila"
-      }
-    ]
+  const navigate = useNavigate();
+  const [darkTheme, setDrakTheme] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
+
+  const changeTheme = () => setDrakTheme(!darkTheme);
+  const changeCollapsed = () => setCollapsed(!collapsed);
+
+  //TODO: REALIZAR EL HOOK QUE SE CONECTA PARA OBTENER LA INFORMACION
 
   const mensajes = [
     { fecha: '8/17/2023', usuario: 'Uldren', emisor: 'Uldren', contenido: 'Hola como estan', receptor: 'Sol' },
@@ -118,19 +38,18 @@ function App() {
 
 
   return (
-    // <>
-    //   <Routes>
-    //     <Route path="/" element={<NavBar />} />
-    //     <Route path="/home" element={<Home />} />
-    //     <Route path="/prueba" element={<MyRoute />} />
-    //   </Routes>
-    // </>
+    <>
+      <Routes>
+        <Route path="/" element={<NavBar />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/prueba" element={<MyRoute />} />
+      </Routes>
+    </>
 
     // <NavBar />
-    // <ComponentTable data={json} />
-    <Chat messagesInitial={mensajes} objChat={OBJ_CHAT} objInfo={objInfo} typeChat={'broadcast'} />
+    // <Table data={pruebaData} customHeaders={['Hola1', 'Hola2', 'Hola3', 'Hola5', 'holaUltimo']} />
 
   );
 }
 
-export default App
+export default App;

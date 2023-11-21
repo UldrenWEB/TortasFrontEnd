@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 //*CustomHook para obtner los parametros de la url
-const useURLParams = () => {
+export const useURLParams = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const [data, setData] = useState(null);
