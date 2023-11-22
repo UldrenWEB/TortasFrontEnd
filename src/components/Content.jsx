@@ -48,10 +48,13 @@ const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
         }
       />
 
-      <Route path="/reports" element={
-        <MyRoute className={darkMode ? "darkMode" : "lightMode"} />
-      } />
-
+      <Route path="/reports"
+        element={
+          <MyRoute
+            className={darkMode ? "darkMode" : "lightMode"}
+          />
+        }
+      />
     </Routes>
 
   );
