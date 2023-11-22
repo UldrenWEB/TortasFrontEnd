@@ -6,10 +6,12 @@ const objMethods = [
                 delete: ['deleteRowBill']
             },
             payMethod: {
-                delete: ['deletePayMethod'],
+                delete: 'deletePayMethod',
                 update: {
+                    status: 'setStatusPayMethod',
                     bank: 'editTo',
-                    payMethod: 'setStatusPayMethod'
+                    methodother: 'editTo',
+                    methodbank: 'editTo'
                 }
             }
         }

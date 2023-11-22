@@ -3,10 +3,7 @@ import { useNavigate } from "react-router";
 import { Layout } from "antd";
 import SideBar from "./components/Sidebar/SideBar";
 import Content from "./components/Content";
-import dataInfo from "./constants/dataInfo";
-import iClient from "./instances/iClientSocket";
 import "./styles/App.css";
-import Chat from "./components/Chat";
 
 function App() {
   const navigate = useNavigate();
@@ -32,7 +29,7 @@ function App() {
           />
         )}
 
-        <Content darkMode={darkTheme} setLogger={setIsLogged} setDataNav={setDataNav} navigate={navigate} isLogged={isLogged}/>
+        <Content darkMode={darkTheme} setLogger={setIsLogged} setDataNav={setDataNav} navigate={navigate} isLogged={isLogged} />
 
       </Layout>
     </>

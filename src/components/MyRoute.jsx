@@ -6,6 +6,7 @@ import pathInfo from "../constants/reportsInfo";
 import getData from '../service/getDataToTable'
 import useURLParams from '../customHooks/useURLParams'
 import pruebaData from "../service/pruebaData";
+import fetcho from "../service/fetcho";
 
 const getModuleAndObjectByPath = (typeFilter) => {
     try {
@@ -39,10 +40,10 @@ const fetchData = async ({ module, object, method, params }) => {
 
 const MyRoute = () => {
     const [data, setData] = useState(null);
-    const [optionsData, setOptions] = useState(null);
+    const [optionsData, setOptions] = useState({});
     const [isMain, setIsMain] = useState(true);
     const [defaultComponent, setDefaultComponent] = useState(false);
-    const { params, setParams } = useURLParams();
+    const { params } = useURLParams();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -51,7 +52,7 @@ const MyRoute = () => {
                 const verifyMain = params['main'];
 
                 const { module, object, options } = getModuleAndObjectByPath(params.filter);
-                console.log(options)
+
                 if (module === 'default') {
                     setDefaultComponent(true);
                     console.log('default')
@@ -60,20 +61,22 @@ const MyRoute = () => {
 
                 console.log('Params', params, module, object, params.method, params.params)
                 if (!verifyMain) {
-                    const response = await fetchData(
-                        {
+                    const response = await fetcho({
+                        url: '/toProcess',
+                        method: 'POST',
+                        body: {
                             module: module,
                             object: object,
                             method: params.method,
                             params: params.params
                         }
-                    );
+                    });
                     setIsLoading(false);
                     setData({ response, module, object, context: params['context'] });
                     setIsMain(false);
                     return;
                 }
-                setOptions(options);
+                setOptions({ options });
                 setIsLoading(false);
                 return;
             } catch (error) {
@@ -90,14 +93,15 @@ const MyRoute = () => {
         return <div>Cargando...</div>; // Muestra un mensaje de carga mientras los datos se están cargando
     }
 
+    console.log('AQUIIII DATA', data)
     return (
         <div>
             {defaultComponent ? (
                 <DefaultComponent />
             ) : isMain ? (
-                <ButtonReports optionByPath={optionsData} setParams={setParams} />
+                <ButtonReports optionByPath={optionsData} />
             ) : (
-                <ComponentTable data={{ response: pruebaData, module: 'sales', object: 'products', context: 'product' }} />
+                <ComponentTable data={data} />
             )}
         </div>
     );

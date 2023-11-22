@@ -30,9 +30,9 @@ const ComponentTable = ({ data, customHeaders }) => {
 
   const { response, module, object, context } = tableData
 
-  if (!response) return;
-  // Renderizar tabla cuando cambien los datos
+  if (!response || response.error) return <div>Cargando...</div>;
 
+  console.log('Probando', response, module, object, context)
   useEffect(() => {
     const array = []
     const actions = ['delete', 'update']
@@ -56,19 +56,19 @@ const ComponentTable = ({ data, customHeaders }) => {
     } else if (response.length > 0) {
       setHeaders(Object.keys(response[0]));
     }
-  }, [customHeaders, data]);
+  }, [customHeaders, data, tableData]);
 
 
   useEffect(() => {
     const fetchByFetcho = async () => {
+      console.log('Paso a modificar la base de datos')
+      console.log('Aqui modificando esto', modifiedData)
       try {
         if (!modifiedData || !isConfirm) return;
 
-        console.log('Paso a modificar la base de datos')
         const { id, module, object, action, context, updateData } = modifiedData
         const method = getMethod({ module, object, action, context })
 
-        console.log('HEYYYYYYYY')
         const response = await fetcho({
           url: '/toProcess',
           method: 'POST',
@@ -80,9 +80,13 @@ const ComponentTable = ({ data, customHeaders }) => {
           }
         })
 
-        if (response.error) return setTableData(tableData);
+        if (response.error) {
+          setTableData(tableData)
+          return console.error('Hubo un error al hacer la consulta');
+        }
 
         setTableData({ response: action === 'delete' ? updateData : update, module, object, context });
+
         setIsConfirm(false);
         setSuccessMessage(true);
         return console.error(response);
@@ -92,9 +96,10 @@ const ComponentTable = ({ data, customHeaders }) => {
       }
     }
 
-
-    fetchByFetcho();
-  }, [modifiedData])
+    if (isConfirm) {
+      fetchByFetcho();
+    }
+  }, [isConfirm])
 
 
   //!ESTO ESTA RARO SI TAL LO HARE PERO SI NO YA NO REDIRIGIRE NADA
@@ -110,8 +115,6 @@ const ComponentTable = ({ data, customHeaders }) => {
 
   const handleButtonDelete = (rowData) => {
     setConfirmAction(true);
-
-    if (!isConfirm) return null;
 
     const { id } = rowData;
     // Eliminar el elemento de tableData
@@ -129,18 +132,12 @@ const ComponentTable = ({ data, customHeaders }) => {
   const handleSaveChanges = (rowData) => {
     setConfirmAction(true);
 
-    if (!isConfirm) {
-      setEditingRow(null);
-      console.log(tableData)
-      setTableData(tableData)
-      return null;
-    }
+
     const { id } = rowData
     const updateData = response.find(row => row.id === id)
     setModifiedData({ id, module, object, action: 'update', context, updateData });
 
     // Restablecer la fila de edición a null
-    setIsConfirm(true)
     setEditingRow(null);
   };
 

@@ -25,7 +25,7 @@ const useURLParams = () => {
         }
     }, [location.search]);
 
-    return { params, setParams };
+    return { params };
 };
 
 export default useURLParams;
