@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom'
 
-
-const ButtonReports = ({ optionByPath }) => {
-    const [options, setOptions] = useState([]);
+const ButtonReports = ({ optionByPath, setParams }) => {
     const [inputs, setInputs] = useState([]);
-
-
-    useEffect(() => {
-        setOptions(optionByPath);
-    }, [optionByPath])
 
     const handleInputChange = ({ index, value }) => {
         const newInputs = [...inputs]
@@ -22,37 +15,42 @@ const ButtonReports = ({ optionByPath }) => {
         console.log(`Input ${index} value: ${inputValue}`)
     }
 
+    const handleButtonClick = ({ option }) => {
+        window.location.href = option.to;
+    }
+
     return (
         <div className='container'>
             <div>
-                {options.map((option, index) => {
-                    <div key={option.label}>
-                        {option.type === 'text' || option.type === 'number' ? (
-                            <div>
-                                <input className='input'
-                                    type={option.type}
-                                    placeholder={option.placeholder}
-                                    value={inputs[index] || ''}
-                                    onChange={(e) => handleInputChange({ index, value: e.target.value })}
-                                />
-                                <button
-                                    className='btn-input'
-                                    onClick={() => handleButtonInput({ index })}
-                                >Enviar
-                                </button>
-                            </div>
-                        ) : (
-                            <div>
-                                <button key={option.label} className='btn' onClick={<Link to={option.to} />}>
-                                    {option.label}
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                {optionByPath.map((option, index) => {
+                    return (
+                        <div key={option.label}>
+                            {option.type === 'text' || option.type === 'number' ? (
+                                <div>
+                                    <input
+                                        className='input'
+                                        type={option.type}
+                                        placeholder={option.placeholder}
+                                        value={inputs[index] || ''}
+                                        onChange={(e) => handleInputChange({ index, value: e.target.value })}
+                                    />
+                                    <button className='btn-input' onClick={() => handleButtonInput({ index })}>
+                                        Enviar
+                                    </button>
+                                </div>
+                            ) : (
+                                <div>
+                                    <button onClick={() => handleButtonClick({ option })} className='btn dark'>
+                                        {option.label}
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    );
                 })}
             </div>
         </div>
-    )
+    );
 
 }
 

@@ -1,5 +1,5 @@
 const enumRoutes = {
-    getProducts: "/reports?filter=routes",
+    getProducts: "/reports?filter=routes&main=true",
 }
 
 
