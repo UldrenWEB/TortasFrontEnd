@@ -9,6 +9,7 @@
   list-style: none;
   box-sizing: border-box !important; 
   font-family: 'Inter', sans-serif;
+  transition: all 0.3s ease;
 }
 
 body{
@@ -56,6 +57,7 @@ body{
   padding: 0.8rem;
   background-color: #846c8c1e;
   min-width: 10px;
+  max-width: 100%;
 }
 
 .input-container > * {
@@ -100,3 +102,4 @@ body{
   opacity: 0.8 !important;
   background-color: transparent;
 }
+

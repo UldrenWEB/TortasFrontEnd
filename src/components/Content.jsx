@@ -2,13 +2,25 @@ import Home from "./Home";
 import Login from "./Login";
 import Logout from "./Logout";
 import { Route, Routes } from "react-router-dom";
+import CreatePerson from "../BO/CreatePerson";
+import { useEffect } from "react";
+import CreateProduct from "../BO/CreateProduct";
+import { verifyLoginCookie } from "../service/verifyLogin";
+// import Reports from "./Reports";
 import MyRoute from "./MyRoute";
 import FinalChat from "./Messages/FinalChat";
 
 const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
+  useEffect(() => {
+    verifyLoginCookie({ setLogger, navigate, isLogged });
+
+  }, []);
+
+
   return (
     //TODO: MODIFICAR AQUI ESTO QUE LOS ELEMENTOS USAN
     //TODO: ADEMAS RECORDAR QUE TODOS LOS COMPONENTES QUE CARGUEN DEBERAN USAR SU WITDH 100%
+
     <Routes className={"main-layout"}>
       <Route
         path="/"
@@ -16,9 +28,7 @@ const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
           <Home
             className={darkMode ? "darkMode" : "lightMode"}
             style={{ width: "100%" }}
-          >
-            Path
-          </Home>
+          />
         }
       />
       <Route
@@ -31,9 +41,7 @@ const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
             setDataNav={setDataNav}
             navigate={navigate}
             isLogged={isLogged}
-          >
-            Home
-          </Login>
+          />
         }
       />
       <Route
@@ -48,6 +56,12 @@ const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
         }
       />
 
+      {isLogged ? <Route path="/home" element={<div>Inicio</div>} /> : null}
+
+      {/* Estas se pueden hacer dinamicas */}
+      <Route path="/person/control/createPerson" element={<CreatePerson />} />
+
+      <Route path="/sales/products/createProduct" element={<CreateProduct />} />
       <Route path="/reports"
         element={
           <MyRoute

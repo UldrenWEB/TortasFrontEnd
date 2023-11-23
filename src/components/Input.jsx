@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-const Input = ({ type, placeholder, icon, isPass, iden }) => {
+const Input = ({ type, placeholder, icon, isPass, iden, value}) => {
     const [showPass, setShowPass] = useState(false);
 
     return (
@@ -12,6 +12,7 @@ const Input = ({ type, placeholder, icon, isPass, iden }) => {
                 type={isPass && showPass ? "text" : type}
                 placeholder={placeholder}
                 className="inpt" id={iden}
+                value={value}
             />
             {isPass ? (
                 <button
