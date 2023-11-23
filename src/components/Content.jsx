@@ -2,8 +2,8 @@ import Home from "./Home";
 import Login from "./Login";
 import Logout from "./Logout";
 import { Route, Routes } from "react-router-dom";
-import Reports from "./Reports";
 import MyRoute from "./MyRoute";
+import FinalChat from "./Messages/FinalChat";
 
 const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
   return (
@@ -55,7 +55,12 @@ const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
           />
         }
       />
+      <Route path="/miPinga"
+        element={
+          <FinalChat typeChat={'broadcast'} userData={{ user: 'uldren12', profile: 'admin' }} />
+        } />
     </Routes>
+
 
   );
 };

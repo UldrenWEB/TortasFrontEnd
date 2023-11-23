@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/message.css'
+import '../../styles/message.css'
 
 
 const MensajesComponent = ({ infoMessage }) => {
