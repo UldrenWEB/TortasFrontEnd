@@ -5,7 +5,6 @@ import SideBar from "./components/Sidebar/SideBar";
 import Content from "./components/Content";
 import FinalChat from "./components/Messages/FinalChat";
 import "./styles/App.css";
-import Chat from "./components/Chat";
 import {verifyLoginCookie, verifyMethodsNav} from "./service/verifyLogin";
 
 function App() {

@@ -15,7 +15,7 @@ const MagicForms = ({ infoData, mapaInfo }) => {
     <div className="container-inputs-magics">
       {infoData.map((element, key) => {
         const { type, label, id, placeholder } = element;
-        const [info, setInfo] = useState({ value: '', options: [] });
+        const [info, setInfo] = useState({ value: "", options: [] });
 
         const handleChange = (e) => {
           // console.log(e.target.value)
@@ -34,7 +34,13 @@ const MagicForms = ({ infoData, mapaInfo }) => {
             ) : type.toLowerCase() === "switch" ? (
               <Switch id={id} checked={info.value} onChange={handleChange} />
             ) : (
-              <input type={type} id={id} placeholder={placeholder} value={info.value} onChange={handleChange} />
+              <input
+                type={type}
+                id={id}
+                placeholder={placeholder}
+                value={info.value}
+                onChange={handleChange}
+              />
             )}
           </div>
         );

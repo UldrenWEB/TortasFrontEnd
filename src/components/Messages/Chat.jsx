@@ -10,17 +10,18 @@ import twoIcon from "../../icons/usuarios.svg";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const objChat = {
-  zones: ["el prado",],
-  direct: "direct",
-  broadcast: "namespace",
-};
-
 //El objeto de chats es aquel que tiene 3 propiedades si es de broadcast, room, direct
 //objInfo = {socketEmit, byUser, sendToUser}
-const Chat = ({ messagesInitial, objChat, typeChat, objInfo, newMessage, newImage }) => {
-  const [inputValue, setInputValue] = useState('');
-  const [typeChatMessage, setTypeChatMessage] = useState('');
+const Chat = ({
+  messagesInitial,
+  objChat,
+  typeChat,
+  objInfo,
+  newMessage,
+  newImage,
+}) => {
+  const [inputValue, setInputValue] = useState("");
+  const [typeChatMessage, setTypeChatMessage] = useState("");
   const [renderedMessages, setRenderedMessages] = useState([]);
 
   const [showChat, setShowChat] = useState(false);
@@ -42,13 +43,12 @@ const Chat = ({ messagesInitial, objChat, typeChat, objInfo, newMessage, newImag
     if (!objChat) return null;
 
     if (
-      typeof objChat[typeChat] === 'string' ||
+      typeof objChat[typeChat] === "string" ||
       objChat.zones.includes(typeChat)
     ) {
-
       setTypeChatMessage(typeChat);
     } else {
-      console.error('El tipo de chat es incorrecto. Por favor, verifique.');
+      console.error("El tipo de chat es incorrecto. Por favor, verifique.");
     }
   }, [typeChat]);
 
@@ -61,8 +61,7 @@ const Chat = ({ messagesInitial, objChat, typeChat, objInfo, newMessage, newImag
     } else if (newImage) {
       handleSendImageMessage(message, image);
     }
-
-  }, [newMessage, newImage])
+  }, [newMessage, newImage]);
 
   const getChatIcon = (typeChatMessage) => {
     const icons = {
@@ -71,11 +70,10 @@ const Chat = ({ messagesInitial, objChat, typeChat, objInfo, newMessage, newImag
       zones: twoIcon,
     };
 
-    const verify = icons[typeChatMessage]
-    if (verify === 'namespace') return icons['broadcast']
-    if (verify === 'direct') return icons[typeChatMessage]
-    if (objChat['zones'].includes(typeChatMessage)) return icons['zones']
-
+    const verify = icons[typeChatMessage];
+    if (verify === "namespace") return icons["broadcast"];
+    if (verify === "direct") return icons[typeChatMessage];
+    if (objChat["zones"].includes(typeChatMessage)) return icons["zones"];
   };
 
   const handleInputChange = (e) => {
@@ -92,7 +90,7 @@ const Chat = ({ messagesInitial, objChat, typeChat, objInfo, newMessage, newImag
     });
 
     if (!success) {
-      console.error('Hubo un error al enviar el mensaje');
+      console.error("Hubo un error al enviar el mensaje");
       return;
     }
 
@@ -103,10 +101,13 @@ const Chat = ({ messagesInitial, objChat, typeChat, objInfo, newMessage, newImag
       contenido: inputValue ? inputValue : message,
     };
 
-    setInputValue('');
+    setInputValue("");
     setRenderedMessages((prevMessages) => [
       ...prevMessages,
-      <MensajesComponent key={prevMessages.length + 1} infoMessage={newMessage} />,
+      <MensajesComponent
+        key={prevMessages.length + 1}
+        infoMessage={newMessage}
+      />,
     ]);
   };
 
@@ -127,8 +128,16 @@ const Chat = ({ messagesInitial, objChat, typeChat, objInfo, newMessage, newImag
 
   return (
     <div>
-      <Button className="icon-button p-2 m-1 p-sm-0" variant="link" onClick={toggleChat}>
-        <img src={getChatIcon(typeChatMessage)} alt="Icon chat" style={{ width: '16px', height: '16px' }} />
+      <Button
+        className="icon-button p-2 m-1 p-sm-0"
+        variant="link"
+        onClick={toggleChat}
+      >
+        <img
+          src="https://media.tycsports.com/files/2020/12/06/160024/maradona-imagen.jpg"
+          alt="Icon chat"
+          style={{ width: "16px", height: "16px" }}
+        />
       </Button>
       {showChat && (
         <div className="chat-container">
@@ -137,7 +146,10 @@ const Chat = ({ messagesInitial, objChat, typeChat, objInfo, newMessage, newImag
             {renderedMessages}
           </div>
           <div className="chat-input">
-            <Button className="send-image-button" onClick={handleSendImageMessage}>
+            <Button
+              className="send-image-button"
+              onClick={handleSendImageMessage}
+            >
               Enviar Imagen
             </Button>
             <input
@@ -146,7 +158,10 @@ const Chat = ({ messagesInitial, objChat, typeChat, objInfo, newMessage, newImag
               onChange={handleInputChange}
               placeholder="Escribe tu mensaje..."
             />
-            <Button className="send-text-button" onClick={handleSendTextMessage}>
+            <Button
+              className="send-text-button"
+              onClick={handleSendTextMessage}
+            >
               Enviar
             </Button>
           </div>

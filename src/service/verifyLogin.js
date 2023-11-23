@@ -4,7 +4,8 @@ export const verifyLoginCookie = ({ setLogger, navigate }) => {
     const logged = Cookies.get("connect.sid") ? true : false;
     setLogger(logged);
 
-    return logged ? navigate("/home") : navigate("/");
+    // return logged ? navigate("/home") : navigate("/");
+    return true
 } 
 
 export const verifyMethodsNav = ({ setLogger, navigate, setDataNav }) => {

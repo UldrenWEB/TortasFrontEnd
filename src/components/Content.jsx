@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import CreatePerson from "../BO/CreatePerson";
 import { useEffect } from "react";
 import CreateProduct from "../BO/CreateProduct";
-import { verifyLoginCookie } from "../service/verifyLogin";
+import { verifyLoginCookie, verifyMethodsNav } from "../service/verifyLogin";
 // import Reports from "./Reports";
 import MyRoute from "./MyRoute";
 import FinalChat from "./Messages/FinalChat";
@@ -13,9 +13,8 @@ import FinalChat from "./Messages/FinalChat";
 const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
   useEffect(() => {
     verifyLoginCookie({ setLogger, navigate, isLogged });
-
+    verifyMethodsNav({ setLogger, navigate, setDataNav });
   }, []);
-
 
   return (
     //TODO: MODIFICAR AQUI ESTO QUE LOS ELEMENTOS USAN
@@ -62,21 +61,21 @@ const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
       <Route path="/person/control/createPerson" element={<CreatePerson />} />
 
       <Route path="/sales/products/createProduct" element={<CreateProduct />} />
-    
-      <Route path="/reports"
+
+      <Route
+        path="/reports"
+        element={<MyRoute className={darkMode ? "darkMode" : "lightMode"} />}
+      />
+      <Route
+        path="/miPinga"
         element={
-          <MyRoute
-            className={darkMode ? "darkMode" : "lightMode"}
+          <FinalChat
+            typeChat={"broadcast"}
+            userData={{ user: "uldren12", profile: "admin" }}
           />
         }
       />
-      <Route path="/miPinga"
-        element={
-          <FinalChat typeChat={'broadcast'} userData={{ user: 'uldren12', profile: 'admin' }} />
-        } />
     </Routes>
-
-
   );
 };
 
