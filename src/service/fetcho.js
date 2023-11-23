@@ -28,7 +28,9 @@ const fetcho = async ({ url, method, body }) => {
     
       const data = await response.json();
 
-      return data;
+      console.log(data);
+
+    return data;
   } catch (error) {
     console.error(`Ocurrio un error realizando un fetch, donde la url era ${url} y el error fue ${error.message}`)
     return false

@@ -1,12 +1,13 @@
 import Home from "./Home";
 import Login from "./Login";
 import Logout from "./Logout";
-import MyRoute from "./MyRoute";
 import { Route, Routes } from "react-router-dom";
 import CreatePerson from "../BO/CreatePerson";
 import { useEffect } from "react";
 import CreateProduct from "../BO/CreateProduct";
 import { verifyLoginCookie } from "../service/verifyLogin";
+// import Reports from "./Reports";
+import MyRoute from "./MyRoute";
 
 const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
   useEffect(() => {
@@ -60,7 +61,15 @@ const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
       <Route path="/person/control/createPerson" element={<CreatePerson />} />
 
       <Route path="/sales/products/createProduct" element={<CreateProduct />} />
+      <Route path="/reports"
+        element={
+          <MyRoute
+            className={darkMode ? "darkMode" : "lightMode"}
+          />
+        }
+      />
     </Routes>
+
   );
 };
 

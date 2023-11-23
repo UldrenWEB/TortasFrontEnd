@@ -3,8 +3,6 @@ import { useNavigate } from "react-router";
 import { Layout } from "antd";
 import SideBar from "./components/Sidebar/SideBar";
 import Content from "./components/Content";
-import dataInfo from "./constants/dataInfo";
-import iClient from "./instances/iClientSocket";
 import "./styles/App.css";
 import Chat from "./components/Chat";
 import {verifyLoginCookie, verifyMethodsNav} from "./service/verifyLogin";
