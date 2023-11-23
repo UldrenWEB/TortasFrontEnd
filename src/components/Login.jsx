@@ -26,31 +26,30 @@ const Login = ({ setLogger, setDataNav, navigate, isLogged }) => {
         password,
       };
 
-      const obj = { url: '/login', method: "POST", body };
+      const obj = { url: "/login", method: "POST", body };
 
       const result = await fetcho(obj);
 
-      if(result?.error) {
-        console.log('AQUI MOSTRARE EL MODAL CON LA INFO ' + result?.error)
-        setLogger(false)
-        navigate("/login")
-        return 
+      if (result?.error) {
+        console.log("AQUI MOSTRARE EL MODAL CON LA INFO " + result?.error);
+        setLogger(false);
+        navigate("/login");
+        return;
       }
 
-      setLogger(true)
+      setLogger(true);
 
-      if(!result?.userProfiel){
-        navigate("/setProfile")
+      if (!result?.userProfiel) {
+        navigate("/setProfile");
       }
-      
-      const permisosNav = result.permissions
 
-      localStorage.setItem('permisosNav', JSON.stringify(permisosNav))
+      const permisosNav = result.permissions;
 
-      setDataNav(permisosNav)
+      localStorage.setItem("permisosNav", JSON.stringify(permisosNav));
+
+      setDataNav(permisosNav);
 
       return navigate("/home");
-
     } catch (error) {
       console.log(error);
     }

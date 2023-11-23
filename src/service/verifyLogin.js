@@ -4,16 +4,19 @@ export const verifyLoginCookie = ({ setLogger, navigate }) => {
     const logged = Cookies.get("connect.sid") ? true : false;
     setLogger(logged);
 
-    return logged ? navigate("/home") : navigate("/");
+    // return logged ? navigate("/home") : navigate("/");
+    return true
 } 
 
-export const verifyMethodsNav = ({ setLogger, navigate, setDataNav}) => {
-    const permisosNav = JSON.parse(localStorage.getItem('permisosNav'))
+export const verifyMethodsNav = ({ setLogger, navigate, setDataNav }) => {
+    const info = localStorage.getItem('permisosNav')
 
-    if (!permisosNav) {
+    if (!info) {
         setLogger(false)
         return navigate('/login')
     }
+
+    const permisosNav = JSON.parse(info)
 
     setDataNav(permisosNav)
     return 

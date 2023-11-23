@@ -1,18 +1,17 @@
-
 import React, { useState, useEffect } from "react";
-import { Table, Button, Modal } from 'react-bootstrap'
+import { Table, Button, Modal } from "react-bootstrap";
 
-import trash from '../icons/basura.svg'
-import pencil from '../icons/lapiz.svg'
-import eye from '../icons/ojo.svg'
-import folder from '../icons/folderOriginal.svg'
+import trash from "../icons/basura.svg";
+import pencil from "../icons/lapiz.svg";
+import eye from "../icons/ojo.svg";
+import folder from "../icons/folderOriginal.svg";
 
 import getMethod from "../service/getMethod";
 import DefaultComponent from "./DefaultComponent";
 import fetcho from "../service/fetcho";
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../styles/table.css'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/table.css";
 import ColumnGroup from "antd/es/table/ColumnGroup";
 //Importar css de la tabla
 
@@ -28,25 +27,24 @@ const ComponentTable = ({ data, customHeaders }) => {
   const [actionAvailable, setActionAvalible] = useState([]);
   const [update, setUpdate] = useState(null);
 
-  const { response, module, object, context } = tableData
+  const { response, module, object, context } = tableData;
 
   if (!response || response.error) return <div>Cargando...</div>;
 
-  console.log('Probando', response, module, object, context)
+  console.log("Probando", response, module, object, context);
   useEffect(() => {
-    const array = []
-    const actions = ['delete', 'update']
+    const array = [];
+    const actions = ["delete", "update"];
     for (let i = 0; i <= actions.length; i++) {
       const bool = getMethod({
         action: actions[i],
         context: context,
         module: module,
-        object: object
-      })
-      if (bool) array.push(actions[i])
+        object: object,
+      });
+      if (bool) array.push(actions[i]);
     }
     setActionAvalible(array);
-
   }, []);
 
   // Renderizar tabla cuando cambien los headers
@@ -58,58 +56,67 @@ const ComponentTable = ({ data, customHeaders }) => {
     }
   }, [customHeaders, data, tableData]);
 
-
   useEffect(() => {
     const fetchByFetcho = async () => {
-      console.log('Paso a modificar la base de datos')
-      console.log('Aqui modificando esto', modifiedData)
+      console.log("Paso a modificar la base de datos");
+      console.log("Aqui modificando esto", modifiedData);
       try {
         if (!modifiedData || !isConfirm) return;
 
-        const { id, module, object, action, context, updateData } = modifiedData
-        const method = getMethod({ module, object, action, context })
+        const { id, module, object, action, context, updateData } =
+          modifiedData;
+        const method = getMethod({ module, object, action, context });
 
         const response = await fetcho({
-          url: '/toProcess',
-          method: 'POST',
+          url: "/toProcess",
+          method: "POST",
           body: {
             area: module,
             object: object,
             method: method,
-            params: [id]
-          }
-        })
+            params: [id],
+          },
+        });
 
         if (response.error) {
-          setTableData(tableData)
-          return console.error('Hubo un error al hacer la consulta');
+          setTableData(tableData);
+          return console.error("Hubo un error al hacer la consulta");
         }
 
-        setTableData({ response: action === 'delete' ? updateData : update, module, object, context });
+        setTableData({
+          response: action === "delete" ? updateData : update,
+          module,
+          object,
+          context,
+        });
 
         setIsConfirm(false);
         setSuccessMessage(true);
         return console.error(response);
       } catch (error) {
-        console.error(`Hubo un error al hacer una consulta para modificar en el componente Table, ${error.message}`)
-        return (<div><DefaultComponent /></div>)
+        console.error(
+          `Hubo un error al hacer una consulta para modificar en el componente Table, ${error.message}`
+        );
+        return (
+          <div>
+            <DefaultComponent />
+          </div>
+        );
       }
-    }
+    };
 
     if (isConfirm) {
       fetchByFetcho();
     }
-  }, [isConfirm])
-
+  }, [isConfirm]);
 
   //!ESTO ESTA RARO SI TAL LO HARE PERO SI NO YA NO REDIRIGIRE NADA
   // Button para redirigir según los datos específicos que se encuentran en esta tabla
   const handleButtonView = (rowData) => {
-    setConfirmAction(true)
+    setConfirmAction(true);
   };
 
   const handleButtonEdit = (rowData) => {
-
     setEditingRow(rowData);
   };
 
@@ -119,7 +126,14 @@ const ComponentTable = ({ data, customHeaders }) => {
     const { id } = rowData;
     // Eliminar el elemento de tableData
     const updateData = response.filter((row) => row !== rowData);
-    setModifiedData({ id, module, object, action: 'delete', context, updateData });
+    setModifiedData({
+      id,
+      module,
+      object,
+      action: "delete",
+      context,
+      updateData,
+    });
   };
 
   const handleConfirmAction = () => {
@@ -132,10 +146,16 @@ const ComponentTable = ({ data, customHeaders }) => {
   const handleSaveChanges = (rowData) => {
     setConfirmAction(true);
 
-
-    const { id } = rowData
-    const updateData = response.find(row => row.id === id)
-    setModifiedData({ id, module, object, action: 'update', context, updateData });
+    const { id } = rowData;
+    const updateData = response.find((row) => row.id === id);
+    setModifiedData({
+      id,
+      module,
+      object,
+      action: "update",
+      context,
+      updateData,
+    });
 
     // Restablecer la fila de edición a null
     setEditingRow(null);
@@ -150,8 +170,7 @@ const ComponentTable = ({ data, customHeaders }) => {
     // Actualizar el valor del campo modificado
     updatedResponse[rowIndex][columnName] = value;
 
-
-    setUpdate(updatedResponse)
+    setUpdate(updatedResponse);
     // Actualizar el estado de la tabla
     // setTableData({ response: updatedResponse, module, object, context });
   };
@@ -161,9 +180,9 @@ const ComponentTable = ({ data, customHeaders }) => {
       <Table className="table table-striped">
         <thead>
           <tr>
-            {headers.map((header) => (
-              header === 'id' ? null : <th key={header}>{header}</th>
-            ))}
+            {headers.map((header) =>
+              header === "id" ? null : <th key={header}>{header}</th>
+            )}
             <th>Actions</th>
           </tr>
         </thead>
@@ -173,8 +192,8 @@ const ComponentTable = ({ data, customHeaders }) => {
               {editingRow === row ? (
                 // Campos de edición
                 <>
-                  {Object.entries(row).map(([key, value], columnIndex) => (
-                    key === 'id' ? null : (
+                  {Object.entries(row).map(([key, value], columnIndex) =>
+                    key === "id" ? null : (
                       <td key={columnIndex}>
                         <input
                           type="text"
@@ -183,16 +202,14 @@ const ComponentTable = ({ data, customHeaders }) => {
                         />
                       </td>
                     )
-                  ))}
+                  )}
                 </>
               ) : (
                 // Campos normales
                 <>
-                  {Object.entries(row).map(([key, value], columnIndex) => (
-                    key === 'id' ? null : (
-                      <td key={columnIndex}>{value}</td>
-                    )
-                  ))}
+                  {Object.entries(row).map(([key, value], columnIndex) =>
+                    key === "id" ? null : <td key={columnIndex}>{value}</td>
+                  )}
                 </>
               )}
               <td>
@@ -204,29 +221,54 @@ const ComponentTable = ({ data, customHeaders }) => {
                       variant="link"
                       onClick={() => handleSaveChanges(row)}
                     >
-                      <img src={folder} alt="Icon save" style={{ width: '20px', height: '20px' }} />
+                      <img
+                        src={folder}
+                        alt="Icon save"
+                        style={{ width: "20px", height: "20px" }}
+                      />
                     </Button>
                   ) : (
                     <>
-                      <Button className="icon-button p-2 m-1 p-sm-0" variant='link' onClick={() => handleButtonView(row)}>
-                        <img src={eye} alt="Icon eye" style={{ width: '16px', height: '16px' }} />
+                      <Button
+                        className="icon-button p-2 m-1 p-sm-0"
+                        variant="link"
+                        onClick={() => handleButtonView(row)}
+                      >
+                        <img
+                          src={eye}
+                          alt="Icon eye"
+                          style={{ width: "16px", height: "16px" }}
+                        />
                       </Button>
 
-
-                      {actionAvailable.includes('update') && (
-                        <Button className="icon-button p-2 m-1 p-sm-0" variant='link' onClick={() => handleButtonEdit(row)}>
-                          <img src={pencil} alt="Icon pencil" style={{ width: '16px', height: '16px' }} />
+                      {actionAvailable.includes("update") && (
+                        <Button
+                          className="icon-button p-2 m-1 p-sm-0"
+                          variant="link"
+                          onClick={() => handleButtonEdit(row)}
+                        >
+                          <img
+                            src={pencil}
+                            alt="Icon pencil"
+                            style={{ width: "16px", height: "16px" }}
+                          />
                         </Button>
                       )}
-                      {actionAvailable.includes('delete') && (
-                        <Button className="icon-button p-2 m-1 p-sm-0" variant='link' onClick={() => handleButtonDelete(row)}>
-                          <img src={trash} alt="Icon trash " style={{ width: '16px', height: '16px' }} />
+                      {actionAvailable.includes("delete") && (
+                        <Button
+                          className="icon-button p-2 m-1 p-sm-0"
+                          variant="link"
+                          onClick={() => handleButtonDelete(row)}
+                        >
+                          <img
+                            src={trash}
+                            alt="Icon trash "
+                            style={{ width: "16px", height: "16px" }}
+                          />
                         </Button>
                       )}
-
-                    </ >
-                  )
-                  }
+                    </>
+                  )}
                 </div>
               </td>
             </tr>
@@ -239,9 +281,7 @@ const ComponentTable = ({ data, customHeaders }) => {
           <Modal.Header closeButton>
             <Modal.Title>Confirma tu accion</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            ¿Estás seguro de que deseas hacerlo?
-          </Modal.Body>
+          <Modal.Body>¿Estás seguro de que deseas hacerlo?</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={() => setConfirmAction(false)}>
               Cancelar
@@ -258,13 +298,10 @@ const ComponentTable = ({ data, customHeaders }) => {
           <Modal.Header closeButton={true}>
             <Modal.Title>Acción completada</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            Todo se ha realizado correctamente.
-          </Modal.Body>
+          <Modal.Body>Todo se ha realizado correctamente.</Modal.Body>
         </Modal>
       )}
     </>
-
   );
 };
 

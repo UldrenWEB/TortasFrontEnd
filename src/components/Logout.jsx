@@ -13,14 +13,13 @@ const Logout = ({ setLogger, isLogged }) => {
 
     const handler = async () => {
       const result = await fetcho({ url: "/logout", method: "GET" });
-      verifyLogout({ setLogger, setData , result});
+      verifyLogout({ setLogger, setData, result });
 
       if (result?.error) return setData(result.error);
     };
 
     handler();
   }, []);
-
 
   return (
     <section className="container-logout">
