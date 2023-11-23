@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import iClient from "../../instances/iClientSocket";
 import Chat from "./Chat";
 import fetcho from "../../service/fetcho";
-import ColumnGroup from "antd/es/table/ColumnGroup";
 
 const mensajes = [
     {
