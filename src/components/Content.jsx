@@ -8,6 +8,7 @@ import CreateProduct from "../BO/CreateProduct";
 import { verifyLoginCookie } from "../service/verifyLogin";
 // import Reports from "./Reports";
 import MyRoute from "./MyRoute";
+import FinalChat from "./Messages/FinalChat";
 
 const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
   useEffect(() => {
@@ -15,7 +16,7 @@ const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
 
   }, []);
 
-  
+
   return (
     //TODO: MODIFICAR AQUI ESTO QUE LOS ELEMENTOS USAN
     //TODO: ADEMAS RECORDAR QUE TODOS LOS COMPONENTES QUE CARGUEN DEBERAN USAR SU WITDH 100%
@@ -69,7 +70,12 @@ const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
           />
         }
       />
+      <Route path="/miPinga"
+        element={
+          <FinalChat typeChat={'broadcast'} userData={{ user: 'uldren12', profile: 'admin' }} />
+        } />
     </Routes>
+
 
   );
 };

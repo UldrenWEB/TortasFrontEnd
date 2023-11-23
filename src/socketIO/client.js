@@ -11,19 +11,13 @@ class Client {
         this.io = io;
         this.namespace = 'myNamespace';
         this.imgTag;
-        this.receivedEvent = {
-            room_message: this.#eventRoomMessage,
-            broadcast_message: this.#eventBroadcastMessage,
-            direct_message: this.#eventDirectMessage
-        }
     }
     //Crea el socket del cliente que se conecto
-    createSocketClient = (user) => {
+    createSocketClient = ({ objUser }) => {
         try {
             const socket = this.io(this.url, {
                 query: {
-                    ...user,
-                    timeStamp: 0
+                    ...objUser,
                 },
                 extraHeaders: {
                     "my-custom-header": "abcd"
@@ -59,15 +53,17 @@ class Client {
 
     // Envía un mensaje a un room dentro de un namespace
     sendMessage = ({ socketEmit, room, message }) => {
+
         if (!this.rooms[room]) {
             console.log('No se encuentra el room');
             return false;
         }
         try {
-            socketEmit.emit('message zone', { socketEmit, room, message });
+            console.log('Aqui socketEmit', socketEmit);
+            socketEmit.emit('message zone', { room, message });
             return true;
         } catch (error) {
-            console.error(error.message)
+            console.error(error)
             return { error: error.message }
         }
     }
@@ -130,17 +126,46 @@ class Client {
     }
 
     //*Escucha los diferentes eventos del cliente
-    listenEvents = (socket) => {
-        // /*
-        socket.on('room message', this.#eventRoomMessage);
-        socket.on('broadcast message', this.#eventBroadcastMessage);
-        socket.on('direct message', this.#eventDirectMessage);
-        // */
-        // //!Iterando
-        // const events = this.receivedEvent;
-        // for (let key in events) {
-        //     socket.on(key, events[key])
-        // }
+    listenEvents = (socket, typeChat, state) => {
+
+        if (typeChat === 'room') {
+            socket.on('room message', (data) => {
+                const { message } = data
+                const isImg = this.#validateImage(data);
+                if (isImg) return state({ message, image: isImg });
+
+                console.log(`Mesaje recibido`, data);
+
+                state({ message });
+                //Logica para mostrar mensajes recibidos por el usuario, se puedo pasar en el constructor los 3 diferentes container para poder llenarlos cuando se reciba un mensaje
+            });
+
+        } else if (typeChat === 'direct') {
+            socket.on('direct message', (data) => {
+                const { message } = data
+                const isImg = this.#validateImage(data);
+                if (isImg) return state({ message, image: isImg });
+
+                console.log(`Mesaje recibido`, data);
+
+                state({ message });
+                //Logica para mostrar mensajes recibidos por el usuario, se puedo pasar en el constructor los 3 diferentes container para poder llenarlos cuando se reciba un mensaje
+            });
+
+        } else if (typeChat === 'broadcast') {
+            socket.on('broadcast message', (data) => {
+                const { message } = data
+                const isImg = this.#validateImage(data);
+                if (isImg) return state({ message, image: isImg });
+
+                console.log(`Mesaje recibido`, data);
+
+                state({ message });
+                //Logica para mostrar mensajes recibidos por el usuario, se puedo pasar en el constructor los 3 diferentes container para poder llenarlos cuando se reciba un mensaje
+            });
+        }
+
+        return false;
     }
 
     //Este metodo devuelve el tag de la imagen para que sea mostrada en el chat
@@ -157,35 +182,6 @@ class Client {
         } else {
             return false;
         }
-    }
-
-    #eventRoomMessage = (data) => {
-        const isImg = this.#validateImage(data);
-        if (isImg) this.#setImgTag(isImg);
-
-        console.log(`Mesaje recibido`, data);
-        //Logica para mostrar mensajes recibidos por el usuario, se puedo pasar en el constructor los 3 diferentes container para poder llenarlos cuando se reciba un mensaje
-    }
-    #eventBroadcastMessage = (data) => {
-        const isImg = this.#validateImage();
-        if (isImg) this.#setImgTag(isImg);
-
-        console.log('Mensage recibido por namespace, el mensaje es: ', data);
-        //Logica para mostrar mensajes recibidos por el usuario, se puedo pasar en el constructor los 3 diferentes container para poder llenarlos cuando se reciba un mensaje
-    }
-    #eventDirectMessage = (data) => {
-        const isImg = this.#validateImage();
-        if (isImg) this.#setImgTag(isImg);
-
-        console.log(`data`);
-        //Logica para mostrar mensajes recibidos por el usuario, se puedo pasar en el constructor los 3 diferentes container para poder llenarlos cuando se reciba un mensaje
-    }
-    #setImgTag = (img) => {
-        this.imgTag = img
-    }
-
-    getImgTag = () => {
-        return this.imgTag;
     }
 
     // Desplaza automáticamente el contenedor de chat hasta el final
