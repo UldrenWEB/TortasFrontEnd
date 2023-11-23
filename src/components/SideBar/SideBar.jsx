@@ -19,6 +19,7 @@ const SideBar = ({
     e.stopPropagation();
   };
 
+  //Poner esta informacion 
   const { name, profile, avatar } =  infoUser || {}; 
 
   return (

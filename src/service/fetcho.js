@@ -5,7 +5,7 @@ const fetcho = async ({ url, method, body }) => {
     const configPost = {
         method: "POST",
         credentials: "include",
-        cors: "cors",
+        cors: "no-cors",
         headers: {
           "Content-Type": "application/json",
         },

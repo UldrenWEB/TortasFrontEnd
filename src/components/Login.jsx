@@ -7,6 +7,7 @@ import { Button } from "antd";
 import torta2 from "../imgs/torta2.svg";
 import dinoLoginSvg from "../imgs/dinoLogin.svg";
 import fetcho from "../service/fetcho";
+import Cookies from "js-cookie";
 
 const Login = ({ setLogger, setDataNav, navigate, isLogged }) => {
   useEffect(() => {
@@ -29,16 +30,26 @@ const Login = ({ setLogger, setDataNav, navigate, isLogged }) => {
 
       const result = await fetcho(obj);
 
-      console.log(result)
-      if(result?.error) console.log('AQUI MOSTRARE EL MODAL CON LA INFO' + result?.error)
+      if(result?.error) {
+        console.log('AQUI MOSTRARE EL MODAL CON LA INFO ' + result?.error)
+        setLogger(false)
+        navigate("/login")
+        return 
+      }
 
       setLogger(true)
+
       if(!result?.userProfiel){
         navigate("/setProfile")
       }
+      
+      const permisosNav = result.permissions
 
-      setDataNav(result.permissions)
-      navigate("/home");
+      localStorage.setItem('permisosNav', JSON.stringify(permisosNav))
+
+      setDataNav(permisosNav)
+
+      return navigate("/home");
 
     } catch (error) {
       console.log(error);
