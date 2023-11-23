@@ -61,6 +61,7 @@ const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged }) => {
       <Route path="/person/control/createPerson" element={<CreatePerson />} />
 
       <Route path="/sales/products/createProduct" element={<CreateProduct />} />
+    
       <Route path="/reports"
         element={
           <MyRoute

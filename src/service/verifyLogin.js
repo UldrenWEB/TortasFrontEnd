@@ -7,13 +7,15 @@ export const verifyLoginCookie = ({ setLogger, navigate }) => {
     return logged ? navigate("/home") : navigate("/");
 } 
 
-export const verifyMethodsNav = ({ setLogger, navigate, setDataNav}) => {
-    const permisosNav = JSON.parse(localStorage.getItem('permisosNav'))
+export const verifyMethodsNav = ({ setLogger, navigate, setDataNav }) => {
+    const info = localStorage.getItem('permisosNav')
 
-    if (!permisosNav) {
+    if (!info) {
         setLogger(false)
         return navigate('/login')
     }
+
+    const permisosNav = JSON.parse(info)
 
     setDataNav(permisosNav)
     return 
