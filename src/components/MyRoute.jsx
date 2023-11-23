@@ -5,7 +5,6 @@ import ComponentTable from "./Table";
 import pathInfo from "../constants/reportsInfo";
 import getData from '../service/getDataToTable'
 import useURLParams from '../customHooks/useURLParams'
-import pruebaData from "../service/pruebaData";
 import fetcho from "../service/fetcho";
 
 const getModuleAndObjectByPath = (typeFilter) => {
