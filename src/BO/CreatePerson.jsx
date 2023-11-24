@@ -10,7 +10,6 @@ import {
   createPersonDataFetch,
   objsFetch,
 } from "../constants/dataFetchs";
-import { verifyLogout } from "../service/verifyLogin";
 
 const CreatePerson = () => {
   const [mapaInfo, setMapaInfo] = useState(null);

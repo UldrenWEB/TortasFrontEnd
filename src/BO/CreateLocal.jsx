@@ -45,7 +45,6 @@ const CreateLocal = () => {
   //Settear en los select valores de las rutas
   useEffect(() => {
     if (!mapaInfo || !dataRoute) return;
-    console.log(dataRoute);
     mapaInfo.get("inRutaAsociada").setInfo({ value: "", options: dataRoute });
   }, [mapaInfo, dataRoute]);
 

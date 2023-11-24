@@ -15,6 +15,7 @@ import MyRoute from "./MyRoute";
 import FinalChat from "./Messages/FinalChat";
 import CreateRoute from "../BO/CreateRoute";
 import CreateLocal from "../BO/CreateLocal.jsx";
+import CreatePayMethod from "../BO/CreatePayMethod.jsx";
 
 const Content = ({
   dataUser,
@@ -81,6 +82,8 @@ const Content = ({
       <Route path="/local/control/createRoute" element={<CreateRoute />} />
 
       <Route path="/local/control/createLocal" element={<CreateLocal />} />
+
+      <Route path="/billing/payMethod/createMethod" element={<CreatePayMethod/>} />
 
       <Route
         path="/reports"

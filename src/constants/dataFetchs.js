@@ -125,6 +125,48 @@ export const createObjLocal = ({ dataFetch }) => {
   }
 }
 
+export const createPayMethodDataFetch = ({ data }) => { 
+  try {
+
+    const { inTipoMetodoPago, inDescripcionMetodoPago } = data
+
+    const tipoMetodoMap = {
+      1: 'bank',
+      2: 'methodbank',
+      3: 'methodother'
+    }
+
+    if (!tipoMetodoMap[inTipoMetodoPago]) {
+      return false
+    }
+    const obj = {
+      to: tipoMetodoMap[inTipoMetodoPago],
+      params: [ inDescripcionMetodoPago],
+    }
+
+    return obj
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const createObjPayMethod = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: "billing",
+      object: "payMethod",
+      method: "addTo",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el createObjPayMethod archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
 export const objsFetch = {
   objGetAllAddress: {
     area: "person",
