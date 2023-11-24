@@ -87,10 +87,20 @@ const Content = ({
       <Route
         path="/miPinga"
         element={
-          <FinalChat
-            typeChat={"broadcast"}
-            userData={{ user: "uldren12", profile: "admin" }}
-          />
+          <>
+            <FinalChat
+              typeChat={"broadcast"}
+              userData={{ user: dataUser.name, profile: dataUser.profile }}
+            />
+            <FinalChat
+              typeChat={"direct"}
+              userData={{ user: dataUser.name, profile: dataUser.profile }}
+            />
+            <FinalChat
+              typeChat={"el prado"}
+              userData={{ user: dataUser.name, profile: dataUser.profile }}
+            />
+          </>
         }
       />
     </Routes>
