@@ -11,7 +11,11 @@ const infoInputsBo = {
     ],
     CreateRoute: [
         {type: 'text', label: "Nombre ruta", id: 'inNombreRuta', placeholder: "Nombre de la ruta"},
-        {type: 'select', label: "Calla asociada", id: 'inCalleAsociada', placeholder: "Calle asociada a la ruta"},
+        {type: 'select', label: "Calle asociada", id: 'inCalleAsociada', placeholder: "Calle asociada a la ruta"},
+    ],
+    CreateLocal: [
+        {type: 'text', label: "Nombre local", id: 'inNombreLocal', placeholder: "Nombre del local"},
+        {type: 'select', label: "Ruta asociada", id: 'inRutaAsociada', placeholder: "Ruta asociada al local"},
     ]
 }
 

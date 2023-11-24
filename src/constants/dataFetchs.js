@@ -96,6 +96,35 @@ export const createObjRoute = ({ dataFetch }) => {
   }
 }
 
+export const createLocalDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      to: 'local',
+      params: [ data?.inRutaAsociada, data?.inNombreLocal],
+    }
+    return obj
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const createObjLocal = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: "local",
+      object: "control",
+      method: "insertTo",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el createObjLocal archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
 export const objsFetch = {
   objGetAllAddress: {
     area: "person",
@@ -114,5 +143,12 @@ export const objsFetch = {
     object: "Control",
     method: "getAll",
     params: {direction: 'street'}
-  }
+  },
+  objGetAllRoutes: {
+    area: "local",
+    object: "control",
+    method: "getAllOf",
+    params: ["route"],
+  },
+  
 };

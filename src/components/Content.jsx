@@ -14,6 +14,7 @@ import {
 import MyRoute from "./MyRoute";
 import FinalChat from "./Messages/FinalChat";
 import CreateRoute from "../BO/CreateRoute";
+import CreateLocal from "../BO/CreateLocal.jsx";
 
 const Content = ({
   dataUser,
@@ -79,12 +80,14 @@ const Content = ({
 
       <Route path="/local/control/createRoute" element={<CreateRoute />} />
 
+      <Route path="/local/control/createLocal" element={<CreateLocal />} />
+
       <Route
         path="/reports"
         element={<MyRoute className={darkMode ? "darkMode" : "lightMode"} />}
       />
 
-      <Route
+      {/* <Route
         path="/miPinga"
         element={
           <>
@@ -102,7 +105,7 @@ const Content = ({
             />
           </>
         }
-      />
+      /> */}
     </Routes>
   );
 };

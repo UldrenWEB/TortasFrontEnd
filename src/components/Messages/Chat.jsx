@@ -49,6 +49,7 @@ const Chat = ({
     ) {
       setTypeChatMessage(typeChat);
       setIcon(getChatIcon(typeChat));
+      
     } else {
       console.error("El tipo de chat es incorrecto. Por favor, verifique.");
     }
