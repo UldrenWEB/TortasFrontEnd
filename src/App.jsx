@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     verifyLoginCookie({ setLogger: setIsLogged, navigate, location });
 
-    verifyMethodsNav({ setLogger: setIsLogged, navigate, setDataNav });
+    verifyMethodsNav({ setLogger: setIsLogged, navigate, setDataNav , setDataUser});
   }, []);
 
   const changeTheme = () => setDrakTheme(!darkTheme);

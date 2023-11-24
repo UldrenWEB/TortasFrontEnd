@@ -22,7 +22,7 @@ export const verifyMethodsNav = ({ setLogger, navigate, setDataNav, setDataUser 
 
   if (!info || !infoUser) {
     setLogger(false);
-    return navigate("/login");
+    return navigate("/");
   }
 
   const permisosNav = JSON.parse(info);
