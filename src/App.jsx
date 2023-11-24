@@ -37,6 +37,7 @@ function App() {
             infoMethod={dataNav}
             navigate={navigate}
             infoUser={dataUser}
+            dataUser={dataUser}
           />
         )}
 
