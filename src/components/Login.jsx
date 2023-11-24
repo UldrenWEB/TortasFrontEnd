@@ -7,9 +7,8 @@ import { Button } from "antd";
 import torta2 from "../imgs/torta2.svg";
 import dinoLoginSvg from "../imgs/dinoLogin.svg";
 import fetcho from "../service/fetcho";
-import Cookies from "js-cookie";
 
-const Login = ({ setLogger, setDataNav, navigate, isLogged }) => {
+const Login = ({ setLogger, setDataNav, navigate, isLogged , setDataUser}) => {
   useEffect(() => {
     if (isLogged) {
       navigate("/home");
@@ -44,9 +43,19 @@ const Login = ({ setLogger, setDataNav, navigate, isLogged }) => {
       }
 
       const permisosNav = result.permissions;
+      console.log(result.profileData)
+
+      const datosUser = {
+        id: result.profileData.idUser,
+        name: result.profileData.user.toUpperCase(),
+        email: result.profileData.email,
+        profile: result.profileData.profile,
+      }
+
+      setDataUser(datosUser)
+      localStorage.setItem("dataUser", JSON.stringify(datosUser));
 
       localStorage.setItem("permisosNav", JSON.stringify(permisosNav));
-
       setDataNav(permisosNav);
 
       return navigate("/home");

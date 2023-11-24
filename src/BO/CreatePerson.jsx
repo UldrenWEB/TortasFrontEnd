@@ -10,6 +10,7 @@ import {
   createPersonDataFetch,
   objsFetch,
 } from "../constants/dataFetchs";
+import { verifyLogout } from "../service/verifyLogin";
 
 const CreatePerson = () => {
   const [mapaInfo, setMapaInfo] = useState(null);
@@ -38,8 +39,8 @@ const CreatePerson = () => {
 
     const resultService = await fetchDataPost(obj);
 
+    if(resultService?.errorSession) return resultService
     //? AQUI DEBO COLOCAR EL MODAL Y REINICIAR EL VALOR DE LOS INPUTS
-    console.log(resultService);
   };
 
   //Este fetch obtiene los valores que iran en los select

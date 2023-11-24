@@ -1,6 +1,6 @@
 import { URL_BASE } from "../constants/url";
 
-const fetcho = async ({ url, method, body }) => {
+const fetcho = async ({ url, method, body}) => {
   try {
     const configPost = {
         method: "POST",
@@ -20,16 +20,15 @@ const fetcho = async ({ url, method, body }) => {
     
       const config = method.toLowerCase() === "post" ? configPost : configGet;
     
-      const response = await fetch(`${URL_BASE}${url}`, config);
+    const response = await fetch(`${URL_BASE}${url}`, config);
     
-      // if (!response.ok) {
-      //   throw new Error(response.statusText);
-      // }
     
-      const data = await response.json();
-
-      console.log(data);
-
+    const data = await response.json();
+    
+    if (data?.errorSession) {
+      console.log('No hay sesion activa')
+      // return false
+    }
     return data;
   } catch (error) {
     console.error(`Ocurrio un error realizando un fetch, donde la url era ${url} y el error fue ${error.message}`)
