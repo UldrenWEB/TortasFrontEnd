@@ -23,6 +23,7 @@ const Chat = ({
   const [inputValue, setInputValue] = useState("");
   const [typeChatMessage, setTypeChatMessage] = useState("");
   const [renderedMessages, setRenderedMessages] = useState([]);
+  const [icon, setIcon] = useState(null);
 
   const [showChat, setShowChat] = useState(false);
 
@@ -47,6 +48,7 @@ const Chat = ({
       objChat.zones.includes(typeChat)
     ) {
       setTypeChatMessage(typeChat);
+      setIcon(getChatIcon(typeChat));
     } else {
       console.error("El tipo de chat es incorrecto. Por favor, verifique.");
     }
@@ -134,7 +136,7 @@ const Chat = ({
         onClick={toggleChat}
       >
         <img
-          src="https://media.tycsports.com/files/2020/12/06/160024/maradona-imagen.jpg"
+          src={icon}
           alt="Icon chat"
           style={{ width: "16px", height: "16px" }}
         />
