@@ -39,7 +39,7 @@ const CreatePerson = () => {
 
     const resultService = await fetchDataPost(obj);
 
-    if(resultService?.errorSession) return resultService
+    console.log(resultService)
     //? AQUI DEBO COLOCAR EL MODAL Y REINICIAR EL VALOR DE LOS INPUTS
   };
 
