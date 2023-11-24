@@ -16,6 +16,7 @@ import FinalChat from "./Messages/FinalChat";
 import CreateRoute from "../BO/CreateRoute";
 
 const Content = ({
+  dataUser,
   darkMode,
   setLogger,
   setDataNav,
@@ -77,7 +78,7 @@ const Content = ({
       <Route path="/sales/products/createProduct" element={<CreateProduct />} />
 
       <Route path="/local/control/createRoute" element={<CreateRoute />} />
-      
+
       <Route
         path="/reports"
         element={<MyRoute className={darkMode ? "darkMode" : "lightMode"} />}

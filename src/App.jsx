@@ -37,11 +37,11 @@ function App() {
             infoMethod={dataNav}
             navigate={navigate}
             infoUser={dataUser}
-            dataUser={dataUser}
           />
         )}
 
         <Content
+        dataUser={dataUser}
           darkMode={darkTheme}
           setLogger={setIsLogged}
           setDataNav={setDataNav}
