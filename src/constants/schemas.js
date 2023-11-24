@@ -47,3 +47,22 @@ export const validateCreateProduct = async ({ data }) => {
     return { error: error.message };
   }
 };
+
+const schemaCreateRoute = object({
+  inNombreRuta: string()
+    .required("El nombre es requerido")
+    .min(3, "El nombre debe tener al menos 3 letras")
+    .matches(/^[a-zA-Z\s]*$/, "El nombre solo puede contener letras"),
+  inCalleAsociada: number().integer().required("La calle es requerida"),
+});
+
+export const validateCreateRoute = async ({ data }) => {
+  try {
+    const result = await schemaCreateRoute.validate(data, {
+      abortEarly: false,
+    });
+    return result;
+  } catch (error) {
+    return { error: error.message };
+  }
+}

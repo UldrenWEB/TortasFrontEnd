@@ -5,16 +5,28 @@ import { Route, Routes } from "react-router-dom";
 import CreatePerson from "../BO/CreatePerson";
 import { useEffect } from "react";
 import CreateProduct from "../BO/CreateProduct";
-import { verifyLoginCookie, verifyMethodsNav, verifySession } from "../service/verifyLogin";
+import {
+  verifyLoginCookie,
+  verifyMethodsNav,
+  verifySession,
+} from "../service/verifyLogin";
 // import Reports from "./Reports";
 import MyRoute from "./MyRoute";
 import FinalChat from "./Messages/FinalChat";
+import CreateRoute from "../BO/CreateRoute";
 
-const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged , setDataUser, location}) => {
-
+const Content = ({
+  darkMode,
+  setLogger,
+  setDataNav,
+  navigate,
+  isLogged,
+  setDataUser,
+  location,
+}) => {
   useEffect(() => {
-    verifyLoginCookie({ setLogger, navigate, isLogged , location});
-    verifyMethodsNav({ setLogger, navigate, setDataNav , setDataUser});
+    verifyLoginCookie({ setLogger, navigate, isLogged, location });
+    verifyMethodsNav({ setLogger, navigate, setDataNav, setDataUser });
   }, []);
 
   return (
@@ -64,10 +76,13 @@ const Content = ({ darkMode, setLogger, setDataNav, navigate, isLogged , setData
 
       <Route path="/sales/products/createProduct" element={<CreateProduct />} />
 
+      <Route path="/local/control/createRoute" element={<CreateRoute />} />
+      
       <Route
         path="/reports"
         element={<MyRoute className={darkMode ? "darkMode" : "lightMode"} />}
       />
+
       <Route
         path="/miPinga"
         element={

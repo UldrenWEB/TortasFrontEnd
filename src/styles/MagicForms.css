@@ -21,6 +21,7 @@
     grid-template-columns: 1fr 1fr;
     padding: 1rem;
     gap: 0.25rem;
+    min-width: 400px;
 }
 
 .container-inputs-magics > div:last-child:nth-child(odd) {

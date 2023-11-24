@@ -43,7 +43,7 @@ const Login = ({ setLogger, setDataNav, navigate, isLogged , setDataUser}) => {
       }
 
       const permisosNav = result.permissions;
-      console.log(result.profileData)
+      console.log(result)
 
       const datosUser = {
         id: result.profileData.idUser,

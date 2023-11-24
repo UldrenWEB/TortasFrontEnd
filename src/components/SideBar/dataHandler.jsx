@@ -3,8 +3,7 @@
 import { HomeOutlined, AppstoreOutlined } from "@ant-design/icons";
 import enumIcons from "../../enums/enumIcons";
 import enumRoutes from "../../enums/enumRoutes";
-
-const excludesMethods = ['insertTo']
+import excludesMethods from "../../constants/excludesMethod";
 
 export const getItem = (label, key, icon, children) => {
   return { label, key, icon, children };

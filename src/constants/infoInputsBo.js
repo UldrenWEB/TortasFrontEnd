@@ -8,6 +8,10 @@ const infoInputsBo = {
     ],
     CreateProduct: [
         {type: 'text', label: "Descripcion producto", id: 'inDescripcionProducto', placeholder: "Descripcion del producto"}
+    ],
+    CreateRoute: [
+        {type: 'text', label: "Nombre ruta", id: 'inNombreRuta', placeholder: "Nombre de la ruta"},
+        {type: 'select', label: "Calla asociada", id: 'inCalleAsociada', placeholder: "Calle asociada a la ruta"},
     ]
 }
 
