@@ -1,5 +1,5 @@
 import Input from "./Input";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../styles/Login.css";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -7,6 +7,8 @@ import torta2 from "../imgs/torta2.svg";
 import ButtonVe from "./ButtonVe";
 import dinoLoginSvg from "../imgs/dinoLogin.svg";
 import fetcho from "../service/fetcho";
+import ModalBase from "./ModalBase";
+import ModalSession from "./ModalSession";
 
 const Login = ({
   setLogger,
@@ -16,6 +18,11 @@ const Login = ({
   setDataUser,
   setLoading,
 }) => {
+
+  const [isErrorSession, setIsErrorSession] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [dataModal, setDataModal] = useState(null);
+
   useEffect(() => {
     if (isLogged) {
       navigate("/home");
@@ -38,10 +45,13 @@ const Login = ({
       const result = await fetcho(obj);
       setLoading(false);
 
+      if(result?.errorSession) setIsErrorSession(true);
+
       if (result?.error) {
-        console.log("AQUI MOSTRARE EL MODAL CON LA INFO " + result?.error);
+        setDataModal(result.error);
+        setIsModalVisible(true);
         setLogger(false);
-        navigate("/login");
+        // navigate("/login");
         return;
       }
 
@@ -73,6 +83,9 @@ const Login = ({
       setLoading(false);
     }
   };
+
+  if(isErrorSession) return <ModalSession />
+  if(isModalVisible && dataModal) return <ModalBase content={dataModal} setIsModalVisible={setIsModalVisible} />
 
   return (
     <section className="container-login">
