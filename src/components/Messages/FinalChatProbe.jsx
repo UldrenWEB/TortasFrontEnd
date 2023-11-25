@@ -29,7 +29,7 @@ const FinalChatProbe = ({
 
 
     useEffect(() => {
-        if (!userData) return console.error('UserData es undefined');
+        if (!userData || userData.length <= 0) return console.error('UserData es undefined');
 
 
         const { user, profile } = userData;
@@ -129,6 +129,7 @@ const FinalChatProbe = ({
                     );
 
                 console.log('El usuario que envia el mensaje es: ', user)
+
                 const obj = {
                     socketEmit: socketClient,
                     byUser: user,
@@ -201,7 +202,7 @@ const FinalChatProbe = ({
             if (isImg) return setNewMessage({ data, image: isImg });
 
 
-            setNewMessage(data);
+            setNewMessage({ ...data, isReceiving: true });
         });
 
         return () => {
@@ -216,12 +217,20 @@ const FinalChatProbe = ({
     };
 
     const handleSendTextMessage = () => {
-        console.log('Aqui objInfo', objInfo);
-        console.log('Aqui el tipo de evento que esta escuchando el socket', typeEvent)
+        let typeChatSend = '';
+
+        if (objChat[typeChat] === "direct") typeChatSend = 'direct';
+
+        if (objChat[typeChat] === "namespace") typeChatSend = 'broadcast';
+
+        if (objChat["zones"]?.includes(typeChat)) typeChatSend = 'by zone';
+
+        if (typeChatSend.length <= 2) return console.error('El tipo de chat ingresado no es valido');
+
         const success = sendMessageByBeibi({
             socketEmit: objInfo.socketEmit,
-            typeChatMessage: typeChat,
-            sendToUser: objInfo.sendToUser,
+            typeChatMessage: typeChatSend,
+            sendToUser: objInfo['sendToUser'],
             inputValue: inputValue,
             objChat: objChat,
         });

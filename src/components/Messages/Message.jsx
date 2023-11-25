@@ -2,9 +2,8 @@ import React from "react";
 import "../../styles/message.css";
 
 const MensajesComponent = ({ infoMessage }) => {
-  const { fecha, receptor, imagen, contenido, usuario } = infoMessage;
+  const { fecha, imagen, contenido, usuario, isReceiving } = infoMessage;
 
-  const isReceiving = usuario === receptor;
   const hasImage = imagen && imagen.url;
   const hasDescription =
     imagen && imagen.descripcion && imagen.descripcion !== "image";
@@ -14,6 +13,7 @@ const MensajesComponent = ({ infoMessage }) => {
       <div className="message-info">
         <p>Fecha: {fecha}</p>
         <p>{isReceiving ? "Recibiendo" : "Enviando"}</p>
+        <p>to: {usuario}</p>
       </div>
       {hasImage && (
         <div className="message-content">
