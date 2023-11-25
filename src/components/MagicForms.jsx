@@ -28,7 +28,7 @@ const MagicForms = ({ infoData, mapaInfo }) => {
 
             {type.toLowerCase() === "select" ? (
               <select id={id} value={info.value} onChange={handleChange}>
-                <option value="">Seleccione</option>
+                <option value="" key={`${id}-null`}>Seleccione</option>
                 {info.options}
               </select>
             ) : type.toLowerCase() === "switch" ? (

@@ -32,7 +32,7 @@ const CreateRoute = () => {
     console.log(resultService);
   };
 
-  //Colocar los valores de las calles en el select
+  //Obtener valores de las calles
   useEffect(() => {
     const objStreets = objsFetch.objGetAllStreet;
 
@@ -52,7 +52,7 @@ const CreateRoute = () => {
     handleFetch();
   }, []);
 
-  //Settear
+  //Settear en los select valores de las calles
   useEffect(() => {
     if (!mapaInfo || !dataStreet) return;
 

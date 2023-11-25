@@ -65,8 +65,8 @@ const Chat = ({
       objChat.zones.includes(typeChat)
     ) {
       setTypeChatMessage(typeChat);
-      const icon = getChatIcon(typeChat)
-      setIcon(icon);
+      setIcon(getChatIcon(typeChat));
+
     } else {
       console.error("El tipo de chat es incorrecto. Por favor, verifique.");
     }

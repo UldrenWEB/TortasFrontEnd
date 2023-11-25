@@ -96,6 +96,77 @@ export const createObjRoute = ({ dataFetch }) => {
   }
 }
 
+export const createLocalDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      to: 'local',
+      params: [ data?.inRutaAsociada, data?.inNombreLocal],
+    }
+    return obj
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const createObjLocal = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: "local",
+      object: "control",
+      method: "insertTo",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el createObjLocal archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const createPayMethodDataFetch = ({ data }) => { 
+  try {
+
+    const { inTipoMetodoPago, inDescripcionMetodoPago } = data
+
+    const tipoMetodoMap = {
+      1: 'bank',
+      2: 'methodbank',
+      3: 'methodother'
+    }
+
+    if (!tipoMetodoMap[inTipoMetodoPago]) {
+      return false
+    }
+    const obj = {
+      to: tipoMetodoMap[inTipoMetodoPago],
+      params: [ inDescripcionMetodoPago],
+    }
+
+    return obj
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const createObjPayMethod = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: "billing",
+      object: "payMethod",
+      method: "addTo",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el createObjPayMethod archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
 export const objsFetch = {
   objGetAllAddress: {
     area: "person",
@@ -114,5 +185,12 @@ export const objsFetch = {
     object: "Control",
     method: "getAll",
     params: {direction: 'street'}
-  }
+  },
+  objGetAllRoutes: {
+    area: "local",
+    object: "control",
+    method: "getAllOf",
+    params: ["route"],
+  },
+  
 };
