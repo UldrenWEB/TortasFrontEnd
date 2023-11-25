@@ -1,4 +1,4 @@
-import { object, string, number } from "yup";
+import { object, string, number, boolean } from "yup";
 
 const schemaCreatePerson = object({
   inNombrePersona: string()
@@ -59,6 +59,59 @@ const schemaCreateRoute = object({
 export const validateCreateRoute = async ({ data }) => {
   try {
     const result = await schemaCreateRoute.validate(data, {
+      abortEarly: false,
+    });
+    return result;
+  } catch (error) {
+    return { error: error.message };
+  }
+}
+
+const schemaChangeStatusSeller = object({
+  inEstadoVendedor: string().min(3, "La razón debe tener al menos 3 letras"),
+  inCambiarEstado: boolean().required("El estado es requerido"),
+  inVendedor: number()
+    .transform(value => (!isNaN(value) ? Number(value) : value))
+    .required("El vendedor es requerido"),
+});
+
+export const validateChangeStatusSeller = async ({ data }) => {
+  try {
+    const result = await schemaChangeStatusSeller.validate(data, {
+      abortEarly: false,
+    });
+    return result;
+  } catch (error) {
+    return { error: error.message };
+  }
+}
+
+const schemaCreateLocal = object({
+  inNombreLocal: string().min(3).required("El nombre es requerido"),
+  inRutaAsociada: number()
+  .transform(value => (!isNaN(value) ? Number(value) : value))
+  .required("La ruta es requerida"),
+})
+
+export const validateCreateLocal = async ({ data }) => {
+  try {
+    const result = await schemaCreateLocal.validate(data, {
+      abortEarly: false,
+    });
+    return result;
+  } catch (error) {
+    return { error: error.message };
+  }
+}
+
+const schemaCreatePayMethod = object({
+  inDescripcionMetodoPago: string().min(3).required("La descripción es requerida"),
+  inTipoMetodoPago: number().transform(value => (!isNaN(value) ? Number(value) : value)).required("El tipo es requerido"),
+})
+
+export const validateCreatePayMethod = async ({ data }) => { 
+  try {
+    const result = await schemaCreatePayMethod.validate(data, {
       abortEarly: false,
     });
     return result;

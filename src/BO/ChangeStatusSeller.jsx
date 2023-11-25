@@ -13,6 +13,7 @@ import MagicForms from "../components/MagicForms";
 import ButtonVe from "../components/ButtonVe";
 import ModalSession from "../components/ModalSession";
 import ModalBase from "../components/ModalBase";
+import { validateChangeStatusSeller } from "../constants/schemas";
 
 const ChangeStatusSeller = ({ setLoading }) => {
   const [mapaInfo, setMapaInfo] = useState(null);
@@ -27,13 +28,15 @@ const ChangeStatusSeller = ({ setLoading }) => {
     const arrayInputs = ["inVendedor", "inEstadoVendedor", "inCambiarEstado"];
 
     const data = getMapInputs({ mapaInfo, idInputs: arrayInputs });
+    console.log(data)
 
-    // const result = await validateChangeStatusSeller({data})
-    // if (result?.error) return console.log(`Existio un error: ${result.error}`);
+    const result = await validateChangeStatusSeller({data})
+    if (result?.error) return console.log(`Existio un error: ${result.error}`);
 
     const dataFetch = changeStatusSellerDataFetch({ data });
     if (dataFetch?.info) return console.log("No se cambia estado");
     const obj = changeStatusSellerObj({ dataFetch });
+
     const resultService = await fetchDataPost({ ...obj, setLoading });
 
     if (resultService?.errorSession) setIsErrorSession(true);

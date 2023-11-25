@@ -10,22 +10,36 @@ import infoInputsBo from "../constants/infoInputsBO";
 import ButtonVe from "../components/ButtonVe";
 import fetchDataPost from "../service/fetchDataPost";
 import ModalSession from "../components/ModalSession";
+import ModalBase from "../components/ModalBase";
+import { validateCreateLocal } from "../constants/schemas";
 
 const CreateLocal = ({setLoading}) => {
   const [mapaInfo, setMapaInfo] = useState(null);
   const [dataRoute, setDataRoute] = useState(null);
   const [isErrorSession, setIsErrorSession] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [dataModal, setDataModal] = useState(null);
 
   const handleClick = async () => {
     const arrayInputs = ["inNombreLocal", "inRutaAsociada"];
     const data = getMapInputs({ mapaInfo, idInputs: arrayInputs });
-    // const result = await validateCreateLocal({data})
-    // if (result?.error) return console.log(`Existio un error: ${result.error}`);
+    console.log(data)
+    const result = await validateCreateLocal({data})
+    if (result?.error) return console.log(`Existio un error: ${result.error}`);
     const dataFetch = createLocalDataFetch({ data });
     const obj = createObjLocal({ dataFetch });
     const resultService = await fetchDataPost({...obj, setLoading});
     if(resultService?.errorSession) setIsErrorSession(true)
-    console.log(resultService);
+
+    console.log(resultService)
+
+    if(typeof resultService === "string"){
+      setDataModal(resultService);
+      setIsModalVisible(true);
+    }else{
+      setDataModal("Se creo el local");
+      setIsModalVisible(true);
+    }
   };
 
   //Obtener las rutas actuales
@@ -55,6 +69,7 @@ const CreateLocal = ({setLoading}) => {
 
   if(isErrorSession) return <ModalSession/>
 
+  if(isModalVisible && dataModal) return <ModalBase setIsModalVisible={setIsModalVisible} content={dataModal}/>
   return (
     <section className="container-magic-forms">
       <div className="container-form-magic">

@@ -11,12 +11,15 @@ import {
   objsFetch,
 } from "../constants/dataFetchs";
 import ModalSession from "../components/ModalSession";
+import ModalBase from "../components/ModalBase";
 
 const CreatePerson = ({setLoading}) => {
   const [mapaInfo, setMapaInfo] = useState(null);
   const [dataAddress, setDataAddress] = useState(null);
   const [dataTypes, setDataTypes] = useState(null);
   const [isErrorSession, setIsErrorSession] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [dataModal, setDataModal] = useState(null);
 
   const handleClick = async () => {
     const arrayInputs = [
@@ -28,7 +31,6 @@ const CreatePerson = ({setLoading}) => {
     ];
 
     const data = getMapInputs({ mapaInfo, idInputs: arrayInputs });
-    // console.log(data)
 
     const result = await validateCreateperson({ data });
     if (result?.error) return console.log(`Existio un error: ${result.error}`);
@@ -42,7 +44,19 @@ const CreatePerson = ({setLoading}) => {
 
     if(resultService?.errorSession) setIsErrorSession(true)
 
-    console.log(resultService)
+    if (typeof resultService === "string") {
+      setDataModal(resultService);
+      setIsModalVisible(true);
+
+    } else if (!resultService) {
+      setDataModal("No se creo la persona");
+      setIsModalVisible(true);
+
+    } else {
+      setDataModal("Se creo la persona");
+      setIsModalVisible(true);
+
+    }
     //? AQUI DEBO COLOCAR EL MODAL Y REINICIAR EL VALOR DE LOS INPUTS
   };
 
@@ -59,9 +73,7 @@ const CreatePerson = ({setLoading}) => {
         console.log(dataAd, dataTy)
         setIsErrorSession(true)
       } 
-        
-
-
+      
       const dataAdMap = dataAd.map((item) => {
         return (
           <option value={item.id_address} key={item.id_address}>
@@ -83,7 +95,7 @@ const CreatePerson = ({setLoading}) => {
     };
 
     handleFetch();
-  }, []);
+  }, [dataModal]);
 
   //Este useEffect se encarga de setear los valores de los select
   useEffect(() => {
@@ -95,9 +107,11 @@ const CreatePerson = ({setLoading}) => {
 
     mapaInfo.get("inTipoPersona").setInfo({ value: " ", options: dataTypes });
 
-  }, [mapaInfo, dataAddress, dataTypes]);
+  }, [mapaInfo, dataAddress, dataTypes, dataModal, isModalVisible]);
 
   if(isErrorSession) return <ModalSession/>
+
+  if(isModalVisible && dataModal) return <ModalBase setIsModalVisible={setIsModalVisible} content={dataModal}/>
 
   return (
     <section className="container-magic-forms">

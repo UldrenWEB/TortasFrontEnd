@@ -10,10 +10,13 @@ import {
 } from "../constants/dataFetchs";
 import fetchDataPost from "../service/fetchDataPost";
 import ModalSession from "../components/ModalSession";
+import ModalBase from "../components/ModalBase";
 
-const CreateProduct = ({setLoading}) => {
+const CreateProduct = ({ setLoading }) => {
   const [mapaInfo, setMapaInfo] = useState(null);
   const [isErrorSession, setIsErrorSession] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [dataModal, setDataModal] = useState(null);
 
   const handleClick = async () => {
     const arrayInputs = ["inDescripcionProducto"];
@@ -25,15 +28,26 @@ const CreateProduct = ({setLoading}) => {
     const dataFetch = createProductDataFetch({ data });
 
     const obj = createObjProduct({ dataFetch });
-    console.log(obj)
+    console.log(obj);
 
-    const resultService = await fetchDataPost({...obj, setLoading});
-    if(resultService?.errorSession) setIsErrorSession(true)
+    const resultService = await fetchDataPost({ ...obj, setLoading });
+    if (resultService?.errorSession) setIsErrorSession(true);
 
-    console.log(resultService);
+    if (typeof resultService === "string") {
+      setDataModal(resultService);
+      setIsModalVisible(true);
+    } else if (!resultService) {
+      setDataModal("No se creo el producto");
+      setIsModalVisible(true);
+    } else {
+      setDataModal("Se creo el producto");
+      setIsModalVisible(true);
+    }
   };
 
-  if(isErrorSession) return <ModalSession/>
+  if (isErrorSession) return <ModalSession />;
+
+  if(isModalVisible && dataModal) return <ModalBase content={dataModal} setIsModalVisible={setIsModalVisible} />
 
   return (
     <section className="container-magic-forms">
