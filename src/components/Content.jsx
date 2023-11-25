@@ -14,6 +14,46 @@ import {
 import MyRoute from "./MyRoute";
 import FinalChat from "./Messages/FinalChat";
 import CreateRoute from "../BO/CreateRoute";
+import ChatProbe from '../components/Messages/ChatProbe'
+import FinalChatProbe from "./Messages/FinalChatProbe";
+
+const mensajes = [
+  {
+    fecha: "8/17/2023",
+    usuario: "Uldren",
+    emisor: "Uldren",
+    contenido: "Hola como estan",
+    receptor: "Sol",
+  },
+  {
+    fecha: "9/17/2023",
+    usuario: "Uldren",
+    emisor: "Hermana",
+    contenido: "Hola como estas Uldren",
+    receptor: "Uldren",
+  },
+  {
+    fecha: "10/17/2023",
+    usuario: "Uldren",
+    emisor: "Mama",
+    contenido: "Hola como estas Uldren",
+    receptor: "Uldren",
+  },
+  {
+    fecha: "11/17/2023",
+    usuario: "Uldren",
+    emisor: "Novia",
+    contenido: "Hola como estas Uldren",
+    receptor: "Uldren",
+  },
+  {
+    fecha: "12/17/2023",
+    usuario: "Uldren",
+    emisor: "Papa",
+    contenido: "Hola como estas Uldren",
+    receptor: "Uldren",
+  },
+];
 
 const Content = ({
   dataUser,
@@ -84,22 +124,24 @@ const Content = ({
         element={<MyRoute className={darkMode ? "darkMode" : "lightMode"} />}
       />
 
+
       <Route
         path="/miPinga"
         element={
           <>
-            <FinalChat
-              typeChat={"broadcast"}
+            <FinalChatProbe typeChat={'broadcast'} userData={{ user: dataUser.name, profile: dataUser.profile }} />
+            {/* <FinalChat
+              typeChat={"el prado"}
               userData={{ user: dataUser.name, profile: dataUser.profile }}
-            />
-            <FinalChat
+            /> */}
+            {/* <FinalChat
               typeChat={"direct"}
               userData={{ user: dataUser.name, profile: dataUser.profile }}
             />
             <FinalChat
               typeChat={"el prado"}
               userData={{ user: dataUser.name, profile: dataUser.profile }}
-            />
+            /> */}
           </>
         }
       />

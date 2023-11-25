@@ -71,7 +71,7 @@ class Client {
     sendMessageBroadcast = ({ socket, message }) => {
         try {
             console.log('HOla');
-            socket.emit('general message', { socket, namespace: this.namespace, message })
+            socket.emit('general message', { namespace: this.namespace, message })
             return true;
         } catch (error) {
             return { error: error.message }
@@ -153,7 +153,7 @@ class Client {
             });
 
         } else if (typeChat === 'broadcast') {
-            socket.on('broadcast message', (data) => {
+            socket.on('broadcast_message', (data) => {
                 const { message } = data
                 const isImg = this.#validateImage(data);
                 if (isImg) return state({ message, image: isImg });
