@@ -11,7 +11,7 @@ import ButtonVe from "../components/ButtonVe";
 import fetchDataPost from "../service/fetchDataPost";
 import { validateCreateRoute } from "../constants/schemas";
 
-const CreateRoute = () => {
+const CreateRoute = ({setLoading}) => {
   const [mapaInfo, setMapaInfo] = useState(null);
   const [dataStreet, setDataStreet] = useState(null);
 
@@ -27,7 +27,7 @@ const CreateRoute = () => {
 
     const obj = createObjRoute({ dataFetch });
 
-    const resultService = await fetchDataPost(obj);
+    const resultService = await fetchDataPost({...obj, setLoading});
 
     console.log(resultService);
   };
@@ -37,7 +37,7 @@ const CreateRoute = () => {
     const objStreets = objsFetch.objGetAllStreet;
 
     const handleFetch = async () => {
-      const dataSt = await fetchDataPost(objStreets);
+      const dataSt = await fetchDataPost({...objStreets, setLoading});
       const dataStMap = dataSt.map((item) => {
         return (
           <option value={item.id_street} key={item.id_street}>

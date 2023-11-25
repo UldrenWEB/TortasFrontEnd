@@ -3,12 +3,19 @@ import { useEffect } from "react";
 import "../styles/Login.css";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { Button } from "antd";
 import torta2 from "../imgs/torta2.svg";
+import ButtonVe from "./ButtonVe";
 import dinoLoginSvg from "../imgs/dinoLogin.svg";
 import fetcho from "../service/fetcho";
 
-const Login = ({ setLogger, setDataNav, navigate, isLogged , setDataUser}) => {
+const Login = ({
+  setLogger,
+  setDataNav,
+  navigate,
+  isLogged,
+  setDataUser,
+  setLoading,
+}) => {
   useEffect(() => {
     if (isLogged) {
       navigate("/home");
@@ -17,6 +24,7 @@ const Login = ({ setLogger, setDataNav, navigate, isLogged , setDataUser}) => {
 
   const handleClickLogin = async () => {
     try {
+      setLoading(true);
       const user = document.getElementById("userInput").value;
       const password = document.getElementById("passInput").value;
 
@@ -28,6 +36,7 @@ const Login = ({ setLogger, setDataNav, navigate, isLogged , setDataUser}) => {
       const obj = { url: "/login", method: "POST", body };
 
       const result = await fetcho(obj);
+      setLoading(false);
 
       if (result?.error) {
         console.log("AQUI MOSTRARE EL MODAL CON LA INFO " + result?.error);
@@ -43,16 +52,16 @@ const Login = ({ setLogger, setDataNav, navigate, isLogged , setDataUser}) => {
       }
 
       const permisosNav = result.permissions;
-      console.log(result)
+      console.log(result);
 
       const datosUser = {
         id: result.profileData.idUser,
         name: result.profileData.user.toUpperCase(),
         email: result.profileData.email,
         profile: result.profileData.profile,
-      }
+      };
 
-      setDataUser(datosUser)
+      setDataUser(datosUser);
       localStorage.setItem("dataUser", JSON.stringify(datosUser));
 
       localStorage.setItem("permisosNav", JSON.stringify(permisosNav));
@@ -61,6 +70,7 @@ const Login = ({ setLogger, setDataNav, navigate, isLogged , setDataUser}) => {
       return navigate("/home");
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -89,9 +99,11 @@ const Login = ({ setLogger, setDataNav, navigate, isLogged , setDataUser}) => {
             <Link to="/olvidoDatos">Olvidaste tus datos?</Link>
           </div>
 
-          <Button className="btn-c btn-ingresar" onClick={handleClickLogin}>
-            Ingresar
-          </Button>
+          <ButtonVe
+            className="btn-c btn-ingresar"
+            click={handleClickLogin}
+            content={"Ingresar"}
+          />
         </div>
 
         <div className="grid-login dino-login">

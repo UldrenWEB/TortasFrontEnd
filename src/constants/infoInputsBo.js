@@ -18,12 +18,12 @@ const infoInputsBo = {
         {type: 'select', label: "Ruta asociada", id: 'inRutaAsociada', placeholder: "Ruta asociada al local"},
     ],
     CreatePayMethod: [
-        { type: 'select', label: "Tipo de metodo de pago", id: 'inTipoMetodoPago', placeholder: "Tipo de metodo de pago" },
-        { type: 'text', label: "Descripcion metodo de pago", id: 'inDescripcionMetodoPago', placeholder: "Descripcion del metodo de pago" },
+        { type: 'select', label: "Tipo de metodo de pago / banco", id: 'inTipoMetodoPago', placeholder: "Tipo de metodo de pago / banco" },
+        { type: 'text', label: "Descripcion metodo de pago / banco", id: 'inDescripcionMetodoPago', placeholder: "Descripcion del metodo de pago" },
     ],
     ChangeStatusSeller: [
         {type: 'select', label: 'Vendedor', id: 'inVendedor', placeholder: 'Vendedor'},
-        { type: 'select', label: "Estado del vendedor", id: 'inEstadoVendedor', placeholder: "Estado del vendedor" },
+        { type: 'text', label: "Estado del vendedor", id: 'inEstadoVendedor', placeholder: "Estado del vendedor", readOnly: true},
         { type: 'switch', label: "Cambiar estado", id: 'inCambiarEstado', placeholder: "Cambiar Estado del vendedor" },
     ]
 }

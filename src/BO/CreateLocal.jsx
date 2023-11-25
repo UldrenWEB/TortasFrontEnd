@@ -10,7 +10,7 @@ import infoInputsBo from "../constants/infoInputsBO";
 import ButtonVe from "../components/ButtonVe";
 import fetchDataPost from "../service/fetchDataPost";
 
-const CreateLocal = () => {
+const CreateLocal = ({setLoading}) => {
   const [mapaInfo, setMapaInfo] = useState(null);
   const [dataRoute, setDataRoute] = useState(null);
 
@@ -21,7 +21,7 @@ const CreateLocal = () => {
     // if (result?.error) return console.log(`Existio un error: ${result.error}`);
     const dataFetch = createLocalDataFetch({ data });
     const obj = createObjLocal({ dataFetch });
-    const resultService = await fetchDataPost(obj);
+    const resultService = await fetchDataPost({...obj, setLoading});
     console.log(resultService);
   };
 
@@ -29,7 +29,7 @@ const CreateLocal = () => {
   useEffect(() => {
     const objRoute = objsFetch.objGetAllRoutes;
     const handleFetch = async () => {
-      const dataRt = await fetchDataPost(objRoute);
+      const dataRt = await fetchDataPost({...objRoute, setLoading});
       const dataRtMap = dataRt.map((item) => {
         return (
           <option value={item.id_route} key={item.id_route}>

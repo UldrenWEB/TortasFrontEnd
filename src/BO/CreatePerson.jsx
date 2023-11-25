@@ -11,7 +11,7 @@ import {
   objsFetch,
 } from "../constants/dataFetchs";
 
-const CreatePerson = () => {
+const CreatePerson = ({setLoading}) => {
   const [mapaInfo, setMapaInfo] = useState(null);
   const [dataAddress, setDataAddress] = useState(null);
   const [dataTypes, setDataTypes] = useState(null);
@@ -36,7 +36,7 @@ const CreatePerson = () => {
     //Si no hay error llmamos al servicio
     const obj = createObjPerson({ dataFetch });
 
-    const resultService = await fetchDataPost(obj);
+    const resultService = await fetchDataPost({...obj, setLoading});
 
     console.log(resultService)
     //? AQUI DEBO COLOCAR EL MODAL Y REINICIAR EL VALOR DE LOS INPUTS
@@ -48,8 +48,8 @@ const CreatePerson = () => {
     const objTypes = objsFetch.objGetAllTypesPerson;
 
     const handleFetch = async () => {
-      const dataAd = await fetchDataPost(objAddress);
-      const dataTy = await fetchDataPost(objTypes);
+      const dataAd = await fetchDataPost({...objAddress, setLoading});
+      const dataTy = await fetchDataPost({...objTypes, setLoading});
 
       const dataAdMap = dataAd.map((item) => {
         return (

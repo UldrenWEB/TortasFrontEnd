@@ -24,7 +24,7 @@ const dataTypesObj = [
   },
 ];
 
-const CreatePayMethod = () => {
+const CreatePayMethod = ({setLoading}) => {
   const [mapaInfo, setMapaInfo] = useState(null);
   const [dataTypes, setDataTypes] = useState(null);
 
@@ -38,7 +38,7 @@ const CreatePayMethod = () => {
 
     const dataFetch = createPayMethodDataFetch({ data });
     const obj = createObjPayMethod({ dataFetch });
-    const resultService = await fetchDataPost(obj);
+    const resultService = await fetchDataPost({...obj, setLoading});
 
     console.log(resultService);
   };
@@ -63,7 +63,7 @@ const CreatePayMethod = () => {
   return (
     <section className="container-magic-forms">
       <div className="container-form-magic">
-        <h1>Crear Pago</h1>
+        <h1>Crear Metodo de Pago / Banco</h1>
         <MagicForms
           infoData={infoInputsBo.CreatePayMethod}
           mapaInfo={setMapaInfo}

@@ -169,9 +169,11 @@ export const createObjPayMethod = ({ dataFetch }) => {
 
 export const changeStatusSellerDataFetch = ({ data }) => {
   try {
+    if(!data?.inCambiarEstado) return {info: "no se ha cambiado estado entonces no se envia nada"}
+
     const obj = {
       idSeller: data?.inVendedor,
-      option: data?.inCambiarEstado,
+      option: data?.inEstadoVendedor === 'active' && data?.inCambiarEstado ? 'desactivate' : 'activate'
     };
 
     return obj;
@@ -188,6 +190,33 @@ export const changeStatusSellerObj = ({ dataFetch }) => {
       area: "seller",
       object: "control",
       method: "changeStatusSeller",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${dataFetch} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const getSellerByIdDataFetch = ({ data }) => { 
+  try {
+    const obj = {
+      idSeller: data?.idSeller,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const getSellerByIdObj = ({ dataFetch }) => { 
+  try {
+    const obj = {
+      area: "seller",
+      object: "control",
+      method: "getInfoSeller",
       params: dataFetch,
     };
 

@@ -22,10 +22,27 @@ const Chat = ({
 }) => {
   const [inputValue, setInputValue] = useState("");
   const [typeChatMessage, setTypeChatMessage] = useState("");
+
   const [renderedMessages, setRenderedMessages] = useState([]);
   const [icon, setIcon] = useState(null);
 
   const [showChat, setShowChat] = useState(false);
+
+  const getChatIcon = (typeChatMessage) => {
+    console.log('Aqui icon type', typeChatMessage)
+    const icons = {
+      direct: messageIcon,
+      broadcast: groupIcon,
+      zones: twoIcon,
+    };
+
+    const verify = icons[typeChatMessage];
+    if (verify === "namespace") return icons["broadcast"];
+    if (verify === "direct") return icons[typeChatMessage];
+    if (objChat["zones"].includes(typeChatMessage)) return icons["zones"];
+  };
+
+
 
   useEffect(() => {
     let keyCont = 0;
@@ -49,7 +66,7 @@ const Chat = ({
     ) {
       setTypeChatMessage(typeChat);
       setIcon(getChatIcon(typeChat));
-      
+
     } else {
       console.error("El tipo de chat es incorrecto. Por favor, verifique.");
     }
@@ -66,18 +83,6 @@ const Chat = ({
     }
   }, [newMessage, newImage]);
 
-  const getChatIcon = (typeChatMessage) => {
-    const icons = {
-      direct: messageIcon,
-      broadcast: groupIcon,
-      zones: twoIcon,
-    };
-
-    const verify = icons[typeChatMessage];
-    if (verify === "namespace") return icons["broadcast"];
-    if (verify === "direct") return icons[typeChatMessage];
-    if (objChat["zones"].includes(typeChatMessage)) return icons["zones"];
-  };
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -91,7 +96,7 @@ const Chat = ({
       inputValue: inputValue,
       objChat: objChat,
     });
-
+    console.log('Heyyyyyyy')
     if (!success) {
       console.error("Hubo un error al enviar el mensaje");
       return;
@@ -137,7 +142,7 @@ const Chat = ({
         onClick={toggleChat}
       >
         <img
-          src={icon}
+          src={twoIcon}
           alt="Icon chat"
           style={{ width: "16px", height: "16px" }}
         />

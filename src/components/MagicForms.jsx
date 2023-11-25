@@ -1,9 +1,11 @@
 import { Switch } from "antd";
 import "../styles/MagicForms.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState} from "react";
 
-const MagicForms = ({ infoData, mapaInfo }) => {
+const MagicForms = ({ infoData, mapaInfo, eventHandlers }) => {
   const mapa = useRef(new Map());
+  const [isChecked, setIsChecked] = useState(false)
+
 
   useEffect(() => {
     if (mapa.current.size === infoData.length) {
@@ -14,10 +16,19 @@ const MagicForms = ({ infoData, mapaInfo }) => {
   return (
     <div className="container-inputs-magics">
       {infoData.map((element, key) => {
-        const { type, label, id, placeholder, ...rest } = element;
-        const [info, setInfo] = useState({ value: "", options: [] });
+        const { type, label, id, placeholder, readOnly,...rest } = element;
+        const [info, setInfo] = useState({ value: type.toLowerCase() === "switch" ? false : "", options: [] });
 
         const handleChange = (e) => {
+          if (eventHandlers && eventHandlers[id]) {
+            eventHandlers[id](e);
+          }
+          if(type.toLowerCase() === "switch"){
+            const newCheckedValue = !isChecked;
+            setIsChecked(newCheckedValue);
+            setInfo({...info, value: newCheckedValue});
+            return;
+          } 
           setInfo({ ...info, value: e.target.value });
         };
 
@@ -26,12 +37,13 @@ const MagicForms = ({ infoData, mapaInfo }) => {
             <label>{label}</label>
 
             {type.toLowerCase() === "select" ? (
-              <select id={id} value={info.value} onChange={handleChange} {...rest}>
+                <select id={id} value={info.value} onChange={handleChange} readOnly={readOnly} {...rest}>
                 <option value="" key={`${id}-null`}>Seleccione</option>
                 {info.options}
               </select>
             ) : type.toLowerCase() === "switch" ? (
-              <Switch id={id} checked={info.value} onChange={handleChange} {...rest} />
+              <Switch id={id}  checked={isChecked} value={isChecked} readOnly={readOnly} onChange={handleChange} 
+                {...rest} />
             ) : (
               <input
                 type={type}
@@ -39,6 +51,7 @@ const MagicForms = ({ infoData, mapaInfo }) => {
                 placeholder={placeholder}
                 value={info.value}
                 onChange={handleChange}
+                readOnly={readOnly}
                 {...rest}
               />
             )}

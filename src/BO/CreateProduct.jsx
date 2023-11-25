@@ -10,7 +10,7 @@ import {
 } from "../constants/dataFetchs";
 import fetchDataPost from "../service/fetchDataPost";
 
-const CreateProduct = () => {
+const CreateProduct = ({setLoading}) => {
   const [mapaInfo, setMapaInfo] = useState(null);
 
   const handleClick = async () => {
@@ -23,8 +23,9 @@ const CreateProduct = () => {
     const dataFetch = createProductDataFetch({ data });
 
     const obj = createObjProduct({ dataFetch });
+    console.log(obj)
 
-    const resultService = await fetchDataPost(obj);
+    const resultService = await fetchDataPost({...obj, setLoading});
 
     console.log(resultService);
   };

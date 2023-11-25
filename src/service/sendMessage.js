@@ -27,8 +27,10 @@ const sendMessageByBeibi = ({
         message: inputValue,
       });
 
-      if (!send) {
-        return false;
+
+
+      if (!send || send.error) {
+        return console.error('Hubo un error al enviar un mensaje general', send.error);
       }
     }
 
@@ -47,7 +49,7 @@ const sendMessageByBeibi = ({
       return true;
     }
 
-    console.log('Aqui se termina todo porque fue bien');
+    // console.log('Aqui se termina todo porque fue bien');
     return true;
   }
 

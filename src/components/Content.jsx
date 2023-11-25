@@ -14,9 +14,12 @@ import {
 import MyRoute from "./MyRoute";
 import FinalChat from "./Messages/FinalChat";
 import CreateRoute from "../BO/CreateRoute";
-import CreateLocal from "../BO/CreateLocal.jsx";
-import CreatePayMethod from "../BO/CreatePayMethod.jsx";
-import ChangeStatusSeller from "../BO/ChangeStatusSeller.jsx";
+import ChatProbe from "../components/Messages/ChatProbe";
+import FinalChatProbe from "./Messages/FinalChatProbe";
+import CreateLocal from "../BO/CreateLocal";
+import CreatePayMethod from "../BO/CreatePayMethod";
+import ChangeStatusSeller from "../BO/ChangeStatusSeller";
+import SuperLoader from "./SuperLoader";
 
 const Content = ({
   dataUser,
@@ -27,6 +30,8 @@ const Content = ({
   isLogged,
   setDataUser,
   location,
+  isLoading,
+  setIsLoading,
 }) => {
   useEffect(() => {
     verifyLoginCookie({ setLogger, navigate, isLogged, location });
@@ -36,83 +41,101 @@ const Content = ({
   return (
     //TODO: MODIFICAR AQUI ESTO QUE LOS ELEMENTOS USAN
     //TODO: ADEMAS RECORDAR QUE TODOS LOS COMPONENTES QUE CARGUEN DEBERAN USAR SU WITDH 100%
+    <>
+      {isLoading && <SuperLoader />}
 
-    <Routes className={"main-layout"}>
-      <Route
-        path="/"
-        element={
-          <Home
-            className={darkMode ? "darkMode" : "lightMode"}
-            style={{ width: "100%" }}
-          />
-        }
-      />
-      <Route
-        path="/login"
-        element={
-          <Login
-            className={darkMode ? "darkMode" : "lightMode"}
-            style={{ width: "100%" }}
-            setLogger={setLogger}
-            setDataNav={setDataNav}
-            navigate={navigate}
-            isLogged={isLogged}
-            setDataUser={setDataUser}
-          />
-        }
-      />
-      <Route
-        path="/logout"
-        element={
-          <Logout
-            className={darkMode ? "darkMode" : "lightMode"}
-            setLogger={setLogger}
-            isLogged={isLogged}
-            style={{ width: "100%" }}
-          />
-        }
-      />
-
-      {isLogged ? <Route path="/home" element={<div>Inicio</div>} /> : null}
-
-      {/* Estas se pueden hacer dinamicas */}
-      <Route path="/person/control/createPerson" element={<CreatePerson />} />
-
-      <Route path="/sales/products/createProduct" element={<CreateProduct />} />
-
-      <Route path="/local/control/createRoute" element={<CreateRoute />} />
-
-      <Route path="/local/control/createLocal" element={<CreateLocal />} />
-
-      <Route path="/billing/payMethod/createMethod" element={<CreatePayMethod/>} />
-
-      <Route path="/seller/control/changeStatusSeller" element={<ChangeStatusSeller/>} />
-
-      <Route
-        path="/reports"
-        element={<MyRoute className={darkMode ? "darkMode" : "lightMode"} />}
-      />
-
-      {/* <Route
-        path="/miPinga"
-        element={
-          <>
-            <FinalChat
-              typeChat={"broadcast"}
-              userData={{ user: dataUser.name, profile: dataUser.profile }}
+      <Routes className={"main-layout"}>
+        <Route
+          path="/"
+          element={
+            <Home
+              className={darkMode ? "darkMode" : "lightMode"}
+              style={{ width: "100%" }}
             />
-            <FinalChat
+          }
+        />
+
+        <Route
+          path="/login"
+          element={
+            <Login
+              className={darkMode ? "darkMode" : "lightMode"}
+              style={{ width: "100%" }}
+              setLogger={setLogger}
+              setDataNav={setDataNav}
+              navigate={navigate}
+              isLogged={isLogged}
+              setDataUser={setDataUser}
+              setLoading={setIsLoading}
+            />
+          }
+        />
+        <Route
+          path="/logout"
+          element={
+            <Logout
+              className={darkMode ? "darkMode" : "lightMode"}
+              setLogger={setLogger}
+              isLogged={isLogged}
+              style={{ width: "100%" }}
+            />
+          }
+        />
+
+        {isLogged ? <Route path="/home" element={<div>Inicio</div>} /> : null}
+
+        {/* Estas se pueden hacer dinamicas */}
+        <Route path="/person/control/createPerson" element={<CreatePerson setLoading={setIsLoading}/>} />
+
+        <Route
+          path="/sales/products/createProduct"
+          element={<CreateProduct setLoading={setIsLoading} />}
+        />
+
+        <Route path="/local/control/createRoute" element={<CreateRoute setLoading={setIsLoading}/>} />
+
+        <Route path="/local/control/createLocal" element={<CreateLocal setLoading={setIsLoading}/>} />
+
+        <Route
+          path="/billing/payMethod/createMethod"
+          element={<CreatePayMethod setLoading={setIsLoading}/>}
+        />
+
+        <Route
+          path="/seller/control/changeStatusSeller"
+          element={<ChangeStatusSeller setLoading={setIsLoading}/>}
+        />
+
+        <Route
+          path="/reports"
+          element={<MyRoute className={darkMode ? "darkMode" : "lightMode"} />}
+        />
+
+        <Route
+          path="/miPinga"
+          element={
+            <>
+              <FinalChatProbe
+                typeChat={"broadcast"}
+                userData={{ user: dataUser.name, profile: dataUser.profile }}
+              />
+              {/* <FinalChat
+              typeChat={"el prado"}
+              userData={{ user: dataUser.name, profile: dataUser.profile }}
+            /> */}
+              {/* <FinalChat
               typeChat={"direct"}
               userData={{ user: dataUser.name, profile: dataUser.profile }}
             />
             <FinalChat
               typeChat={"el prado"}
               userData={{ user: dataUser.name, profile: dataUser.profile }}
-            />
-          </>
-        }
-      /> */}
-    </Routes>
+            /> */}
+            </>
+          }
+        />
+      </Routes>
+    </>
   );
 };
 
