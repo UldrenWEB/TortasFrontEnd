@@ -20,6 +20,11 @@ const infoInputsBo = {
     CreatePayMethod: [
         { type: 'select', label: "Tipo de metodo de pago", id: 'inTipoMetodoPago', placeholder: "Tipo de metodo de pago" },
         { type: 'text', label: "Descripcion metodo de pago", id: 'inDescripcionMetodoPago', placeholder: "Descripcion del metodo de pago" },
+    ],
+    ChangeStatusSeller: [
+        {type: 'select', label: 'Vendedor', id: 'inVendedor', placeholder: 'Vendedor'},
+        { type: 'select', label: "Estado del vendedor", id: 'inEstadoVendedor', placeholder: "Estado del vendedor" },
+        { type: 'switch', label: "Cambiar estado", id: 'inCambiarEstado', placeholder: "Cambiar Estado del vendedor" },
     ]
 }
 

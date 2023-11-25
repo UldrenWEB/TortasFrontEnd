@@ -83,6 +83,7 @@ const CreatePerson = () => {
       .setInfo({ value: " ", options: dataAddress });
 
     mapaInfo.get("inTipoPersona").setInfo({ value: " ", options: dataTypes });
+
   }, [mapaInfo, dataAddress, dataTypes]);
 
   return (

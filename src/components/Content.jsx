@@ -16,6 +16,7 @@ import FinalChat from "./Messages/FinalChat";
 import CreateRoute from "../BO/CreateRoute";
 import CreateLocal from "../BO/CreateLocal.jsx";
 import CreatePayMethod from "../BO/CreatePayMethod.jsx";
+import ChangeStatusSeller from "../BO/ChangeStatusSeller.jsx";
 
 const Content = ({
   dataUser,
@@ -84,6 +85,8 @@ const Content = ({
       <Route path="/local/control/createLocal" element={<CreateLocal />} />
 
       <Route path="/billing/payMethod/createMethod" element={<CreatePayMethod/>} />
+
+      <Route path="/seller/control/changeStatusSeller" element={<ChangeStatusSeller/>} />
 
       <Route
         path="/reports"

@@ -39,6 +39,7 @@ const CreatePayMethod = () => {
     const dataFetch = createPayMethodDataFetch({ data });
     const obj = createObjPayMethod({ dataFetch });
     const resultService = await fetchDataPost(obj);
+
     console.log(resultService);
   };
 

@@ -140,7 +140,7 @@ export const createPayMethodDataFetch = ({ data }) => {
       return false
     }
     const obj = {
-      to: tipoMetodoMap[inTipoMetodoPago],
+      option: tipoMetodoMap[inTipoMetodoPago],
       params: [ inDescripcionMetodoPago],
     }
 
@@ -164,6 +164,36 @@ export const createObjPayMethod = ({ dataFetch }) => {
     console.error(
       `Existio un error en el createObjPayMethod archivo dataFetchs.js con el dato ${dataFetch}`
     );
+  }
+}
+
+export const changeStatusSellerDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      idSeller: data?.inVendedor,
+      option: data?.inCambiarEstado,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js`
+    );
+  }
+}
+
+export const changeStatusSellerObj = ({ dataFetch }) => { 
+  try {
+    const obj = {
+      area: "seller",
+      object: "control",
+      method: "changeStatusSeller",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${dataFetch} en el archivo dataFetchs.js. Error: ${error.message}`)
   }
 }
 
@@ -192,5 +222,11 @@ export const objsFetch = {
     method: "getAllOf",
     params: ["route"],
   },
+  objGetAllSellers: {
+    area: "seller",
+    object: "control",
+    method: "getSellersBy",
+    params: {}
+  }
   
 };
