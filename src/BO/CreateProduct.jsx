@@ -9,9 +9,11 @@ import {
   createProductDataFetch,
 } from "../constants/dataFetchs";
 import fetchDataPost from "../service/fetchDataPost";
+import ModalSession from "../components/ModalSession";
 
 const CreateProduct = ({setLoading}) => {
   const [mapaInfo, setMapaInfo] = useState(null);
+  const [isErrorSession, setIsErrorSession] = useState(false);
 
   const handleClick = async () => {
     const arrayInputs = ["inDescripcionProducto"];
@@ -26,11 +28,12 @@ const CreateProduct = ({setLoading}) => {
     console.log(obj)
 
     const resultService = await fetchDataPost({...obj, setLoading});
+    if(resultService?.errorSession) setIsErrorSession(true)
 
     console.log(resultService);
   };
 
-  useEffect(() => {}, []);
+  if(isErrorSession) return <ModalSession/>
 
   return (
     <section className="container-magic-forms">

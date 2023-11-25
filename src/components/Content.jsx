@@ -78,6 +78,7 @@ const Content = ({
               setLogger={setLogger}
               isLogged={isLogged}
               style={{ width: "100%" }}
+              navigate={navigate}
             />
           }
         />

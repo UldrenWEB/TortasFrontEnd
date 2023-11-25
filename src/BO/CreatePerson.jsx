@@ -10,11 +10,13 @@ import {
   createPersonDataFetch,
   objsFetch,
 } from "../constants/dataFetchs";
+import ModalSession from "../components/ModalSession";
 
 const CreatePerson = ({setLoading}) => {
   const [mapaInfo, setMapaInfo] = useState(null);
   const [dataAddress, setDataAddress] = useState(null);
   const [dataTypes, setDataTypes] = useState(null);
+  const [isErrorSession, setIsErrorSession] = useState(false);
 
   const handleClick = async () => {
     const arrayInputs = [
@@ -38,6 +40,8 @@ const CreatePerson = ({setLoading}) => {
 
     const resultService = await fetchDataPost({...obj, setLoading});
 
+    if(resultService?.errorSession) setIsErrorSession(true)
+
     console.log(resultService)
     //? AQUI DEBO COLOCAR EL MODAL Y REINICIAR EL VALOR DE LOS INPUTS
   };
@@ -50,6 +54,13 @@ const CreatePerson = ({setLoading}) => {
     const handleFetch = async () => {
       const dataAd = await fetchDataPost({...objAddress, setLoading});
       const dataTy = await fetchDataPost({...objTypes, setLoading});
+
+      if(dataAd?.errorSession || dataTy?.errorSession){
+        console.log(dataAd, dataTy)
+        setIsErrorSession(true)
+      } 
+        
+
 
       const dataAdMap = dataAd.map((item) => {
         return (
@@ -85,6 +96,8 @@ const CreatePerson = ({setLoading}) => {
     mapaInfo.get("inTipoPersona").setInfo({ value: " ", options: dataTypes });
 
   }, [mapaInfo, dataAddress, dataTypes]);
+
+  if(isErrorSession) return <ModalSession/>
 
   return (
     <section className="container-magic-forms">

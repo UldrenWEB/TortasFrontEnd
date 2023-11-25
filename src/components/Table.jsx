@@ -13,6 +13,7 @@ import fetcho from "../service/fetcho";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/table.css";
 import ColumnGroup from "antd/es/table/ColumnGroup";
+import ModalSession from "./ModalSession";
 //Importar css de la tabla
 
 //!Componente el cual Renderiza en una tabla una consulta SQL y muestra cada registro
@@ -82,6 +83,8 @@ const ComponentTable = ({ data, customHeaders }) => {
           setTableData(tableData);
           return console.error("Hubo un error al hacer la consulta");
         }
+
+        if(response?.errorSession) return <ModalSession />
 
         setTableData({
           response: action === "delete" ? updateData : update,

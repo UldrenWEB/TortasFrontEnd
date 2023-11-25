@@ -9,10 +9,12 @@ import { useEffect, useState } from "react";
 import infoInputsBo from "../constants/infoInputsBO";
 import ButtonVe from "../components/ButtonVe";
 import fetchDataPost from "../service/fetchDataPost";
+import ModalSession from "../components/ModalSession";
 
 const CreateLocal = ({setLoading}) => {
   const [mapaInfo, setMapaInfo] = useState(null);
   const [dataRoute, setDataRoute] = useState(null);
+  const [isErrorSession, setIsErrorSession] = useState(false);
 
   const handleClick = async () => {
     const arrayInputs = ["inNombreLocal", "inRutaAsociada"];
@@ -22,6 +24,7 @@ const CreateLocal = ({setLoading}) => {
     const dataFetch = createLocalDataFetch({ data });
     const obj = createObjLocal({ dataFetch });
     const resultService = await fetchDataPost({...obj, setLoading});
+    if(resultService?.errorSession) setIsErrorSession(true)
     console.log(resultService);
   };
 
@@ -30,6 +33,8 @@ const CreateLocal = ({setLoading}) => {
     const objRoute = objsFetch.objGetAllRoutes;
     const handleFetch = async () => {
       const dataRt = await fetchDataPost({...objRoute, setLoading});
+      if(dataRt?.errorSession) setIsErrorSession(true)
+
       const dataRtMap = dataRt.map((item) => {
         return (
           <option value={item.id_route} key={item.id_route}>
@@ -47,6 +52,8 @@ const CreateLocal = ({setLoading}) => {
     if (!mapaInfo || !dataRoute) return;
     mapaInfo.get("inRutaAsociada").setInfo({ value: "", options: dataRoute });
   }, [mapaInfo, dataRoute]);
+
+  if(isErrorSession) return <ModalSession/>
 
   return (
     <section className="container-magic-forms">

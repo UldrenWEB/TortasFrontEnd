@@ -8,6 +8,7 @@ import infoInputsBo from "../constants/infoInputsBO";
 import MagicForms from "../components/MagicForms";
 import ButtonVe from "../components/ButtonVe";
 import fetchDataPost from "../service/fetchDataPost";
+import ModalSession from "../components/ModalSession";
 
 const dataTypesObj = [
   {
@@ -27,6 +28,7 @@ const dataTypesObj = [
 const CreatePayMethod = ({setLoading}) => {
   const [mapaInfo, setMapaInfo] = useState(null);
   const [dataTypes, setDataTypes] = useState(null);
+  const [isErrorSession, setIsErrorSession] = useState(false);
 
   const handleClick = async () => {
     const arrayInputs = ["inTipoMetodoPago", "inDescripcionMetodoPago"];
@@ -39,6 +41,7 @@ const CreatePayMethod = ({setLoading}) => {
     const dataFetch = createPayMethodDataFetch({ data });
     const obj = createObjPayMethod({ dataFetch });
     const resultService = await fetchDataPost({...obj, setLoading});
+    if(resultService?.errorSession) setIsErrorSession(true)
 
     console.log(resultService);
   };
@@ -59,6 +62,8 @@ const CreatePayMethod = ({setLoading}) => {
     if (!mapaInfo || !dataTypes) return;
     mapaInfo.get("inTipoMetodoPago").setInfo({ value: "", options: dataTypes });
   }, [mapaInfo, dataTypes]);
+
+  if(isErrorSession) return <ModalSession/>
 
   return (
     <section className="container-magic-forms">

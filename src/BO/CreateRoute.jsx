@@ -10,10 +10,12 @@ import infoInputsBo from "../constants/infoInputsBO";
 import ButtonVe from "../components/ButtonVe";
 import fetchDataPost from "../service/fetchDataPost";
 import { validateCreateRoute } from "../constants/schemas";
+import ModalSession from "../components/ModalSession";
 
 const CreateRoute = ({setLoading}) => {
   const [mapaInfo, setMapaInfo] = useState(null);
   const [dataStreet, setDataStreet] = useState(null);
+  const [isErrorSession, setIsErrorSession] = useState(false);
 
   const handleClick = async () => {
     const arrayInputs = ["inNombreRuta", "inCalleAsociada"];
@@ -28,6 +30,7 @@ const CreateRoute = ({setLoading}) => {
     const obj = createObjRoute({ dataFetch });
 
     const resultService = await fetchDataPost({...obj, setLoading});
+    if(resultService?.errorSession) setIsErrorSession(true)
 
     console.log(resultService);
   };
@@ -38,6 +41,8 @@ const CreateRoute = ({setLoading}) => {
 
     const handleFetch = async () => {
       const dataSt = await fetchDataPost({...objStreets, setLoading});
+      if(dataSt?.errorSession) setIsErrorSession(true)
+
       const dataStMap = dataSt.map((item) => {
         return (
           <option value={item.id_street} key={item.id_street}>
@@ -58,6 +63,8 @@ const CreateRoute = ({setLoading}) => {
 
     mapaInfo.get("inCalleAsociada").setInfo({ value: "", options: dataStreet });
   }, [mapaInfo, dataStreet]);
+
+  if(isErrorSession) return <ModalSession/>
 
   return (
     <section className="container-magic-forms">
