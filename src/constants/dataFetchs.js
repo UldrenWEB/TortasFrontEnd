@@ -286,6 +286,96 @@ export const createAsignLocalSellerObj = ({ dataFetch }) => {
   }
 }
 
+export const getPersonDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      option: 'oneperson',
+      params: [data?.idPerson]
+    }
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js`
+    );
+  }
+}
+
+export const getPersonObj = ({ dataFetch }) => { 
+  try {
+    const obj = {
+      area: "person",
+      object: "control",
+      method: "getAllOf",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${dataFetch} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const editPersonDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      option: 'person',
+      params: [data?.inNombrePersona, data?.inApellidoPersona, data?.inNumeroPersona, data?.inDireccionPersona, data?.inPersonas]
+    }
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js`
+    );
+  }
+}
+
+export const editPersonObj = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: "person",
+      object: "control",
+      method: "editTo",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el editPersonObj archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const createAsignSalaryDataFetch = ({ data }) => { 
+  try {
+    const obj = {
+      idSeller: data?.inVendedor,
+      idTypePay: data?.inTipoSalario
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const createAsignSalaryObj = ({ dataFetch }) => { 
+  try {
+    const obj = {
+      area: "seller",
+      object: "order",
+      method: "asignTypePay",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${dataFetch} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
 export const objsFetch = {
   objGetAllAddress: {
     area: "person",
@@ -316,6 +406,18 @@ export const objsFetch = {
     object: "control",
     method: "getSellersBy",
     params: {}
+  },
+  objGetAllPersons: {
+    area: 'person',
+    object: 'control',
+    method: 'getAllOf',
+    params: {option: 'person'}
+  },
+  objGetAllTypesSalary: {
+    area: 'person',
+    object: 'control',
+    method: 'getAllOf',
+    params: {option: 'alltypesalary'}
   }
   
 };

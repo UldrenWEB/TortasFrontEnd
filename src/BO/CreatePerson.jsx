@@ -57,7 +57,6 @@ const CreatePerson = ({setLoading}) => {
       setIsModalVisible(true);
 
     }
-    //? AQUI DEBO COLOCAR EL MODAL Y REINICIAR EL VALOR DE LOS INPUTS
   };
 
   //Este fetch obtiene los valores que iran en los select

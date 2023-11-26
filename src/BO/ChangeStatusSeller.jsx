@@ -114,10 +114,6 @@ const ChangeStatusSeller = ({ setLoading }) => {
       if (result?.errorSession) setIsErrorSession(true);
 
       const status = result[0].de_status_user;
-      // const VALUE_STATUS = status === 'active' && status ? 1 : 2
-
-      // const statusMap = status
-
       setDataStatus(status);
     };
 

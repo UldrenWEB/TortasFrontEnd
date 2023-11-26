@@ -21,6 +21,8 @@ import CreatePayMethod from "../BO/CreatePayMethod";
 import ChangeStatusSeller from "../BO/ChangeStatusSeller";
 import SuperLoader from "./SuperLoader";
 import AsignarLocalVendedor from "../BO/AsignarLocalVendedor";
+import EditPerson from "../BO/EditPerson";
+import AsignarSalarioVendedor from "../BO/AsignarSalarioVendedor";
 
 const Content = ({
   dataUser,
@@ -87,30 +89,49 @@ const Content = ({
         {isLogged ? <Route path="/home" element={<div>Inicio</div>} /> : null}
 
         {/* Estas se pueden hacer dinamicas */}
-        <Route path="/person/control/createPerson" element={<CreatePerson setLoading={setIsLoading}/>} />
+        <Route
+          path="/person/control/createPerson"
+          element={<CreatePerson setLoading={setIsLoading} />}
+        />
 
         <Route
           path="/sales/products/createProduct"
           element={<CreateProduct setLoading={setIsLoading} />}
         />
 
-        <Route path="/local/control/createRoute" element={<CreateRoute setLoading={setIsLoading}/>} />
+        <Route
+          path="/local/control/createRoute"
+          element={<CreateRoute setLoading={setIsLoading} />}
+        />
 
-        <Route path="/local/control/createLocal" element={<CreateLocal setLoading={setIsLoading}/>} />
+        <Route
+          path="/local/control/createLocal"
+          element={<CreateLocal setLoading={setIsLoading} />}
+        />
 
         <Route
           path="/billing/payMethod/createMethod"
-          element={<CreatePayMethod setLoading={setIsLoading}/>}
+          element={<CreatePayMethod setLoading={setIsLoading} />}
         />
 
         <Route
           path="/seller/control/changeStatusSeller"
-          element={<ChangeStatusSeller setLoading={setIsLoading}/>}
+          element={<ChangeStatusSeller setLoading={setIsLoading} />}
         />
 
         <Route
           path="/seller/control/asignLocalSeller"
-          element={<AsignarLocalVendedor setLoading={setIsLoading}/>}
+          element={<AsignarLocalVendedor setLoading={setIsLoading} />}
+        />
+
+        <Route
+          path="/person/control/editPerson"
+          element={<EditPerson setLoading={setIsLoading} />}
+        />
+
+        <Route
+          path="/seller/order/asignTypePay"
+          element={<AsignarSalarioVendedor setLoading={setIsLoading} />}
         />
 
         <Route

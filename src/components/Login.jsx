@@ -31,17 +31,17 @@ const Login = ({
 
   const handleClickLogin = async () => {
     try {
-      setLoading(true);
       const user = document.getElementById("userInput").value;
       const password = document.getElementById("passInput").value;
-
+      
       const body = {
         user,
         password,
       };
-
+      
       const obj = { url: "/login", method: "POST", body };
-
+      
+      setLoading(true);
       const result = await fetcho(obj);
       setLoading(false);
 

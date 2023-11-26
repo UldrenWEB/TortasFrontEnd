@@ -30,6 +30,18 @@ const infoInputsBo = {
         {type: 'select', label: 'Vendedor', id: 'inVendedor', placeholder: 'Vendedor'},
         { type: 'select', label: 'Ruta', id: 'inRuta', placeholder: 'Ruta' },
         { type: 'select', label: 'Local', id: 'inLocal', placeholder: 'Local' },
+    ],
+    EditarPerson: [
+        {type: 'select', label: "Personas", id: 'inPersonas', placeholder: "Seleccione una persona"},
+        {type: 'text', label: "Nombre", id: 'inNombrePersona', placeholder: "Nombre de la persona"},
+        {type: 'text', label: "Apellido", id: 'inApellidoPersona', placeholder: "Apellido de la persona"},
+        {type: 'number', label: "Numero", id: 'inNumeroPersona', placeholder: "Numero de la persona"},
+        // {type: 'select', label: "Tipo", id: 'inTipoPersona', placeholder: "Tipo de la persona"},
+        {type: 'select', label: "Direccion", id: 'inDireccionPersona', placeholder: "Direccion de la persona"},
+    ], 
+    AsignarSalario: [
+        { type: 'select', label: "Vendedor", id: 'inVendedor', placeholder: "Vendedor" },
+        {type: 'select', label: "Tipo de salario", id: 'inTipoSalario', placeholder: "Tipo de salario"},
     ]
 }
 

@@ -84,7 +84,7 @@ const ComponentTable = ({ data, customHeaders }) => {
           return console.error("Hubo un error al hacer la consulta");
         }
 
-        if(response?.errorSession) return <ModalSession />
+        if (response?.errorSession) return <ModalSession />;
 
         setTableData({
           response: action === "delete" ? updateData : update,

@@ -29,13 +29,13 @@ const AsignarLocalVendedor = ({ setLoading }) => {
   const handleClick = async () => {
     const arrayInputs = ["inVendedor", "inRuta", "inLocal"];
     const data = getMapInputs({ mapaInfo, idInputs: arrayInputs });
+    console.log(data)
 
     const dataFetch = createAsignLocalSellerDataFetch({ data });
 
     //Aqui tengo que verificar la informacion con el schema
     const obj = createAsignLocalSellerObj({ dataFetch });
 
-    console.log(obj)
     const resultService = await fetchDataPost({ ...obj, setLoading });
 
     if (resultService?.errorSession) setIsErrorSession(true);
@@ -49,10 +49,10 @@ const AsignarLocalVendedor = ({ setLoading }) => {
       setDataModal(resultService);
       setIsModalVisible(true);
     } else if (!resultService) {
-      setDataModal("No se creo el local");
+      setDataModal("No se asigno el local");
       setIsModalVisible(true);
     } else {
-      setDataModal("Se creo el local");
+      setDataModal("Se asigno el local");
       setIsModalVisible(true);
     }
   };
