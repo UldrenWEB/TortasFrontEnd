@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from "react-router";
 import { Layout } from "antd";
 import SideBar from "./components/Sidebar/SideBar";
 import Content from "./components/Content";
-import FinalChat from "./components/Messages/FinalChat";
 import "./styles/App.css";
 import { verifyLoginCookie, verifyMethodsNav } from "./service/verifyLogin";
 import SuperLoader from "./components/SuperLoader";
@@ -21,7 +20,7 @@ function App() {
   useEffect(() => {
     verifyLoginCookie({ setLogger: setIsLogged, navigate, location });
 
-    verifyMethodsNav({ setLogger: setIsLogged, navigate, setDataNav , setDataUser});
+    verifyMethodsNav({ setLogger: setIsLogged, navigate, setDataNav, setDataUser });
   }, []);
 
   const changeTheme = () => setDrakTheme(!darkTheme);
@@ -29,7 +28,7 @@ function App() {
 
   return (
     <main>
-      
+
       <Layout className="main" onClick={!collapsed ? changeCollapsed : null}>
         {isLogged && (
           <SideBar
@@ -44,7 +43,7 @@ function App() {
         )}
 
         <Content
-        dataUser={dataUser}
+          dataUser={dataUser}
           darkMode={darkTheme}
           setLogger={setIsLogged}
           setDataNav={setDataNav}

@@ -155,8 +155,12 @@ const FinalChatProbe = ({ typeChat, userData }) => {
     };
     loadMessageInitial();
     loadRooms();
-    loadSocketClient();
-  }, [userData]);
+    if (!socket) {
+      console.log('El socket es undefined por lo que lo puede crear')
+      loadSocketClient();
+
+    }
+  }, [userData])
 
   useEffect(() => {
     if (!typeChat) return null;
@@ -277,7 +281,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
   if (isErrorSession) return <ModalSession />;
 
   return (
-    <div>
+    <div className="container-all-chat">
       <Button
         className="icon-button p-2 m-1 p-sm-0"
         variant="link"
@@ -319,7 +323,8 @@ const FinalChatProbe = ({ typeChat, userData }) => {
         </div>
       )}
     </div>
+
   );
-};
+}
 
 export default FinalChatProbe;
