@@ -28,7 +28,7 @@ function App() {
 
   return (
     <main>
-      
+
       <Layout className="main" onClick={!collapsed ? changeCollapsed : null}>
         {isLogged && (
           <SideBar
