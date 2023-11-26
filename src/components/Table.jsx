@@ -12,30 +12,29 @@ import fetcho from "../service/fetcho";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/table.css";
-import ColumnGroup from "antd/es/table/ColumnGroup";
 //Importar css de la tabla
 
 //!Componente el cual Renderiza en una tabla una consulta SQL y muestra cada registro
 const ComponentTable = ({ data, customHeaders }) => {
   const [tableData, setTableData] = useState(data);
   const [headers, setHeaders] = useState([]);
-  const [modifiedData, setModifiedData] = useState();
-  const [confirmAction, setConfirmAction] = useState();
+  const [modifiedData, setModifiedData] = useState(null);
+  const [confirmAction, setConfirmAction] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
   const [isConfirm, setIsConfirm] = useState(false);
   const [editingRow, setEditingRow] = useState(null);
-  const [actionAvailable, setActionAvalible] = useState([]);
+  const [actionAvailable, setActionAvailable] = useState([]);
   const [update, setUpdate] = useState(null);
+  const [originalData, setOriginalData] = useState(null);
 
   const { response, module, object, context } = tableData;
 
   if (!response || response.error) return <div>Cargando...</div>;
 
-  console.log("Probando", response, module, object, context);
   useEffect(() => {
     const array = [];
     const actions = ["delete", "update"];
-    for (let i = 0; i <= actions.length; i++) {
+    for (let i = 0; i < actions.length; i++) {
       const bool = getMethod({
         action: actions[i],
         context: context,
@@ -44,10 +43,9 @@ const ComponentTable = ({ data, customHeaders }) => {
       });
       if (bool) array.push(actions[i]);
     }
-    setActionAvalible(array);
+    setActionAvailable(array);
   }, []);
 
-  // Renderizar tabla cuando cambien los headers
   useEffect(() => {
     if (customHeaders && customHeaders.length > 0) {
       setHeaders(customHeaders);
@@ -92,7 +90,7 @@ const ComponentTable = ({ data, customHeaders }) => {
 
         setIsConfirm(false);
         setSuccessMessage(true);
-        return console.error(response);
+        console.log(response);
       } catch (error) {
         console.error(
           `Hubo un error al hacer una consulta para modificar en el componente Table, ${error.message}`
@@ -110,21 +108,35 @@ const ComponentTable = ({ data, customHeaders }) => {
     }
   }, [isConfirm]);
 
-  //!ESTO ESTA RARO SI TAL LO HARE PERO SI NO YA NO REDIRIGIRE NADA
-  // Button para redirigir según los datos específicos que se encuentran en esta tabla
   const handleButtonView = (rowData) => {
     setConfirmAction(true);
   };
 
   const handleButtonEdit = (rowData) => {
+    const data = tableData['response'].find(obj => obj.id === rowData.id)
+    setOriginalData(data)
     setEditingRow(rowData);
   };
+
+  const handleCancelEdit = () => {
+    if (originalData) {
+      console.log('Paso aqui', tableData);
+      console.log('Data origianl ', originalData)
+      const newData = [...tableData['response']]
+      console.log('Aquii esta la nueva data', newData)
+      newData[editingRow] = originalData;
+
+      console.log('Aqui extrayendo info con la fila', newData[editingRow])
+      setTableData(newData);
+      setOriginalData(null)
+    }
+    setEditingRow(null)
+  }
 
   const handleButtonDelete = (rowData) => {
     setConfirmAction(true);
 
     const { id } = rowData;
-    // Eliminar el elemento de tableData
     const updateData = response.filter((row) => row !== rowData);
     setModifiedData({
       id,
@@ -138,14 +150,10 @@ const ComponentTable = ({ data, customHeaders }) => {
 
   const handleConfirmAction = () => {
     setConfirmAction(false);
-    //Cuando le damos aceptar ocultamos el modal y hacemos true la confirmacion
-
     setIsConfirm(true);
   };
 
   const handleSaveChanges = (rowData) => {
-    setConfirmAction(true);
-
     const { id } = rowData;
     const updateData = response.find((row) => row.id === id);
     setModifiedData({
@@ -157,22 +165,17 @@ const ComponentTable = ({ data, customHeaders }) => {
       updateData,
     });
 
-    // Restablecer la fila de edición a null
+    originalData(null)
     setEditingRow(null);
   };
 
   const handleInputChange = (e, rowIndex, columnName) => {
     const { value } = e.target;
 
-    // Crear una copia de la respuesta actual
     const updatedResponse = [...response];
-
-    // Actualizar el valor del campo modificado
     updatedResponse[rowIndex][columnName] = value;
 
     setUpdate(updatedResponse);
-    // Actualizar el estado de la tabla
-    // setTableData({ response: updatedResponse, module, object, context });
   };
 
   return (
@@ -216,17 +219,31 @@ const ComponentTable = ({ data, customHeaders }) => {
                 <div className="d-flex flex-column flex-sm-row">
                   {/* Botón de guardar cambios */}
                   {editingRow === row ? (
-                    <Button
-                      className="icon-button p-2 m-1 p-sm-0"
-                      variant="link"
-                      onClick={() => handleSaveChanges(row)}
-                    >
-                      <img
-                        src={folder}
-                        alt="Icon save"
-                        style={{ width: "20px", height: "20px" }}
-                      />
-                    </Button>
+                    <>
+                      <Button
+                        className="icon-button p-2 m-1 p-sm-0"
+                        variant="link"
+                        onClick={() => handleSaveChanges(row)}
+                      >
+                        <img
+                          src={folder}
+                          alt="Icon save"
+                          style={{ width: "20px", height: "20px" }}
+                        />
+                      </Button>
+                      <Button
+                        className="icon-button p-2 m-1 p-sm-0"
+                        variant="link"
+                        onClick={() => handleCancelEdit()}
+                      >
+                        <img
+                          src={'./hola'}
+                          alt="Icon cancel"
+                          style={{ width: "20px", height: "20px" }}
+                        />
+                      </Button>
+                    </>
+
                   ) : (
                     <>
                       <Button

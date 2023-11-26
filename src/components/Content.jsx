@@ -12,9 +12,7 @@ import {
 } from "../service/verifyLogin";
 // import Reports from "./Reports";
 import MyRoute from "./MyRoute";
-import FinalChat from "./Messages/FinalChat";
 import CreateRoute from "../BO/CreateRoute";
-import ChatProbe from '../components/Messages/ChatProbe'
 import FinalChatProbe from "./Messages/FinalChatProbe";
 
 const mensajes = [
@@ -123,7 +121,6 @@ const Content = ({
         path="/reports"
         element={<MyRoute className={darkMode ? "darkMode" : "lightMode"} />}
       />
-
 
       <Route
         path="/miPinga"

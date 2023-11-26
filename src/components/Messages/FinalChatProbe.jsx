@@ -89,6 +89,8 @@ const FinalChatProbe = ({
         }
         const loadSocketClient = async () => {
             try {
+                if (!user) return console.error('El usuario es undefined');
+
                 const socketClient = iClient.createSocketClient({
                     objUser: userData,
                 });
@@ -128,7 +130,6 @@ const FinalChatProbe = ({
                         "Hubo un error al unirse al nameSpace o al room"
                     );
 
-                console.log('El usuario que envia el mensaje es: ', user)
 
                 const obj = {
                     socketEmit: socketClient,
@@ -144,7 +145,11 @@ const FinalChatProbe = ({
         };
         loadMessageInitial();
         loadRooms();
-        loadSocketClient();
+        if (!socket) {
+            console.log('El socket es undefined por lo que lo puede crear')
+            loadSocketClient();
+
+        }
     }, [userData])
 
     useEffect(() => {
@@ -264,7 +269,7 @@ const FinalChatProbe = ({
     };
 
     return (
-        <div>
+        <div className="container-all-chat">
             <Button
                 className="icon-button p-2 m-1 p-sm-0"
                 variant="link"
