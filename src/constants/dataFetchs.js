@@ -140,7 +140,7 @@ export const createPayMethodDataFetch = ({ data }) => {
       return false
     }
     const obj = {
-      to: tipoMetodoMap[inTipoMetodoPago],
+      option: tipoMetodoMap[inTipoMetodoPago],
       params: [ inDescripcionMetodoPago],
     }
 
@@ -163,6 +163,125 @@ export const createObjPayMethod = ({ dataFetch }) => {
   } catch (error) {
     console.error(
       `Existio un error en el createObjPayMethod archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const changeStatusSellerDataFetch = ({ data }) => {
+  try {
+    if(!data?.inCambiarEstado) return {info: "no se ha cambiado estado entonces no se envia nada"}
+
+    const obj = {
+      idSeller: data?.inVendedor,
+      option: data?.inEstadoVendedor === 'active' && data?.inCambiarEstado ? 'desactivate' : 'activate'
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js`
+    );
+  }
+}
+
+export const changeStatusSellerObj = ({ dataFetch }) => { 
+  try {
+    const obj = {
+      area: "seller",
+      object: "control",
+      method: "changeStatusSeller",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${dataFetch} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const getSellerByIdDataFetch = ({ data }) => { 
+  try {
+    const obj = {
+      idSeller: data?.idSeller,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const getSellerByIdObj = ({ dataFetch }) => { 
+  try {
+    const obj = {
+      area: "seller",
+      object: "control",
+      method: "getInfoSeller",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${dataFetch} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const getLocalsByRouteDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      by: 'routeAll',
+      params: [data?.idRoute],
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js`
+    );
+  }
+}
+
+export const getLocalsByRouteObj = ({ dataFetch }) => { 
+  try {
+    const obj = {
+      area: "local",
+      object: "control",
+      method: "getLocalBy",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${dataFetch} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const createAsignLocalSellerDataFetch = ({ data }) => { 
+  try {
+    const obj = {
+      idSeller: data?.inVendedor,
+      local: [data?.inLocal]
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const createAsignLocalSellerObj = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: "seller",
+      object: "control",
+      method: "asignLocalSeller",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el createAsignLocalSellerObj archivo dataFetchs.js con el dato ${dataFetch}`
     );
   }
 }
@@ -192,5 +311,11 @@ export const objsFetch = {
     method: "getAllOf",
     params: ["route"],
   },
+  objGetAllSellers: {
+    area: "seller",
+    object: "control",
+    method: "getSellersBy",
+    params: {}
+  }
   
 };

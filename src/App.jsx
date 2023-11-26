@@ -5,6 +5,7 @@ import SideBar from "./components/Sidebar/SideBar";
 import Content from "./components/Content";
 import "./styles/App.css";
 import { verifyLoginCookie, verifyMethodsNav } from "./service/verifyLogin";
+import SuperLoader from "./components/SuperLoader";
 
 function App() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [dataNav, setDataNav] = useState({});
   const [dataUser, setDataUser] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     verifyLoginCookie({ setLogger: setIsLogged, navigate, location });
@@ -26,6 +28,7 @@ function App() {
 
   return (
     <main>
+      
       <Layout className="main" onClick={!collapsed ? changeCollapsed : null}>
         {isLogged && (
           <SideBar
@@ -48,6 +51,8 @@ function App() {
           isLogged={isLogged}
           setDataUser={setDataUser}
           location={location}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
       </Layout>
     </main>

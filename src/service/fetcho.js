@@ -18,7 +18,7 @@ const fetcho = async ({ url, method, body}) => {
         cors: "cors",
       };
     
-      const config = method.toLowerCase() === "post" ? configPost : configGet;
+    const config = method.toLowerCase() === "post" ? configPost : configGet;
     
     const response = await fetch(`${URL_BASE}${url}`, config);
     
@@ -29,6 +29,7 @@ const fetcho = async ({ url, method, body}) => {
       console.log('No hay sesion activa')
       // return false
     }
+    
     return data;
   } catch (error) {
     console.error(`Ocurrio un error realizando un fetch, donde la url era ${url} y el error fue ${error.message}`)

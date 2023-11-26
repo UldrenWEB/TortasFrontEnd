@@ -27,8 +27,7 @@ const Home = () => {
             </h1>
 
             <p className="p-home">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi quo
-              odio labore cum ad maxime.asdadaaaaaaaaaaaaaaa
+            ¡Endulza cada momento de tu vida con nuestras deliciosas creaciones!
             </p>
 
             <div className="containerButton">

@@ -13,45 +13,13 @@ import {
 // import Reports from "./Reports";
 import MyRoute from "./MyRoute";
 import CreateRoute from "../BO/CreateRoute";
+import ChatProbe from "../components/Messages/ChatProbe";
 import FinalChatProbe from "./Messages/FinalChatProbe";
-
-const mensajes = [
-  {
-    fecha: "8/17/2023",
-    usuario: "Uldren",
-    emisor: "Uldren",
-    contenido: "Hola como estan",
-    receptor: "Sol",
-  },
-  {
-    fecha: "9/17/2023",
-    usuario: "Uldren",
-    emisor: "Hermana",
-    contenido: "Hola como estas Uldren",
-    receptor: "Uldren",
-  },
-  {
-    fecha: "10/17/2023",
-    usuario: "Uldren",
-    emisor: "Mama",
-    contenido: "Hola como estas Uldren",
-    receptor: "Uldren",
-  },
-  {
-    fecha: "11/17/2023",
-    usuario: "Uldren",
-    emisor: "Novia",
-    contenido: "Hola como estas Uldren",
-    receptor: "Uldren",
-  },
-  {
-    fecha: "12/17/2023",
-    usuario: "Uldren",
-    emisor: "Papa",
-    contenido: "Hola como estas Uldren",
-    receptor: "Uldren",
-  },
-];
+import CreateLocal from "../BO/CreateLocal";
+import CreatePayMethod from "../BO/CreatePayMethod";
+import ChangeStatusSeller from "../BO/ChangeStatusSeller";
+import SuperLoader from "./SuperLoader";
+import AsignarLocalVendedor from "../BO/AsignarLocalVendedor";
 
 const Content = ({
   dataUser,
@@ -62,6 +30,8 @@ const Content = ({
   isLogged,
   setDataUser,
   location,
+  isLoading,
+  setIsLoading,
 }) => {
   useEffect(() => {
     verifyLoginCookie({ setLogger, navigate, isLogged, location });
@@ -71,67 +41,95 @@ const Content = ({
   return (
     //TODO: MODIFICAR AQUI ESTO QUE LOS ELEMENTOS USAN
     //TODO: ADEMAS RECORDAR QUE TODOS LOS COMPONENTES QUE CARGUEN DEBERAN USAR SU WITDH 100%
+    <>
+      {isLoading && <SuperLoader />}
 
-    <Routes className={"main-layout"}>
-      <Route
-        path="/"
-        element={
-          <Home
-            className={darkMode ? "darkMode" : "lightMode"}
-            style={{ width: "100%" }}
-          />
-        }
-      />
-      <Route
-        path="/login"
-        element={
-          <Login
-            className={darkMode ? "darkMode" : "lightMode"}
-            style={{ width: "100%" }}
-            setLogger={setLogger}
-            setDataNav={setDataNav}
-            navigate={navigate}
-            isLogged={isLogged}
-            setDataUser={setDataUser}
-          />
-        }
-      />
-      <Route
-        path="/logout"
-        element={
-          <Logout
-            className={darkMode ? "darkMode" : "lightMode"}
-            setLogger={setLogger}
-            isLogged={isLogged}
-            style={{ width: "100%" }}
-          />
-        }
-      />
+      <Routes className={"main-layout"}>
+        <Route
+          path="/"
+          element={
+            <Home
+              className={darkMode ? "darkMode" : "lightMode"}
+              style={{ width: "100%" }}
+            />
+          }
+        />
 
-      {isLogged ? <Route path="/home" element={<div>Inicio</div>} /> : null}
+        <Route
+          path="/login"
+          element={
+            <Login
+              className={darkMode ? "darkMode" : "lightMode"}
+              style={{ width: "100%" }}
+              setLogger={setLogger}
+              setDataNav={setDataNav}
+              navigate={navigate}
+              isLogged={isLogged}
+              setDataUser={setDataUser}
+              setLoading={setIsLoading}
+            />
+          }
+        />
+        <Route
+          path="/logout"
+          element={
+            <Logout
+              className={darkMode ? "darkMode" : "lightMode"}
+              setLogger={setLogger}
+              isLogged={isLogged}
+              style={{ width: "100%" }}
+              navigate={navigate}
+            />
+          }
+        />
 
-      {/* Estas se pueden hacer dinamicas */}
-      <Route path="/person/control/createPerson" element={<CreatePerson />} />
+        {isLogged ? <Route path="/home" element={<div>Inicio</div>} /> : null}
 
-      <Route path="/sales/products/createProduct" element={<CreateProduct />} />
+        {/* Estas se pueden hacer dinamicas */}
+        <Route path="/person/control/createPerson" element={<CreatePerson setLoading={setIsLoading} />} />
 
-      <Route path="/local/control/createRoute" element={<CreateRoute />} />
+        <Route
+          path="/sales/products/createProduct"
+          element={<CreateProduct setLoading={setIsLoading} />}
+        />
 
-      <Route
-        path="/reports"
-        element={<MyRoute className={darkMode ? "darkMode" : "lightMode"} />}
-      />
+        <Route path="/local/control/createRoute" element={<CreateRoute setLoading={setIsLoading} />} />
 
-      <Route
-        path="/miPinga"
-        element={
-          <>
-            <FinalChatProbe typeChat={'broadcast'} userData={{ user: dataUser.name, profile: dataUser.profile }} />
-            {/* <FinalChat
+        <Route path="/local/control/createLocal" element={<CreateLocal setLoading={setIsLoading} />} />
+
+        <Route
+          path="/billing/payMethod/createMethod"
+          element={<CreatePayMethod setLoading={setIsLoading} />}
+        />
+
+        <Route
+          path="/seller/control/changeStatusSeller"
+          element={<ChangeStatusSeller setLoading={setIsLoading} />}
+        />
+
+        <Route
+          path="/seller/control/asignLocalSeller"
+          element={<AsignarLocalVendedor setLoading={setIsLoading} />}
+        />
+
+        <Route
+          path="/reports"
+          element={<MyRoute className={darkMode ? "darkMode" : "lightMode"} />}
+        />
+
+        <Route
+          path="/miPinga"
+          element={
+            <>
+              <FinalChatProbe
+                typeChat={"broadcast"}
+                userData={{ user: dataUser.name, profile: dataUser.profile }}
+              />
+              {/* <FinalChat
               typeChat={"el prado"}
               userData={{ user: dataUser.name, profile: dataUser.profile }}
             /> */}
-            {/* <FinalChat
+              {/* <FinalChat
               typeChat={"direct"}
               userData={{ user: dataUser.name, profile: dataUser.profile }}
             />
@@ -139,10 +137,11 @@ const Content = ({
               typeChat={"el prado"}
               userData={{ user: dataUser.name, profile: dataUser.profile }}
             /> */}
-          </>
-        }
-      />
-    </Routes>
+            </>
+          }
+        />
+      </Routes>
+    </>
   );
 };
 

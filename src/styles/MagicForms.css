@@ -68,9 +68,13 @@
     justify-content: center;
 }
 
-@media(max-width: 768px) {
+@media(max-width: 800px) {
     .container-inputs-magics {
         width: 95%;
+    }
+
+    .container-inputs-magics > div{
+        grid-column: 1 / -1 !important;
     }
 }
 

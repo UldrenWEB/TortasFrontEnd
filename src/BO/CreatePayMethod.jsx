@@ -8,6 +8,9 @@ import infoInputsBo from "../constants/infoInputsBO";
 import MagicForms from "../components/MagicForms";
 import ButtonVe from "../components/ButtonVe";
 import fetchDataPost from "../service/fetchDataPost";
+import ModalSession from "../components/ModalSession";
+import { validateCreatePayMethod } from "../constants/schemas";
+import ModalBase from "../components/ModalBase";
 
 const dataTypesObj = [
   {
@@ -24,21 +27,37 @@ const dataTypesObj = [
   },
 ];
 
-const CreatePayMethod = () => {
+const CreatePayMethod = ({setLoading}) => {
   const [mapaInfo, setMapaInfo] = useState(null);
   const [dataTypes, setDataTypes] = useState(null);
+  const [isErrorSession, setIsErrorSession] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [dataModal, setDataModal] = useState(null);
 
   const handleClick = async () => {
     const arrayInputs = ["inTipoMetodoPago", "inDescripcionMetodoPago"];
 
     const data = getMapInputs({ mapaInfo, idInputs: arrayInputs });
 
-    // const result = await validateCreatePayMethod({data})
-    // if (result?.error) return console.log(`Existio un error: ${result.error}`);
+    const result = await validateCreatePayMethod({data})
+    if (result?.error) return console.log(`Existio un error: ${result.error}`);
 
     const dataFetch = createPayMethodDataFetch({ data });
     const obj = createObjPayMethod({ dataFetch });
-    const resultService = await fetchDataPost(obj);
+    const resultService = await fetchDataPost({...obj, setLoading});
+    if(resultService?.errorSession) setIsErrorSession(true)
+
+    if(typeof resultService === "string" ){
+      setDataModal(resultService);
+      setIsModalVisible(true);
+    }else if(!resultService){
+      setDataModal("No se creo el metodo de pago");
+      setIsModalVisible(true);
+    }else{
+      setDataModal("Se creo el metodo de pago");
+      setIsModalVisible(true);
+    }
+
     console.log(resultService);
   };
 
@@ -59,10 +78,14 @@ const CreatePayMethod = () => {
     mapaInfo.get("inTipoMetodoPago").setInfo({ value: "", options: dataTypes });
   }, [mapaInfo, dataTypes]);
 
+  if(isErrorSession) return <ModalSession/>
+
+  if(dataModal && isModalVisible) return <ModalBase setIsModalVisible={setIsModalVisible} content={dataModal}/>
+
   return (
     <section className="container-magic-forms">
       <div className="container-form-magic">
-        <h1>Crear Pago</h1>
+        <h1>Crear Metodo de Pago / Banco</h1>
         <MagicForms
           infoData={infoInputsBo.CreatePayMethod}
           mapaInfo={setMapaInfo}
