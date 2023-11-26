@@ -226,6 +226,66 @@ export const getSellerByIdObj = ({ dataFetch }) => {
   }
 }
 
+export const getLocalsByRouteDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      by: 'routeAll',
+      params: [data?.idRoute],
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js`
+    );
+  }
+}
+
+export const getLocalsByRouteObj = ({ dataFetch }) => { 
+  try {
+    const obj = {
+      area: "local",
+      object: "control",
+      method: "getLocalBy",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${dataFetch} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const createAsignLocalSellerDataFetch = ({ data }) => { 
+  try {
+    const obj = {
+      idSeller: data?.inVendedor,
+      local: [data?.inLocal]
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(`Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const createAsignLocalSellerObj = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: "seller",
+      object: "control",
+      method: "asignLocalSeller",
+      params: dataFetch,
+    };
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el createAsignLocalSellerObj archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
 export const objsFetch = {
   objGetAllAddress: {
     area: "person",

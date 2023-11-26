@@ -20,6 +20,7 @@ import CreateLocal from "../BO/CreateLocal";
 import CreatePayMethod from "../BO/CreatePayMethod";
 import ChangeStatusSeller from "../BO/ChangeStatusSeller";
 import SuperLoader from "./SuperLoader";
+import AsignarLocalVendedor from "../BO/AsignarLocalVendedor";
 
 const Content = ({
   dataUser,
@@ -105,6 +106,16 @@ const Content = ({
         <Route
           path="/seller/control/changeStatusSeller"
           element={<ChangeStatusSeller setLoading={setIsLoading}/>}
+        />
+
+        <Route
+          path="/seller/control/asignLocalSeller"
+          element={<AsignarLocalVendedor setLoading={setIsLoading}/>}
+        />
+
+        <Route
+          path="/reports"
+          element={<MyRoute className={darkMode ? "darkMode" : "lightMode"} />}
         />
 
         <Route

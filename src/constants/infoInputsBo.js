@@ -25,6 +25,11 @@ const infoInputsBo = {
         {type: 'select', label: 'Vendedor', id: 'inVendedor', placeholder: 'Vendedor'},
         { type: 'text', label: "Estado del vendedor", id: 'inEstadoVendedor', placeholder: "Estado del vendedor", readOnly: true},
         { type: 'switch', label: "Cambiar estado", id: 'inCambiarEstado', placeholder: "Cambiar Estado del vendedor" },
+    ],
+    AsignarLocalVendedor: [
+        {type: 'select', label: 'Vendedor', id: 'inVendedor', placeholder: 'Vendedor'},
+        { type: 'select', label: 'Ruta', id: 'inRuta', placeholder: 'Ruta' },
+        { type: 'select', label: 'Local', id: 'inLocal', placeholder: 'Local' },
     ]
 }
 
