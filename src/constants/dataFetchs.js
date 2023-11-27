@@ -536,7 +536,7 @@ export const objsFetch = {
     area: 'billing',
     object: 'payMethod',
     method: 'getAll',
-    params: { option: 'methodbankactive' }
+    params: { option: 'meethodbankactiv' }
   },
   objGetAllMethodOther: {
     area: 'billing',

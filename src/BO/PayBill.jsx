@@ -203,9 +203,12 @@ const AsingPayToBill = ({ setLoading }) => {
     const handleChangeTipoPago = (e) => {
         const idTipoPago = e.target.value;
         if (idTipoPago == 1) {
-            setIdTipoPago(1)
+            setIdTipoPago(1);
+            mapaInfo.get('inBanco').setIsNotVisible(true)
+
             setDataMetodoPago(null);
         }
+        mapaInfo.get('inBanco').setIsNotVisible(false)
         setIdTipoPago(2)
         setDataMetodoPago(null);
     }
