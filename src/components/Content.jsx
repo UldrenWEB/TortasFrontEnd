@@ -22,6 +22,7 @@ import SuperLoader from "./SuperLoader";
 import AsignarLocalVendedor from "../BO/AsignarLocalVendedor";
 import EditPerson from "../BO/EditPerson";
 import AsignarSalarioVendedor from "../BO/AsignarSalarioVendedor";
+import HomeLogged from "./HomeLogged";
 
 const Content = ({
   dataUser,
@@ -85,7 +86,7 @@ const Content = ({
           }
         />
 
-        {isLogged ? <Route path="/home" element={<div>Inicio</div>} /> : null}
+        {isLogged ? <Route path="/home" element={<HomeLogged setLoading={setIsLoading} infoUser={dataUser}/>} /> : null}
 
         {/* Estas se pueden hacer dinamicas */}
         <Route path="/person/control/createPerson" element={<CreatePerson setLoading={setIsLoading} />} />
