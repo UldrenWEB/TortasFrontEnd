@@ -500,6 +500,134 @@ export const getAmountObj = ({ dataFetch }) => {
   }
 }
 
+export const editProductSaleDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      option: 'productsale',
+      params: [
+        data?.inPresentacion ?? null,
+        data?.inMonto ?? null,
+        data?.inProducto ?? null
+      ]
+    }
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el editProductSaleDataFetch archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const editProductSaleObj = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: 'sales',
+      object: 'products',
+      method: 'updateToProductSale',
+      params: dataFetch
+    }
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el editProductSaleDataFetch archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const getPresentationByIdDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      params: data?.inProducto
+    }
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el getPresentationByIdDataFetch archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const getPresentationByIdObj = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: 'sales',
+      object: 'products',
+      method: 'getAllPresentationByProduct',
+      params: dataFetch
+    }
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el getPresentationByIdDataFetch archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const getProductByIdPresentationDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      condition: 'presentation',
+      params: data?.inPresentacion,
+    }
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el getProductByIdPresentationDataFetch archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const getProductByIdPresentationObj = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: 'sales',
+      object: 'products',
+      method: 'getAllProductByCondition',
+      params: dataFetch
+    }
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el getProductByIdPresentationObj archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const getAmountByProductDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      idProduct: data?.inProducto
+    }
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el getAmountByProductDataFetch archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const getAmountByProductObj = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: 'sales',
+      object: 'products',
+      method: 'getAmountByProductAndPresentation',
+      params: dataFetch
+    }
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el getAmountByProductObj archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
 export const objsFetch = {
   objGetAllAddress: {
     area: "person",
@@ -572,5 +700,11 @@ export const objsFetch = {
     object: 'payMethod',
     method: 'getAll',
     params: { option: 'methodotheractive' }
+  },
+  objGetAllPresentation: {
+    area: 'sales',
+    object: 'products',
+    method: 'getAll',
+    params: { option: 'presentation' }
   }
 };

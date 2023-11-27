@@ -16,12 +16,12 @@ import { validateEditPerson } from "../constants/schemas";
 
 const EditPerson = ({ setLoading }) => {
   const [mapaInfo, setMapaInfo] = useState(null);
-  const [dataPersons, setDataPersons] = useState(null);
   const [isErrorSession, setIsErrorSession] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [dataModal, setDataModal] = useState(null);
-  const [dataAddress, setDataAddress] = useState(null);
 
+  const [dataPersons, setDataPersons] = useState(null);
+  const [dataAddress, setDataAddress] = useState(null);
   const [dataIdPerson, setDataIdPerson] = useState(null);
   const [dataName, setDataName] = useState(null);
   const [dataLastName, setDataLastName] = useState(null);
@@ -53,10 +53,10 @@ const EditPerson = ({ setLoading }) => {
     const data = getMapInputs({ mapaInfo, idInputs: arrayInputs });
 
     const result = await validateEditPerson({ data });
-    if (result?.error){
-        setDataModal(result.error);
-        setIsModalVisible(true);
-        return;
+    if (result?.error) {
+      setDataModal(result.error);
+      setIsModalVisible(true);
+      return;
     }
 
     const dataFetch = editPersonDataFetch({ data });

@@ -57,6 +57,12 @@ const infoInputsBo = {
     AsignarSalario: [
         { type: 'select', label: "Vendedor", id: 'inVendedor', placeholder: "Vendedor" },
         { type: 'select', label: "Tipo de salario", id: 'inTipoSalario', placeholder: "Tipo de salario" },
+    ],
+
+    editProducSale: [
+        { type: 'select', label: 'Productos', id: 'inProducto', placeholder: 'Productos a la venta' },
+        { type: 'select', label: 'Presentacion', id: 'inPresentacion', placeholder: 'Presentaciones del producto' },
+        { type: 'text', label: 'Monto', id: 'inMonto', placeholder: 'Nuevo monto' },
     ]
 }
 
