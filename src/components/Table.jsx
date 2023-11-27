@@ -83,7 +83,7 @@ const ComponentTable = ({ data, customHeaders }) => {
           return console.error("Hubo un error al hacer la consulta");
         }
 
-        if (response?.errorSession) return <ModalSession />
+        if (response?.errorSession) return <ModalSession />;
 
         setTableData({
           response: action === "delete" ? updateData : update,
@@ -117,25 +117,25 @@ const ComponentTable = ({ data, customHeaders }) => {
   };
 
   const handleButtonEdit = (rowData) => {
-    const data = tableData['response'].find(obj => obj.id === rowData.id)
-    setOriginalData(data)
+    const data = tableData["response"].find((obj) => obj.id === rowData.id);
+    setOriginalData(data);
     setEditingRow(rowData);
   };
 
   const handleCancelEdit = () => {
     if (originalData) {
-      console.log('Paso aqui', tableData);
-      console.log('Data origianl ', originalData)
-      const newData = [...tableData['response']]
-      console.log('Aquii esta la nueva data', newData)
+      console.log("Paso aqui", tableData);
+      console.log("Data origianl ", originalData);
+      const newData = [...tableData["response"]];
+      console.log("Aquii esta la nueva data", newData);
       newData[editingRow] = originalData;
 
-      console.log('Aqui extrayendo info con la fila', newData[editingRow])
+      console.log("Aqui extrayendo info con la fila", newData[editingRow]);
       setTableData(newData);
-      setOriginalData(null)
+      setOriginalData(null);
     }
-    setEditingRow(null)
-  }
+    setEditingRow(null);
+  };
 
   const handleButtonDelete = (rowData) => {
     setConfirmAction(true);
@@ -169,7 +169,7 @@ const ComponentTable = ({ data, customHeaders }) => {
       updateData,
     });
 
-    originalData(null)
+    originalData(null);
     setEditingRow(null);
   };
 
@@ -241,13 +241,12 @@ const ComponentTable = ({ data, customHeaders }) => {
                         onClick={() => handleCancelEdit()}
                       >
                         <img
-                          src={'./hola'}
+                          src={"./hola"}
                           alt="Icon cancel"
                           style={{ width: "20px", height: "20px" }}
                         />
                       </Button>
                     </>
-
                   ) : (
                     <>
                       <Button

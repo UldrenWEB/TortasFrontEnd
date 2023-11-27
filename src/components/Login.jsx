@@ -57,12 +57,12 @@ const Login = ({
 
       setLogger(true);
 
-      if (!result?.userProfiel) {
+      if (!result?.userProfile) {
         navigate("/setProfile");
       }
 
       const permisosNav = result.permissions;
-      console.log(result);
+      // console.log(result);
 
       const datosUser = {
         id: result.profileData.idUser,

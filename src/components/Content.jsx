@@ -1,30 +1,28 @@
-import Home from "./Home";
-import Login from "./Login";
-import Logout from "./Logout";
+import { lazy, Suspense, useEffect } from 'react';
 import { Route, Routes } from "react-router-dom";
-import CreatePerson from "../BO/CreatePerson";
-import { useEffect } from "react";
-import CreateProduct from "../BO/CreateProduct";
 import {
   verifyLoginCookie,
   verifyMethodsNav,
-  verifySession,
 } from "../service/verifyLogin";
-// import Reports from "./Reports";
-import MyRoute from "./MyRoute";
-import CreateRoute from "../BO/CreateRoute";
-import ChatProbe from "../components/Messages/ChatProbe";
-import FinalChatProbe from "./Messages/FinalChatProbe";
-import CreateLocal from "../BO/CreateLocal";
-import CreatePayMethod from "../BO/CreatePayMethod";
-import ChangeStatusSeller from "../BO/ChangeStatusSeller";
 import SuperLoader from "./SuperLoader";
-import AsignarLocalVendedor from "../BO/AsignarLocalVendedor";
-import CreateBilling from "../BO/CreateBilling";
-import AsingPayToBill from "../BO/payBill";
-import EditPerson from "../BO/EditPerson";
-import AsignarSalarioVendedor from "../BO/AsignarSalarioVendedor";
-import HomeLogged from "./HomeLogged";
+
+const Home = lazy(() => import('./Home'));
+const Login = lazy(() => import('./Login'));
+const Logout = lazy(() => import('./Logout'));
+const CreatePerson = lazy(() => import('../BO/CreatePerson'));
+const CreateProduct = lazy(() => import('../BO/CreateProduct'));
+const MyRoute = lazy(() => import('./MyRoute'));
+const CreateRoute = lazy(() => import('../BO/CreateRoute'));
+const CreateLocal = lazy(() => import('../BO/CreateLocal'));
+const CreatePayMethod = lazy(() => import('../BO/CreatePayMethod'));
+const ChangeStatusSeller = lazy(() => import('../BO/ChangeStatusSeller'));
+const AsignarLocalVendedor = lazy(() => import('../BO/AsignarLocalVendedor'));
+const CreateBilling = lazy(() => import('../BO/CreateBilling'));
+const AsingPayToBill = lazy(() => import('../BO/payBill'));
+const EditPerson = lazy(() => import('../BO/EditPerson'));
+const AsignarSalarioVendedor = lazy(() => import('../BO/AsignarSalarioVendedor'));
+const HomeLogged = lazy(() => import('./HomeLogged'));
+const FinalChatProbe = lazy(() => import('./Messages/FinalChatProbe'));
 
 const Content = ({
   dataUser,
@@ -46,7 +44,7 @@ const Content = ({
   return (
     //TODO: MODIFICAR AQUI ESTO QUE LOS ELEMENTOS USAN
     //TODO: ADEMAS RECORDAR QUE TODOS LOS COMPONENTES QUE CARGUEN DEBERAN USAR SU WITDH 100%
-    <>
+    <Suspense fallback={<SuperLoader />}>
       {isLoading && <SuperLoader />}
 
       <Routes className={"main-layout"}>
@@ -178,7 +176,7 @@ const Content = ({
           }
         />
       </Routes>
-    </>
+    </Suspense>
   );
 };
 

@@ -122,10 +122,13 @@ const FinalChatProbe = ({ typeChat, userData }) => {
         });
 
         if (!route || route.error) {
-          return console.error('Hubo un error al intentar obtener la ruta del usuario', route.error)
+          return console.error(
+            "Hubo un error al intentar obtener la ruta del usuario",
+            route.error
+          );
         }
 
-        console.log('Esta es la ruta a la que se va a unir ese usuario', route)
+        console.log("Esta es la ruta a la que se va a unir ese usuario", route);
         const joinNamespace = iClient.joinNamespace(socketClient);
         const joinRoom = iClient.joinRoom(socketClient, "el prado");
 
@@ -156,11 +159,10 @@ const FinalChatProbe = ({ typeChat, userData }) => {
     loadMessageInitial();
     loadRooms();
     if (!socket) {
-      console.log('El socket es undefined por lo que lo puede crear')
+      console.log("El socket es undefined por lo que lo puede crear");
       loadSocketClient();
-
     }
-  }, [userData])
+  }, [userData]);
 
   useEffect(() => {
     if (!typeChat) return null;
@@ -281,7 +283,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
   if (isErrorSession) return <ModalSession />;
 
   return (
-    <div className="container-all-chat">
+    <div className={showChat ? "container-all-chat" : "container-all-chat chat-not-show"}>
       <Button
         className="icon-button p-2 m-1 p-sm-0"
         variant="link"
@@ -290,31 +292,33 @@ const FinalChatProbe = ({ typeChat, userData }) => {
         <img
           src={icon}
           alt="Icon chat"
-          style={{ width: "16px", height: "16px" }}
+          style={{ width: "2.5rem", height: "2.5rem" }}
+          className="icon-chat-img"
         />
       </Button>
       {showChat && (
-        <div>
+        <div className="container-group-chats">
           <ChatProbe
             messageInitial={chatMessage}
             typeChat={typeChat}
             onNewMessage={newMessage}
           />
-          <div>
-            <Button
-              className="send-image-button"
+          <div className="container-group-chats-buttons">
+            {/* <Button
+              className="send-image-button button-chat"
               onClick={handleSendImageMessage}
             >
               Enviar Imagen
-            </Button>
+            </Button> */}
             <Input
+            className="input-chat-message"
               type="text"
               value={inputValue}
               onChange={handleInputChange}
               placeholder="Escribe tu mensaje..."
             />
             <Button
-              className="send-text-button"
+              className="send-text-button button-chat"
               onClick={handleSendTextMessage}
             >
               Enviar
@@ -323,8 +327,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
         </div>
       )}
     </div>
-
   );
-}
+};
 
 export default FinalChatProbe;
