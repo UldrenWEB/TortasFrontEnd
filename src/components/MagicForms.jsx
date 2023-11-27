@@ -48,7 +48,7 @@ const MagicForms = ({ infoData, mapaInfo, eventHandlers }) => {
                 onChange={handleChange}
                 readOnly={isReadOnly}
                 {...rest}
-                className={isNotVisible && "no-visible"}
+                className={isNotVisible ? "no-visible" : ""}
               >
                 <option value="" key={`${id}-null`}>
                   Seleccione
@@ -72,7 +72,7 @@ const MagicForms = ({ infoData, mapaInfo, eventHandlers }) => {
                 value={info.value}
                 onChange={handleChange}
                 readOnly={isReadOnly}
-                className={isNotVisible && "no-visible"}
+                className={isNotVisible ? "no-visible" : ""}
                 {...rest}
               />
             )}
