@@ -1,10 +1,6 @@
 import { Avatar, Card } from "antd";
 import { Link } from "react-router-dom";
-import {
-  EditOutlined,
-  LogoutOutlined,
-  HomeFilled
-} from "@ant-design/icons";
+import { EditOutlined, LogoutOutlined, HomeFilled } from "@ant-design/icons";
 
 const { Meta } = Card;
 
@@ -23,9 +19,15 @@ const InfoUser = ({
       actions={
         !collapsed
           ? [
-            <Link to={"/home"}><HomeFilled key="home" style={{color: 'green'}}/></Link>,
-            <Link to={"/editUser"}><EditOutlined key="edit" style={{color: 'blue'}}/></Link>,
-            <Link to={'/logout'}><LogoutOutlined  key="logout" style={{color: 'red'}}/></Link>,
+              <Link to={"/home"}>
+                <HomeFilled key="home" style={{ color: "green" }} />
+              </Link>,
+              <Link to={"/editUser"}>
+                <EditOutlined key="edit" style={{ color: "blue" }} />
+              </Link>,
+              <Link to={"/logout"}>
+                <LogoutOutlined key="logout" style={{ color: "red" }} />
+              </Link>,
             ]
           : null
       }
