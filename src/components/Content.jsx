@@ -145,6 +145,16 @@ const Content = ({
         />
 
         <Route
+          path="/person/control/editPerson"
+          element={<EditPerson setLoading={setIsLoading} />}
+        />
+
+        <Route
+          path="/seller/order/asignTypePay"
+          element={<AsignarSalarioVendedor setLoading={setIsLoading} />}
+        />
+
+        <Route
           path="/miPinga"
           element={
             <>
