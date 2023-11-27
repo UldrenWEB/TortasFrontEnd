@@ -38,7 +38,14 @@ const MagicForms = ({ infoData, mapaInfo, eventHandlers }) => {
         };
 
         const elementFinal = (
-          <div className="container-input-magic" key={key}>
+          <div
+            className={
+              isNotVisible
+                ? "container-input-magic no-visible"
+                : "container-input-magic"
+            }
+            key={key}
+          >
             <label>{label}</label>
 
             {type.toLowerCase() === "select" ? (
