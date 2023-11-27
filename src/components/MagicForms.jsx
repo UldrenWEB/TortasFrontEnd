@@ -41,7 +41,7 @@ const MagicForms = ({ infoData, mapaInfo, eventHandlers }) => {
           <div
             className={
               isNotVisible
-                ? "container-input-magic no-visible"
+                ? "no-visible"
                 : "container-input-magic"
             }
             key={key}

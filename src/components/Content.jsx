@@ -88,7 +88,7 @@ const Content = ({
           }
         />
 
-        {isLogged ? <Route path="/home" element={<HomeLogged setLoading={setIsLoading} infoUser={dataUser}/>} /> : null}
+        {isLogged ? <Route path="/home" element={<HomeLogged setLoading={setIsLoading} infoUser={dataUser} />} /> : null}
 
         {/* Estas se pueden hacer dinamicas */}
         <Route path="/person/control/createPerson" element={<CreatePerson setLoading={setIsLoading} />} />
@@ -123,7 +123,7 @@ const Content = ({
         />
 
         <Route
-          path="/billing/bill/createBilling"
+          path="/billing/bill/createBill"
           element={<CreateBilling setLoading={setIsLoading}
           />} />
 

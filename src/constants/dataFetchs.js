@@ -455,6 +455,35 @@ export const getAmoutDataFetch = ({ data }) => {
   }
 }
 
+export const getPresentationObj = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: 'sales',
+      object: 'products',
+      method: 'getAllPresentationByProduct',
+      params: dataFetch
+    }
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el getPresentacionDataFetch archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const getPresentationDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      params: data?.inProducto
+    }
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el getPresentacionDataFetch archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
 export const getAmountObj = ({ dataFetch }) => {
   try {
     const obj = {
@@ -520,11 +549,11 @@ export const objsFetch = {
     method: 'getAllOf',
     params: { option: 'person' }
   },
-  objGetAllProducts: {
+  objGetAllProductSale: {
     area: 'sales',
     object: 'products',
     method: 'getAll',
-    params: { option: 'product' }
+    params: { option: 'productsale' }
   },
   objGetAllBanksActive: {
     area: 'billing',
@@ -536,7 +565,7 @@ export const objsFetch = {
     area: 'billing',
     object: 'payMethod',
     method: 'getAll',
-    params: { option: 'meethodbankactiv' }
+    params: { option: 'methodbankactive' }
   },
   objGetAllMethodOther: {
     area: 'billing',

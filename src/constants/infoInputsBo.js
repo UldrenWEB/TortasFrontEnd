@@ -37,6 +37,7 @@ const infoInputsBo = {
         { type: 'text', label: 'Fecha Limite', id: 'inFecha', placeholder: 'Fecha Limite', readOnly: true },
         { type: 'select', label: 'Cliente', id: 'inCliente', placeholder: 'Client' },
         { type: 'select', label: 'Productos', id: 'inProducto', placeholder: 'Productos' },
+        { type: 'select', label: 'Presentacion', id: 'inPresentacion', placeholder: 'Presentaciones' }
     ],
     payBill: [
         { type: 'text', label: 'Id de la factura', id: 'inFactura', placeholder: 'Id de la factura a pagar', readOnly: false },
