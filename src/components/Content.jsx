@@ -20,6 +20,8 @@ import CreatePayMethod from "../BO/CreatePayMethod";
 import ChangeStatusSeller from "../BO/ChangeStatusSeller";
 import SuperLoader from "./SuperLoader";
 import AsignarLocalVendedor from "../BO/AsignarLocalVendedor";
+import CreateBilling from '../BO/CreateBilling'
+import AsingPayToBill from "../BO/payBill";
 import EditPerson from "../BO/EditPerson";
 import AsignarSalarioVendedor from "../BO/AsignarSalarioVendedor";
 import HomeLogged from "./HomeLogged";
@@ -118,6 +120,16 @@ const Content = ({
         <Route
           path="/reports"
           element={<MyRoute className={darkMode ? "darkMode" : "lightMode"} />}
+        />
+
+        <Route
+          path="/billing/bill/createBilling"
+          element={<CreateBilling setLoading={setIsLoading}
+          />} />
+
+        <Route
+          path="/billing/bill/payBill"
+          element={<AsingPayToBill setLoading={setIsLoading} />}
         />
 
         <Route

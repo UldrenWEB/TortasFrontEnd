@@ -8,7 +8,7 @@ import {
   objsFetch,
   getSellerByIdDataFetch,
 } from "../constants/dataFetchs";
-import infoInputsBo from "../constants/infoInputsBO";
+import infoInputsBo from '../constants/infoInputsBo';
 import MagicForms from "../components/MagicForms";
 import ButtonVe from "../components/ButtonVe";
 import ModalSession from "../components/ModalSession";
@@ -30,7 +30,7 @@ const ChangeStatusSeller = ({ setLoading }) => {
     const data = getMapInputs({ mapaInfo, idInputs: arrayInputs });
     console.log(data)
 
-    const result = await validateChangeStatusSeller({data})
+    const result = await validateChangeStatusSeller({ data })
     if (result?.error) return console.log(`Existio un error: ${result.error}`);
 
     const dataFetch = changeStatusSellerDataFetch({ data });
@@ -56,13 +56,13 @@ const ChangeStatusSeller = ({ setLoading }) => {
 
   const handleChangeSelect = (e) => {
     const idSeller = e.target.value;
-  
+
     if (idSeller === "") {
       setDataIdSeller("");
       setDataStatus("Seleccione");
       return;
     }
-  
+
     // Aquí debo obtener la información de ese vendedor
     setDataIdSeller(idSeller);
   };
