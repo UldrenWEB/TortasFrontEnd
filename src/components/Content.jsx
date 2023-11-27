@@ -22,6 +22,8 @@ import SuperLoader from "./SuperLoader";
 import AsignarLocalVendedor from "../BO/AsignarLocalVendedor";
 import CreateBilling from '../BO/CreateBilling'
 import AsingPayToBill from "../BO/payBill";
+import EditPerson from "../BO/EditPerson";
+import AsignarSalarioVendedor from "../BO/AsignarSalarioVendedor";
 
 const Content = ({
   dataUser,

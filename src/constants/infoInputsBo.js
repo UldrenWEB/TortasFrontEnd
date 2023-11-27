@@ -44,6 +44,18 @@ const infoInputsBo = {
         { type: 'select', label: 'Metodo de pago', id: 'inMetodo', placeholder: 'Metodo de pago' },
         { type: 'select', label: 'Banco', id: 'inBanco', placeholder: 'Tipos de bancos disponibles' },
         { type: 'text', label: 'Monto a pagar', id: 'inMonto', placeholder: 'Monto a pagar' },
+    ],
+    EditarPerson: [
+        { type: 'select', label: "Personas", id: 'inPersonas', placeholder: "Seleccione una persona" },
+        { type: 'text', label: "Nombre", id: 'inNombrePersona', placeholder: "Nombre de la persona" },
+        { type: 'text', label: "Apellido", id: 'inApellidoPersona', placeholder: "Apellido de la persona" },
+        { type: 'number', label: "Numero", id: 'inNumeroPersona', placeholder: "Numero de la persona" },
+        // {type: 'select', label: "Tipo", id: 'inTipoPersona', placeholder: "Tipo de la persona"},
+        { type: 'select', label: "Direccion", id: 'inDireccionPersona', placeholder: "Direccion de la persona" },
+    ],
+    AsignarSalario: [
+        { type: 'select', label: "Vendedor", id: 'inVendedor', placeholder: "Vendedor" },
+        { type: 'select', label: "Tipo de salario", id: 'inTipoSalario', placeholder: "Tipo de salario" },
     ]
 }
 
