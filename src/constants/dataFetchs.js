@@ -19,14 +19,14 @@ export const createPersonDataFetch = ({ data }) => {
 };
 
 export const createObjPerson = ({ dataFetch }) => {
-    try {
+  try {
     const obj = {
       area: "person",
       object: "control",
       method: "createPerson",
       params: dataFetch,
-        };
-        
+    };
+
     return obj;
   } catch (error) {
     console.error(
@@ -37,9 +37,9 @@ export const createObjPerson = ({ dataFetch }) => {
 
 export const createProductDataFetch = ({ data }) => {
   try {
-      const obj = {
-        option: 'product',
-      params:[ data?.inDescripcionProducto],
+    const obj = {
+      option: 'product',
+      params: [data?.inDescripcionProducto],
     };
 
     return obj;
@@ -67,11 +67,11 @@ export const createObjProduct = ({ dataFetch }) => {
   }
 };
 
-export const createRouteDataFetch = ({ data }) => { 
+export const createRouteDataFetch = ({ data }) => {
   try {
     const obj = {
       to: 'route',
-      params: [ data?.inCalleAsociada, data?.inNombreRuta],
+      params: [data?.inCalleAsociada, data?.inNombreRuta],
     }
     return obj
   } catch (error) {
@@ -100,7 +100,7 @@ export const createLocalDataFetch = ({ data }) => {
   try {
     const obj = {
       to: 'local',
-      params: [ data?.inRutaAsociada, data?.inNombreLocal],
+      params: [data?.inRutaAsociada, data?.inNombreLocal],
     }
     return obj
   } catch (error) {
@@ -125,7 +125,7 @@ export const createObjLocal = ({ dataFetch }) => {
   }
 }
 
-export const createPayMethodDataFetch = ({ data }) => { 
+export const createPayMethodDataFetch = ({ data }) => {
   try {
 
     const { inTipoMetodoPago, inDescripcionMetodoPago } = data
@@ -141,7 +141,7 @@ export const createPayMethodDataFetch = ({ data }) => {
     }
     const obj = {
       option: tipoMetodoMap[inTipoMetodoPago],
-      params: [ inDescripcionMetodoPago],
+      params: [inDescripcionMetodoPago],
     }
 
     return obj
@@ -169,7 +169,7 @@ export const createObjPayMethod = ({ dataFetch }) => {
 
 export const changeStatusSellerDataFetch = ({ data }) => {
   try {
-    if(!data?.inCambiarEstado) return {info: "no se ha cambiado estado entonces no se envia nada"}
+    if (!data?.inCambiarEstado) return { info: "no se ha cambiado estado entonces no se envia nada" }
 
     const obj = {
       idSeller: data?.inVendedor,
@@ -184,7 +184,7 @@ export const changeStatusSellerDataFetch = ({ data }) => {
   }
 }
 
-export const changeStatusSellerObj = ({ dataFetch }) => { 
+export const changeStatusSellerObj = ({ dataFetch }) => {
   try {
     const obj = {
       area: "seller",
@@ -199,7 +199,7 @@ export const changeStatusSellerObj = ({ dataFetch }) => {
   }
 }
 
-export const getSellerByIdDataFetch = ({ data }) => { 
+export const getSellerByIdDataFetch = ({ data }) => {
   try {
     const obj = {
       idSeller: data?.idSeller,
@@ -211,7 +211,7 @@ export const getSellerByIdDataFetch = ({ data }) => {
   }
 }
 
-export const getSellerByIdObj = ({ dataFetch }) => { 
+export const getSellerByIdObj = ({ dataFetch }) => {
   try {
     const obj = {
       area: "seller",
@@ -241,7 +241,7 @@ export const getLocalsByRouteDataFetch = ({ data }) => {
   }
 }
 
-export const getLocalsByRouteObj = ({ dataFetch }) => { 
+export const getLocalsByRouteObj = ({ dataFetch }) => {
   try {
     const obj = {
       area: "local",
@@ -256,7 +256,7 @@ export const getLocalsByRouteObj = ({ dataFetch }) => {
   }
 }
 
-export const createAsignLocalSellerDataFetch = ({ data }) => { 
+export const createAsignLocalSellerDataFetch = ({ data }) => {
   try {
     const obj = {
       idSeller: data?.inVendedor,
@@ -266,6 +266,70 @@ export const createAsignLocalSellerDataFetch = ({ data }) => {
     return obj;
   } catch (error) {
     console.error(`Existio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+export const createBillingDataFetch = ({ arrayProducts, data }) => {
+  try {
+    const obj = {
+      products: arrayProducts,
+      dateLimit: data?.inTipoPago === 1 ? false : data?.inFecha,
+      params: [data?.inVendedor, data?.inCliente],
+    }
+    return obj;
+  } catch (error) {
+    console.error(`Surgio un error en el servicio dataFetch con el dato ${data} en el archivo dataFetchs.js. Error: ${error.message}`)
+  }
+}
+
+export const createBillingObj = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: 'billing',
+      object: 'bill',
+      method: 'createBill',
+      params: dataFetch
+    }
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Surgio un error en el createBillingDataFetch archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const asingPayToBillObj = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: 'billing',
+      object: 'bill',
+      method: 'payBill',
+      params: dataFetch
+    }
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Surgio un error en el asingPayToBillObj archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const asingPayToBillDataFetch = ({ idBill, data }) => {
+  try {
+    const array = []
+    const obj = {
+      typePay: data?.inTipoPago,
+      idBill,
+      amount: data?.inMonto,
+      params: data?.inTipoPago === 'bank' ? [data?.inBanco, data?.inMetodo] : [data?.inMetodo]
+    }
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Surgio un error en el asingPayToBillDataFetch archivo dataFetchs.js con el dato ${dataFetch}`
+    );
   }
 }
 
@@ -282,6 +346,37 @@ export const createAsignLocalSellerObj = ({ dataFetch }) => {
   } catch (error) {
     console.error(
       `Existio un error en el createAsignLocalSellerObj archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const getAmoutDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      option: 'debt',
+      idBill: data?.inFactura
+    }
+
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el getAmoutDataFetch archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
+export const getAmountObj = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: 'billing',
+      object: 'bill',
+      method: 'getTotal',
+      params: dataFetch
+    }
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el getAmountObj archivo dataFetchs.js con el dato ${dataFetch}`
     );
   }
 }
@@ -303,7 +398,7 @@ export const objsFetch = {
     area: "directions",
     object: "Control",
     method: "getAll",
-    params: {direction: 'street'}
+    params: { direction: 'street' }
   },
   objGetAllRoutes: {
     area: "local",
@@ -316,6 +411,35 @@ export const objsFetch = {
     object: "control",
     method: "getSellersBy",
     params: {}
+  },
+  objGetAllPerson: {
+    area: 'person',
+    object: 'control',
+    method: 'getAllOf',
+    params: { option: 'person' }
+  },
+  objGetAllProducts: {
+    area: 'sales',
+    object: 'products',
+    method: 'getAll',
+    params: { option: 'product' }
+  },
+  objGetAllBanksActive: {
+    area: 'billing',
+    object: 'payMethod',
+    method: 'getAll',
+    params: { option: 'bankactive' }
+  },
+  objGetAllMethodBank: {
+    area: 'billing',
+    object: 'payMethod',
+    method: 'getAll',
+    params: { option: 'methodbankactive' }
+  },
+  objGetAllMethodOther: {
+    area: 'billing',
+    object: 'payMethod',
+    method: 'getAll',
+    params: { option: 'methodotheractive' }
   }
-  
 };

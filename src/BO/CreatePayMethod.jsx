@@ -4,7 +4,7 @@ import {
   createPayMethodDataFetch,
   createObjPayMethod,
 } from "../constants/dataFetchs";
-import infoInputsBo from "../constants/infoInputsBO";
+import infoInputsBo from "../constants/infoInputsBo";
 import MagicForms from "../components/MagicForms";
 import ButtonVe from "../components/ButtonVe";
 import fetchDataPost from "../service/fetchDataPost";
@@ -27,7 +27,7 @@ const dataTypesObj = [
   },
 ];
 
-const CreatePayMethod = ({setLoading}) => {
+const CreatePayMethod = ({ setLoading }) => {
   const [mapaInfo, setMapaInfo] = useState(null);
   const [dataTypes, setDataTypes] = useState(null);
   const [isErrorSession, setIsErrorSession] = useState(false);
@@ -39,21 +39,21 @@ const CreatePayMethod = ({setLoading}) => {
 
     const data = getMapInputs({ mapaInfo, idInputs: arrayInputs });
 
-    const result = await validateCreatePayMethod({data})
+    const result = await validateCreatePayMethod({ data })
     if (result?.error) return console.log(`Existio un error: ${result.error}`);
 
     const dataFetch = createPayMethodDataFetch({ data });
     const obj = createObjPayMethod({ dataFetch });
-    const resultService = await fetchDataPost({...obj, setLoading});
-    if(resultService?.errorSession) setIsErrorSession(true)
+    const resultService = await fetchDataPost({ ...obj, setLoading });
+    if (resultService?.errorSession) setIsErrorSession(true)
 
-    if(typeof resultService === "string" ){
+    if (typeof resultService === "string") {
       setDataModal(resultService);
       setIsModalVisible(true);
-    }else if(!resultService){
+    } else if (!resultService) {
       setDataModal("No se creo el metodo de pago");
       setIsModalVisible(true);
-    }else{
+    } else {
       setDataModal("Se creo el metodo de pago");
       setIsModalVisible(true);
     }
@@ -78,9 +78,9 @@ const CreatePayMethod = ({setLoading}) => {
     mapaInfo.get("inTipoMetodoPago").setInfo({ value: "", options: dataTypes });
   }, [mapaInfo, dataTypes]);
 
-  if(isErrorSession) return <ModalSession/>
+  if (isErrorSession) return <ModalSession />
 
-  if(dataModal && isModalVisible) return <ModalBase setIsModalVisible={setIsModalVisible} content={dataModal}/>
+  if (dataModal && isModalVisible) return <ModalBase setIsModalVisible={setIsModalVisible} content={dataModal} />
 
   return (
     <section className="container-magic-forms">

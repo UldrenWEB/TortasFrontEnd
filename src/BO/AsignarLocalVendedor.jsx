@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import getMapInputs from "../service/getMapInputs";
 import fetchDataPost from "../service/fetchDataPost";
-import infoInputsBo from "../constants/infoInputsBO";
+import infoInputsBo from "../constants/infoInputsBo";
 import MagicForms from "../components/MagicForms";
 import ButtonVe from "../components/ButtonVe";
 import ModalSession from "../components/ModalSession";
