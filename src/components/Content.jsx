@@ -133,7 +133,7 @@ const Content = ({
         />
 
         <Route
-          path="/billing/bill/createBilling"
+          path="/billing/bill/createBill"
           element={<CreateBilling setLoading={setIsLoading} />}
         />
 

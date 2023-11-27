@@ -157,14 +157,13 @@ export const validateEditPerson = async ({ data }) => {
     return { error: error.message };
   }
 }
-
 const schema = object({
   inVendedor: number().transform((value) => (!isNaN(value) ? Number(value) : value))
     .required("El id es requerido"),
   inTipoSalario: number().transform((value) => (!isNaN(value) ? Number(value) : value)).min(0).required("El id es requerido"),
 })
 
-export const validateAsignSalary = async ({ data }) => { 
+export const validateAsignSalary = async ({ data }) => {
   try {
     const result = await schema.validate(data, {
       abortEarly: false,

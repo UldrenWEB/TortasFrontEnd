@@ -28,7 +28,6 @@ const AsingPayToBill = ({ setLoading }) => {
     const [dataIdTipoPago, setIdTipoPago] = useState(null);
     const [dataMetodoPago, setDataMetodoPago] = useState(null);
     const [dataBank, setDataBanco] = useState(null);
-    const [isBank, setIsBank] = useState(null);
     const [dataMonto, setDataMonto] = useState(null);
     const [isErrorSession, setIsErrorSession] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -36,6 +35,7 @@ const AsingPayToBill = ({ setLoading }) => {
 
 
     const handleClick = async () => {
+
         const arrayInputs = ['inTipoPago', 'inMetodo', 'inBanco', 'inMonto'];
         const data = getMapInputs({ mapaInfo, idInputs: arrayInputs });
 
@@ -69,16 +69,28 @@ const AsingPayToBill = ({ setLoading }) => {
     }
 
     useEffect(() => {
+        if (!mapaInfo) return;
         if (!id) {
-            //Hacer aqui readOnlyFalse
+            mapaInfo.get('inFactura').setIsReadOnly(false)
             return;
         };
         console.log('Aqui el id si es que hay', id);
-        setIdBill(Number(id));
+
+        mapaInfo.get('inFactura').setIsReadOnly(true)
+        mapaInfo.get('inFactura').setInfo({
+            value: id,
+            options: ''
+        })
         //Hacer aqui readOnlyTrue
-    }, [id])
+    }, [id, mapaInfo])
 
+    useEffect(() => {
+        if (!mapaInfo) return;
 
+        mapaInfo.get('inBanco').setIsNotVisible(true)
+        mapaInfo.get('inMetodo').setIsNotVisible(true)
+
+    }, [mapaInfo])
 
     useEffect(() => {
         if (!idBill) return;
@@ -108,7 +120,7 @@ const AsingPayToBill = ({ setLoading }) => {
         if (!mapaInfo || !idBill) return;
 
         mapaInfo.get('inMonto').setInfo({
-            value: dataMonto,
+            value: dataMonto ?? '',
             options: ''
         })
 
@@ -185,6 +197,8 @@ const AsingPayToBill = ({ setLoading }) => {
         const objMethod = dataIdTipoPago === 1 ? objsFetch.objGetAllMethodBank : objsFetch.objGetAllMethodOther
         const getMethods = async () => {
             const data = await fetchDataPost({ ...objMethod, setLoading })
+
+            console.log('Aqui data en metodos', data)
             if (data?.errorSession) setIsErrorSession(true);
 
             const dataMap = data.map(item => {
@@ -204,13 +218,14 @@ const AsingPayToBill = ({ setLoading }) => {
         const idTipoPago = e.target.value;
         if (idTipoPago == 1) {
             setIdTipoPago(1);
-            mapaInfo.get('inBanco').setIsNotVisible(true)
-
-            setDataMetodoPago(null);
+            mapaInfo.get('inBanco').setIsNotVisible(false)
+            mapaInfo.get('inMetodo').setIsNotVisible(false)
+            return;
         }
-        mapaInfo.get('inBanco').setIsNotVisible(false)
+        mapaInfo.get('inBanco').setIsNotVisible(true)
+        mapaInfo.get('inMetodo').setIsNotVisible(false)
         setIdTipoPago(2)
-        setDataMetodoPago(null);
+        return;
     }
 
     const handleChangeIdBill = (e) => {
