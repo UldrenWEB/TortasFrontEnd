@@ -2,7 +2,6 @@ import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { verifyLoginCookie, verifyMethodsNav } from "../service/verifyLogin";
 import SuperLoader from "./SuperLoader";
-
 const Home = lazy(() => import("./Home"));
 const Login = lazy(() => import("./Login"));
 const Logout = lazy(() => import("./Logout"));
@@ -23,6 +22,8 @@ const AsignarSalarioVendedor = lazy(() =>
 const HomeLogged = lazy(() => import("./HomeLogged"));
 const FinalChatProbe = lazy(() => import("./Messages/FinalChatProbe"));
 const Contacto = lazy(() => import("./Contacto"));
+const EditProduct = lazy(() => import('../BO/EditProduct'))
+const EditLocal = lazy(() => import('../BO/EditLocal'))
 
 const Content = ({
   dataUser,
@@ -146,13 +147,20 @@ const Content = ({
           path="/person/control/editPerson"
           element={<EditPerson setLoading={setIsLoading} />}
         />
-
+        <Route
+          path="/sales/products/updateToProductSale"
+          element={<EditProduct setLoading={setIsLoading} />}
+        />
+        <Route
+          path="/local/control/editTo"
+          element={<EditLocal setLoading={setIsLoading} />}
+        />
         <Route
           path="/seller/order/asignTypePay"
           element={<AsignarSalarioVendedor setLoading={setIsLoading} />}
         />
 
-        <Route path="/contacto" element={<Contacto/>} />
+        <Route path="/contacto" element={<Contacto />} />
         <Route
           path="/miPinga"
           element={

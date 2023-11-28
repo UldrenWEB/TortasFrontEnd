@@ -200,7 +200,6 @@ const EditPerson = ({ setLoading }) => {
   }, [dataName, dataLastName, dataNumber, dataAddressPerson]);
 
   if (isErrorSession) return <ModalSession />;
-
   if (dataModal && isModalVisible)
     return (
       <ModalBase content={dataModal} setIsModalVisible={setIsModalVisible} />

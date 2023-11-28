@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 
 import trash from "../icons/basura.svg";
-import pencil from "../icons/lapiz.svg";
-import eye from "../icons/ojo.svg";
-import folder from "../icons/folderOriginal.svg";
 
 import getMethod from "../service/getMethod";
 import DefaultComponent from "./DefaultComponent";
 import fetcho from "../service/fetcho";
 
+import GeneratorPDF from '../components/GeneratorPdf'
+import GeneratorExcel from '../components/GeneratorExcel'
+
 import "../styles/table.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ColumnGroup from "antd/es/table/ColumnGroup";
 import ModalSession from "./ModalSession";
 //Importar css de la tabla
 
 //!Componente el cual Renderiza en una tabla una consulta SQL y muestra cada registro
-const Componenttable = ({ data, customHeaders }) => {
+const ComponentTable = ({ data, customHeaders }) => {
   const [tableData, settableData] = useState(data);
   const [headers, setHeaders] = useState([]);
   const [modifiedData, setModifiedData] = useState(null);
@@ -130,7 +129,17 @@ const Componenttable = ({ data, customHeaders }) => {
   };
 
   return (
-    <>
+    <div>
+      <GeneratorPDF
+        data={response}
+        headers={headers.filter(header => header !== 'id')}
+        titulo={'Genero PDF'}
+      />
+      <GeneratorExcel
+        data={response}
+        headers={headers}
+        titulo={'Genero Excel'}
+      />
       <table className="table table-responsive  table-hover ">
         <thead className="table-danger">
           <tr className="main-tr">
@@ -201,8 +210,9 @@ const Componenttable = ({ data, customHeaders }) => {
           <Modal.Body>Todo se ha realizado correctamente.</Modal.Body>
         </Modal>
       )}
-    </>
+    </div>
   );
 };
 
-export default Componenttable;
+export default ComponentTable;
+

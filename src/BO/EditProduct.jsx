@@ -237,4 +237,4 @@ const EditProduct = ({ setLoading }) => {
     )
 }
 
-
+export default EditProduct;
