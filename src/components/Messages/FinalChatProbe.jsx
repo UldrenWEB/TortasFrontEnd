@@ -22,34 +22,49 @@ const FinalChatProbe = ({ typeChat, userData }) => {
   const [objChat, setObjChat] = useState(null);
   const [inputValue, setInputValue] = useState("");
 
+  const [typeChatReal, setTypeChatReal] = useState(null);
   const [socket, setSocket] = useState(null);
   const [showChat, setShowChat] = useState(false);
   const [isErrorSession, setIsErrorSession] = useState(false);
 
+
   useEffect(() => {
-    if (!userData || userData.length <= 0)
-      return console.error("UserData es undefined");
+    if (!typeChat || !objChat) return;
+
+    if (objChat[typeChat] === "direct") setTypeChatReal('direct');
+
+    if (objChat[typeChat] === "namespace") setTypeChatReal("broadcast");
+
+    if (typeChat === 'zones') setTypeChatReal('by zone');
+
+  }, [typeChat, objChat])
+
+  useEffect(() => {
+    if (!userData || !typeChatReal) return;
 
     const { user, profile } = userData;
     const loadMessageInitial = async () => {
       try {
-        // const messages = await fetcho({
-        //   url: "/toProcess",
-        //   method: "POST",
-        //   body: {
-        //     area: "messanger",
-        //     object: "control",
-        //     method: "getMessageBy",
-        //     params: ["typeanduser", typeChat, user],
-        //   },
-        // });
-        // if (!messages || messages.error)
-        //   return console.error(
-        //     `Hubo un error obtener los mensajes del usuario`,
-        //     messages.error
-        //   );
+        const messages = await fetcho({
+          url: "/toProcess",
+          method: "POST",
+          body: {
+            area: "messanger",
+            object: "control",
+            method: "getMessageBy",
+            params: {
+              option: "typeanduser",
+              params: [typeChatReal, user]
+            },
+          },
+        });
+        if (!messages || messages.error)
+          return console.error(
+            `Hubo un error obtener los mensajes del usuario`,
+            messages.error
+          );
 
-        // if (messages?.errorSession) setIsErrorSession(true);
+        if (messages?.errorSession) setIsErrorSession(true);
 
         setChatMessage(messages);
       } catch (error) {
@@ -59,8 +74,11 @@ const FinalChatProbe = ({ typeChat, userData }) => {
         );
         return null;
       }
-    };
+    }
+    loadMessageInitial();
+  }, [userData, typeChatReal])
 
+  useEffect(() => {
     const loadRooms = async () => {
       try {
         const rooms = await fetcho({
@@ -98,9 +116,15 @@ const FinalChatProbe = ({ typeChat, userData }) => {
         return null;
       }
     };
+    loadRooms();
+  }, [])
+
+  useEffect(() => {
+    if (!userData) return;
+
+    const { user, profile } = userData
     const loadSocketClient = async () => {
       try {
-        if (!user) return console.error('El usuario es undefined');
 
         const socketClient = iClient.createSocketClient({
           objUser: userData,
@@ -159,16 +183,14 @@ const FinalChatProbe = ({ typeChat, userData }) => {
         return;
       }
     };
-    loadMessageInitial();
-    loadRooms();
     if (!socket) {
-      console.log("El socket es undefined por lo que lo puede crear");
+      // console.log("El socket es undefined por lo que lo puede crear");
       loadSocketClient();
     }
   }, [userData]);
 
   useEffect(() => {
-    if (!typeChat) return null;
+    if (!typeChat) return;
 
     const icons = {
       broadcast: groupIcon,
@@ -191,7 +213,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
     if (objChat[typeChat] === "namespace")
       return setTypeEvent("broadcast_message");
 
-    if (objChat["zones"]?.includes(typeChat))
+    if (typeChat === 'zones')
       return setTypeEvent("room_message");
 
     return console.error("Tipo de chat invalido");
@@ -213,10 +235,10 @@ const FinalChatProbe = ({ typeChat, userData }) => {
   };
 
   useEffect(() => {
-    if (!socket) return;
+    if (!socket || typeEvent) return;
 
     console.log("Aqui el evento segun el tipo de chat es ->: ", typeEvent);
-    socket.on("broadcast_message", (data) => {
+    socket.on(typeEvent, (data) => {
       console.log(`Mesaje recibido`, data);
       const isImg = validateImage(data);
       if (isImg) return setNewMessage({ data, image: isImg });
@@ -226,10 +248,10 @@ const FinalChatProbe = ({ typeChat, userData }) => {
 
     return () => {
       if (socket) {
-        socket.off("broadcast_message");
+        socket.off(typeEvent);
       }
     };
-  }, [socket]);
+  }, [socket, typeEvent]);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -242,13 +264,12 @@ const FinalChatProbe = ({ typeChat, userData }) => {
 
     if (objChat[typeChat] === "namespace") typeChatSend = "broadcast";
 
-    if (objChat["zones"]?.includes(typeChat)) typeChatSend = "by zone";
+    if (typeChat === 'zones') typeChatSend = "by zone";
 
     if (typeChatSend.length <= 2)
       return console.error("El tipo de chat ingresado no es valido");
 
 
-    console.log('PASO A ENVIAR MENSAJE', objInfo)
     const success = sendMessageByBeibi({
       socketEmit: objInfo.socketEmit,
       typeChatMessage: typeChatSend,
@@ -270,16 +291,16 @@ const FinalChatProbe = ({ typeChat, userData }) => {
     });
   };
 
-  const handleSendImageMessage = (message, image) => {
-    // Implementa la lógica para enviar una imagen aquí
-    //Abrir un modal o una ventana de selección de archivos
-    iClient.loadImage({
-      socket: objInfo.socketEmit,
-      file: fileSeleccionado ? fileSeleccionado : image,
-      destination: typeChat,
-      message: inputValue ? inputValue : message,
-    });
-  };
+  // const handleSendImageMessage = (message, image) => {
+  //   // Implementa la lógica para enviar una imagen aquí
+  //   //Abrir un modal o una ventana de selección de archivos
+  //   iClient.loadImage({
+  //     socket: objInfo.socketEmit,
+  //     file: fileSeleccionado ? fileSeleccionado : image,
+  //     destination: typeChat,
+  //     message: inputValue ? inputValue : message,
+  //   });
+  // };
 
   const toggleChat = () => {
     setShowChat((prevShowChat) => !prevShowChat);
@@ -305,7 +326,6 @@ const FinalChatProbe = ({ typeChat, userData }) => {
         <div className="container-group-chats">
           <ChatProbe
             messageInitial={chatMessage}
-            typeChat={typeChat}
             onNewMessage={newMessage}
           />
           <div className="container-group-chats-buttons">
