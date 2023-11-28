@@ -60,7 +60,7 @@ function App() {
           setIsLoading={setIsLoading}
         />
 
-        {isLogged && dataUser &&  (
+        {/* {isLogged && dataUser &&  (
           <div className="contenedor-chats-increible">
           <FinalChatProbe
             typeChat={"broadcast"}
@@ -70,8 +70,8 @@ function App() {
             typeChat={"zones"}
             userData={{ user: dataUser.name, profile: dataUser.profile }}
           />
-          </div>
-        )}
+          </div> */}
+        {/* )} */}
       </Layout>
     </main>
   );

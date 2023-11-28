@@ -131,7 +131,7 @@ const Content = ({
 
         <Route
           path="/reports"
-          element={<MyRoute className={darkMode ? "darkMode" : "lightMode"} />}
+          element={<MyRoute setLoading={setIsLoading} className={darkMode ? "darkMode" : "lightMode"} />}
         />
 
         <Route
@@ -161,10 +161,10 @@ const Content = ({
           element={<AsignarSalarioVendedor setLoading={setIsLoading} />}
         />
 
-        <Route 
+        {dataUser && <Route 
           path="/reportsHandler"
-          element={<ReportsHandler />}
-        />
+          element={<ReportsHandler profile={ dataUser.profile}/>}
+        />}
 
         <Route path="/contacto" element={<Contacto />} />
       </Routes>
