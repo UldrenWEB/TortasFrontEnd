@@ -42,7 +42,7 @@ const SideBar = ({
 
       <MenuList darkTheme={darkTheme} data={infoMethod} navigate={navigate} changeCollapsed={changeCollapsed} collapsed={collapsed} />
 
-      <ToggleThemeButton darkTheme={darkTheme} toggleTheme={changeTheme} />
+      {/* <ToggleThemeButton darkTheme={darkTheme} toggleTheme={changeTheme} /> */}
 
     </Sider>
   );

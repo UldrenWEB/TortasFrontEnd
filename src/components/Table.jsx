@@ -129,18 +129,20 @@ const ComponentTable = ({ data, customHeaders }) => {
   };
 
   return (
-    <div>
-      <GeneratorPDF
-        data={response}
-        headers={headers.filter(header => header !== 'id')}
-        titulo={'Genero PDF'}
-      />
-      <GeneratorExcel
-        data={response}
-        headers={headers}
-        titulo={'Genero Excel'}
-      />
-      <table className="table table-responsive  table-hover ">
+    <>
+      <div className="section-reports">
+        <GeneratorPDF
+          data={response}
+          headers={headers.filter(header => header !== 'id')}
+          titulo={'Genero PDF'}
+        />
+        <GeneratorExcel
+          data={response}
+          headers={headers}
+          titulo={'Genero Excel'}
+        />
+      </div>
+      <table className="table table-responsive table-hover ">
         <thead className="table-danger">
           <tr className="main-tr">
             {headers.map((header) =>
@@ -204,17 +206,15 @@ const ComponentTable = ({ data, customHeaders }) => {
         )
       }
       {/* Modal de que todo fue exitosos */}
-      {
-        successMessage && (
-          <Modal show={successMessage} onHide={() => setSuccessMessage(false)}>
-            <Modal.Header closeButton={true}>
-              <Modal.Title>Acción completada</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Todo se ha realizado correctamente.</Modal.Body>
-          </Modal>
-        )
-      }
-    </div >
+      {successMessage && (
+        <Modal show={successMessage} onHide={() => setSuccessMessage(false)}>
+          <Modal.Header closeButton={true}>
+            <Modal.Title>Acción completada</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Todo se ha realizado correctamente.</Modal.Body>
+        </Modal>
+      )}
+    </>
   );
 };
 

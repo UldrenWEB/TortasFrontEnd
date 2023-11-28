@@ -61,10 +61,16 @@ function App() {
         />
 
         {isLogged && dataUser &&  (
+          <div className="contenedor-chats-increible">
           <FinalChatProbe
             typeChat={"broadcast"}
             userData={{ user: dataUser.name, profile: dataUser.profile }}
           />
+          <FinalChatProbe
+            typeChat={"zones"}
+            userData={{ user: dataUser.name, profile: dataUser.profile }}
+          />
+          </div>
         )}
       </Layout>
     </main>

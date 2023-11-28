@@ -24,6 +24,7 @@ const FinalChatProbe = lazy(() => import("./Messages/FinalChatProbe"));
 const Contacto = lazy(() => import("./Contacto"));
 const EditProduct = lazy(() => import('../BO/EditProduct'))
 const EditLocal = lazy(() => import('../BO/EditLocal'))
+const ReportsHandler = lazy(() => import('./ReportsHandler'))
 
 const Content = ({
   dataUser,
@@ -160,30 +161,12 @@ const Content = ({
           element={<AsignarSalarioVendedor setLoading={setIsLoading} />}
         />
 
-        <Route path="/contacto" element={<Contacto />} />
-        <Route
-          path="/miPinga"
-          element={
-            <>
-              <FinalChatProbe
-                typeChat={"broadcast"}
-                userData={{ user: dataUser.name, profile: dataUser.profile }}
-              />
-              {/* <FinalChat
-              typeChat={"el prado"}
-              userData={{ user: dataUser.name, profile: dataUser.profile }}
-            /> */}
-              {/* <FinalChat
-              typeChat={"direct"}
-              userData={{ user: dataUser.name, profile: dataUser.profile }}
-            />
-            <FinalChat
-              typeChat={"el prado"}
-              userData={{ user: dataUser.name, profile: dataUser.profile }}
-            /> */}
-            </>
-          }
+        <Route 
+          path="/reportsHandler"
+          element={<ReportsHandler />}
         />
+
+        <Route path="/contacto" element={<Contacto />} />
       </Routes>
     </Suspense>
   );
