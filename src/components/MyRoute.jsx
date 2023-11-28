@@ -394,6 +394,7 @@ const MyRoute = () => {
       ) : isMain ? (
         <ButtonReports optionByPath={optionsData} />
       ) : (
+        
         <ComponentTable data={data} />
       )}
     </div>

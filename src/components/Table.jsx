@@ -10,15 +10,15 @@ import getMethod from "../service/getMethod";
 import DefaultComponent from "./DefaultComponent";
 import fetcho from "../service/fetcho";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/table.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import ColumnGroup from "antd/es/table/ColumnGroup";
 import ModalSession from "./ModalSession";
 //Importar css de la tabla
 
 //!Componente el cual Renderiza en una tabla una consulta SQL y muestra cada registro
-const ComponentTable = ({ data, customHeaders }) => {
-  const [tableData, setTableData] = useState(data);
+const Componenttable = ({ data, customHeaders }) => {
+  const [tableData, settableData] = useState(data);
   const [headers, setHeaders] = useState([]);
   const [modifiedData, setModifiedData] = useState(null);
   const [confirmAction, setConfirmAction] = useState(false);
@@ -79,13 +79,13 @@ const ComponentTable = ({ data, customHeaders }) => {
         });
 
         if (response.error) {
-          setTableData(tableData);
+          settableData(tableData);
           return console.error("Hubo un error al hacer la consulta");
         }
 
         if (response?.errorSession) return <ModalSession />;
 
-        setTableData({
+        settableData({
           response: action === "delete" ? updateData : update,
           module,
           object,
@@ -97,7 +97,7 @@ const ComponentTable = ({ data, customHeaders }) => {
         console.log(response);
       } catch (error) {
         console.error(
-          `Hubo un error al hacer una consulta para modificar en el componente Table, ${error.message}`
+          `Hubo un error al hacer una consulta para modificar en el componente table, ${error.message}`
         );
         return (
           <div>
@@ -131,7 +131,7 @@ const ComponentTable = ({ data, customHeaders }) => {
       newData[editingRow] = originalData;
 
       console.log("Aqui extrayendo info con la fila", newData[editingRow]);
-      setTableData(newData);
+      settableData(newData);
       setOriginalData(null);
     }
     setEditingRow(null);
@@ -184,13 +184,14 @@ const ComponentTable = ({ data, customHeaders }) => {
 
   return (
     <>
-      <Table className="table table-striped">
-        <thead>
-          <tr>
+        <div>Imprimir</div>
+      <table className="table table-responsive  table-hover ">
+        <thead className="table-danger">
+          <tr className="main-tr">
             {headers.map((header) =>
-              header === "id" ? null : <th key={header}>{header}</th>
+              header === "id" ? null : <th key={header}>{header.toUpperCase()}</th>
             )}
-            <th>Actions</th>
+            <th>ACTIONS</th>
           </tr>
         </thead>
         <tbody>
@@ -294,7 +295,7 @@ const ComponentTable = ({ data, customHeaders }) => {
             </tr>
           ))}
         </tbody>
-      </Table>
+      </table>
       {/* Modal para confirmar la accion */}
       {confirmAction && (
         <Modal show={confirmAction} onHide={() => setConfirmAction(false)}>
@@ -325,4 +326,4 @@ const ComponentTable = ({ data, customHeaders }) => {
   );
 };
 
-export default ComponentTable;
+export default Componenttable;

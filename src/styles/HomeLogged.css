@@ -6,6 +6,11 @@
     overflow: scroll;
 }
 
+.container-home-logged::-webkit-scrollbar {
+    display: none; /* Para Chrome, Safari y Opera */
+  }
+
+
 .content-home {
     height: 100%;
     display: grid;
@@ -103,6 +108,8 @@
     min-height: 300px;
 }
 
+
+
 @media(max-width: 950px){
 
     .grafico-card{
@@ -118,7 +125,7 @@
     }
 }
 
-@media(max-width: 680px){
+@media(max-width: 911px){
     .content-home{
         grid-template-columns: 1fr;
     }

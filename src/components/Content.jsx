@@ -1,28 +1,28 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import {
-  verifyLoginCookie,
-  verifyMethodsNav,
-} from "../service/verifyLogin";
+import { verifyLoginCookie, verifyMethodsNav } from "../service/verifyLogin";
 import SuperLoader from "./SuperLoader";
 
-const Home = lazy(() => import('./Home'));
-const Login = lazy(() => import('./Login'));
-const Logout = lazy(() => import('./Logout'));
-const CreatePerson = lazy(() => import('../BO/CreatePerson'));
-const CreateProduct = lazy(() => import('../BO/CreateProduct'));
-const MyRoute = lazy(() => import('./MyRoute'));
-const CreateRoute = lazy(() => import('../BO/CreateRoute'));
-const CreateLocal = lazy(() => import('../BO/CreateLocal'));
-const CreatePayMethod = lazy(() => import('../BO/CreatePayMethod'));
-const ChangeStatusSeller = lazy(() => import('../BO/ChangeStatusSeller'));
-const AsignarLocalVendedor = lazy(() => import('../BO/AsignarLocalVendedor'));
-const CreateBilling = lazy(() => import('../BO/CreateBilling'));
-const AsingPayToBill = lazy(() => import('../BO/payBill'));
-const EditPerson = lazy(() => import('../BO/EditPerson'));
-const AsignarSalarioVendedor = lazy(() => import('../BO/AsignarSalarioVendedor'));
-const HomeLogged = lazy(() => import('./HomeLogged'));
-const FinalChatProbe = lazy(() => import('./Messages/FinalChatProbe'));
+const Home = lazy(() => import("./Home"));
+const Login = lazy(() => import("./Login"));
+const Logout = lazy(() => import("./Logout"));
+const CreatePerson = lazy(() => import("../BO/CreatePerson"));
+const CreateProduct = lazy(() => import("../BO/CreateProduct"));
+const MyRoute = lazy(() => import("./MyRoute"));
+const CreateRoute = lazy(() => import("../BO/CreateRoute"));
+const CreateLocal = lazy(() => import("../BO/CreateLocal"));
+const CreatePayMethod = lazy(() => import("../BO/CreatePayMethod"));
+const ChangeStatusSeller = lazy(() => import("../BO/ChangeStatusSeller"));
+const AsignarLocalVendedor = lazy(() => import("../BO/AsignarLocalVendedor"));
+const CreateBilling = lazy(() => import("../BO/CreateBilling"));
+const AsingPayToBill = lazy(() => import("../BO/payBill"));
+const EditPerson = lazy(() => import("../BO/EditPerson"));
+const AsignarSalarioVendedor = lazy(() =>
+  import("../BO/AsignarSalarioVendedor")
+);
+const HomeLogged = lazy(() => import("./HomeLogged"));
+const FinalChatProbe = lazy(() => import("./Messages/FinalChatProbe"));
+const Contacto = lazy(() => import("./Contacto"));
 
 const Content = ({
   dataUser,
@@ -152,6 +152,7 @@ const Content = ({
           element={<AsignarSalarioVendedor setLoading={setIsLoading} />}
         />
 
+        <Route path="/contacto" element={<Contacto/>} />
         <Route
           path="/miPinga"
           element={

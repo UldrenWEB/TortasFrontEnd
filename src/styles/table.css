@@ -1,5 +1,7 @@
-.tableContainer {
-    margin: 5em;
-    width: 300px;
-    overflow: auto;
+.main-tr{
+    height: 3rem;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin: auto;
 }
