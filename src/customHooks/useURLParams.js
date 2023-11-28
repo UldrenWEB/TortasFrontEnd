@@ -11,14 +11,18 @@ const useURLParams = () => {
         try {
             const obj = {};
             const myArray = [];
+            const myArray2 = [];
             for (const [key, value] of searchParams.entries()) {
                 if (key.startsWith('params')) {
                     myArray.push(value)
                 }
+                if (key.startsWith('typeParams')) {
+                    myArray2.push(value)
+                }
                 obj[key] = value;
             }
             obj['params'] = myArray
-
+            obj['typeParams'] = myArray2;
             setParams(obj)
         } catch (error) {
             console.error('Error al obtener los datos:', error);

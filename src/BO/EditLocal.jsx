@@ -13,7 +13,7 @@ import {
 } from '../constants/dataFetchs'
 import { validateEditLocal } from '../constants/schemas'
 
-const EditLocal = async ({ setLoading }) => {
+const EditLocal = ({ setLoading }) => {
     const [mapaInfo, setMapaInfo] = useState(null);
     const [isErrorSession, setIsErrorSession] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -25,24 +25,29 @@ const EditLocal = async ({ setLoading }) => {
     const handleClick = async () => {
         const arrayInputs = ['inLocal', 'inNombre']
         const data = getMapInputs({ mapaInfo, idInputs: arrayInputs })
-
-        const validate = validateEditLocal({ data })
-        if (validate?.error) {
-            setDataModal(result.error);
-            setIsModalVisible(true);
-            return;
-        }
+        console.log(data, 'Aqui data <==')
+        // const validate = validateEditLocal({ data })
+        // if (validate?.error) {
+        //     setDataModal(result.error);
+        //     setIsModalVisible(true);
+        //     return;
+        // }
         const dataFetch = editLocalDataFetch({ data })
         const obj = editLocalObj({ dataFetch })
 
         const result = await fetchDataPost({ ...obj, setLoading })
         if (result?.errorSession) setIsErrorSession(true);
+        console.log(result)
 
+        if (result.error) {
+            setDataModal(result.error);
+            setIsModalVisible(true);
+        }
         if (typeof result === "string") {
             setDataModal(result);
             setIsModalVisible(true);
         } else if (!result) {
-            setDataModal("No se pudo actualizar el local");
+            setDataModal("No se pudo actualizar el local", result.error ?? '');
             setIsModalVisible(true);
         } else {
             setDataModal("Se actualizo correctamente el local");
@@ -59,7 +64,7 @@ const EditLocal = async ({ setLoading }) => {
 
             const dataMap = data.map(item => {
                 return (
-                    <option value={item.de_local} key={item.id_local}>
+                    <option value={item.id_local} key={item.id_local}>
                         {item.de_local}
                     </option>
                 )

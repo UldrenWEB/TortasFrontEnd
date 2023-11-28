@@ -27,7 +27,8 @@ const pathInfo = [
             {
                 type: 'button',
                 label: 'Todos los productos',
-                to: `?filter=products&context=product&method=getall&params=productsale`
+                typeParam: 'option',
+                to: `?filter=products&context=product&method=getall&params=productsale&typeParam=option`
             },
             {
                 type: 'select',

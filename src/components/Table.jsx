@@ -27,7 +27,7 @@ const ComponentTable = ({ data, customHeaders }) => {
 
   const { response, module, object, context } = tableData;
 
-  if (!response || response.error) return <div>Cargando...</div>;
+  if (!response || response.error) return <div>{response.error}</div>;
 
   useEffect(() => {
     const array = [];
@@ -70,7 +70,7 @@ const ComponentTable = ({ data, customHeaders }) => {
             area: module,
             object: object,
             method: method,
-            params: [id],
+            params: { id },
           },
         });
 

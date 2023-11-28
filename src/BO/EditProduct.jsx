@@ -64,6 +64,7 @@ const EditProduct = ({ setLoading }) => {
             const data = await fetchDataPost({ ...objProducts, setLoading })
             if (data?.errorSession) setIsErrorSession(true)
 
+            console.log('Products', data)
             const dataMap = data.map(item => {
                 return (
                     <option value={item.id_product_sale} key={item.id_product_sale}>
@@ -76,27 +77,29 @@ const EditProduct = ({ setLoading }) => {
         getAllProducts();
     }, [])
     //Buscar productos por presentacion
-    useEffect(() => {
-        if (!dataIdPresentacion) return;
-        const arrayInputs = ['inPresentacion']
-        const data = getMapInputs({ mapaInfo, idInputs: arrayInputs })
-        const dataFetch = getProductByIdPresentationDataFetch({ data })
-        const obj = getProductByIdPresentationObj({ dataFetch })
-        const getAllProducts = async () => {
-            const products = await fetchDataPost({ ...obj, setLoading })
-            if (products?.errorSession) setIsErrorSession(true)
-            const productsMap = products.map(item => {
-                return (
-                    <option value={item.id_product} key={item.id_product}>
-                        {item.de_product}
-                    </option>
-                )
-            })
-            setDataProducts(productsMap);
-        }
+    // useEffect(() => {
+    //     if (!dataIdPresentacion) return;
+    //     const arrayInputs = ['inPresentacion']
+    //     const data = getMapInputs({ mapaInfo, idInputs: arrayInputs })
+    //     const dataFetch = getProductByIdPresentationDataFetch({ data })
+    //     const obj = getProductByIdPresentationObj({ dataFetch })
+    //     const getAllProducts = async () => {
+    //         const products = await fetchDataPost({ ...obj, setLoading })
+    //         if (products?.errorSession) setIsErrorSession(true)
 
-        getAllProducts();
-    }, [dataIdPresentacion])
+    //         console.log('PRODUCTS', products);
+    //         const productsMap = products.map(item => {
+    //             return (
+    //                 <option value={item.id_product} key={item.id_product}>
+    //                     {item.de_product}
+    //                 </option>
+    //             )
+    //         })
+    //         setDataProducts(productsMap);
+    //     }
+
+    //     getAllProducts();
+    // }, [dataIdPresentacion])
     //Cargar productos en los select
     useEffect(() => {
         if (!mapaInfo || !dataProducts) return;
@@ -114,7 +117,7 @@ const EditProduct = ({ setLoading }) => {
         const getAllPresentation = async () => {
             const data = await fetchDataPost({ ...objPresentations, setLoading })
             if (data?.errorSession) setIsErrorSession(true);
-
+            console.log('PRESENTACION', data);
             const dataMap = data.map(item => {
                 return (
                     <option value={item.id_presentation} key={item.id_presentation}>
@@ -140,6 +143,7 @@ const EditProduct = ({ setLoading }) => {
             const presentation = await fetchDataPost({ ...obj, setLoading })
             if (presentation?.errorSession) setIsErrorSession(true)
 
+            console.log('PRESENTACION', presentation);
             const presentationMap = presentation.map(item => {
                 return (
                     <option value={item.id_presentation} key={item.id_presentation}>
@@ -175,7 +179,7 @@ const EditProduct = ({ setLoading }) => {
         const dataFetch = getAmountByProductDataFetch({ data })
         const obj = getAmountByProductObj({ dataFetch })
         const getAmount = async () => {
-            const amount = fetchDataPost({ ...obj, setLoading })
+            const amount = await fetchDataPost({ ...obj, setLoading })
             if (amount?.errorSession) setIsErrorSession(true);
 
             console.log('Aqui monto del producto', amount)

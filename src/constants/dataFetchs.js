@@ -503,11 +503,11 @@ export const getAmountObj = ({ dataFetch }) => {
 export const editProductSaleDataFetch = ({ data }) => {
   try {
     const obj = {
-      option: 'productsale',
+      option: 'amountproduct',
       params: [
-        data?.inPresentacion ?? null,
         data?.inMonto ?? null,
-        data?.inProducto ?? null
+        data?.inProducto ?? null,
+        data?.inPresentacion ?? null
       ]
     }
 
@@ -524,7 +524,7 @@ export const editProductSaleObj = ({ dataFetch }) => {
     const obj = {
       area: 'sales',
       object: 'products',
-      method: 'updateToProductSale',
+      method: 'updateTo',
       params: dataFetch
     }
 
@@ -571,7 +571,7 @@ export const getProductByIdPresentationDataFetch = ({ data }) => {
   try {
     const obj = {
       condition: 'presentation',
-      params: data?.inPresentacion,
+      params: [data?.inPresentacion],
     }
     return obj;
   } catch (error) {
