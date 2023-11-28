@@ -12,14 +12,17 @@ import ButtonVe from "./ButtonVe";
 import GeneratorPDF from "./GeneratorPdf";
 import GeneratorExcel from "./GeneratorExcel";
 
+import "../styles/table.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ColumnGroup from "antd/es/table/ColumnGroup";
+import ModalSession from "./ModalSession";
 import "../styles/table.css";
 import { Link } from "react-router-dom";
 //Importar css de la tabla
 
 //!Componente el cual Renderiza en una tabla una consulta SQL y muestra cada registro
-const ComponentTable = ({ data, customHeaders }) => {
-  const [tableData, setTableData] = useState(data);
+const Componenttable = ({ data, customHeaders }) => {
+  const [tableData, settableData] = useState(data);
   const [headers, setHeaders] = useState([]);
   const [modifiedData, setModifiedData] = useState(null);
   const [confirmAction, setConfirmAction] = useState(false);
@@ -86,13 +89,14 @@ const ComponentTable = ({ data, customHeaders }) => {
 
         if (response.error) {
           // setTableData(tableData);
+          settableData(tableData);
           return console.error("Hubo un error al hacer la consulta");
         }
 
-        if (response?.errorSession) return <ModalSession />
+        if (response?.errorSession) return <ModalSession />;
 
-        setTableData({
-          response: action === "delete" ? updateData : '',
+        settableData({
+          response: action === "delete" ? updateData : update,
           module,
           object,
           context,
@@ -103,7 +107,7 @@ const ComponentTable = ({ data, customHeaders }) => {
         console.log(response);
       } catch (error) {
         console.error(
-          `Hubo un error al hacer una consulta para modificar en el componente Table, ${error.message}`
+          `Hubo un error al hacer una consulta para modificar en el componente table, ${error.message}`
         );
         return (
           <div>
@@ -118,6 +122,30 @@ const ComponentTable = ({ data, customHeaders }) => {
     }
   }, [isConfirm]);
 
+  const handleButtonView = (rowData) => {
+    setConfirmAction(true);
+  };
+
+  const handleButtonEdit = (rowData) => {
+    const data = tableData["response"].find((obj) => obj.id === rowData.id);
+    setOriginalData(data);
+    setEditingRow(rowData);
+  };
+
+  const handleCancelEdit = () => {
+    if (originalData) {
+      console.log("Paso aqui", tableData);
+      console.log("Data origianl ", originalData);
+      const newData = [...tableData["response"]];
+      console.log("Aquii esta la nueva data", newData);
+      newData[editingRow] = originalData;
+
+      console.log("Aqui extrayendo info con la fila", newData[editingRow]);
+      settableData(newData);
+      setOriginalData(null);
+    }
+    setEditingRow(null);
+  };
 
   const handleButtonDelete = (rowData) => {
     setConfirmAction(true);
@@ -139,27 +167,40 @@ const ComponentTable = ({ data, customHeaders }) => {
     setIsConfirm(true);
   };
 
+  const handleSaveChanges = (rowData) => {
+    const { id } = rowData;
+    const updateData = response.find((row) => row.id === id);
+    setModifiedData({
+      id,
+      module,
+      object,
+      action: "update",
+      context,
+      updateData,
+    });
+
+    originalData(null);
+    setEditingRow(null);
+  };
+
+  const handleInputChange = (e, rowIndex, columnName) => {
+    const { value } = e.target;
+
+    const updatedResponse = [...response];
+    updatedResponse[rowIndex][columnName] = value;
+
+    setUpdate(updatedResponse);
+  };
+
   return (
-    <div className="container">
-      {/* Aqui botones generadores de pdf y de archivos excel */}
-      <GeneratorPDF
-        titulo={'Generando mi primer pdf'}
-        data={response}
-        headers={headers.filter(header => header !== 'id')}
-      />
-      <GeneratorExcel
-        titulo={'Generando mi primer excel'}
-        headers={headers}
-        data={response}
-      />
-      <ButtonVe content={'Volver'} click={<Link to={'/home'} />} />
-      <Table className="table table-striped">
+    <>
+      <table className="table table-striped">
         <thead>
           <tr>
             {headers.map((header) =>
-              header === "id" ? null : <th key={header}>{header}</th>
+              header === "id" ? null : <th key={header}>{header.toUpperCase()}</th>
             )}
-            {/* <th>Actions</th> */}
+            <th>ACTIONS</th>
           </tr>
         </thead>
         <tbody>
@@ -181,6 +222,58 @@ const ComponentTable = ({ data, customHeaders }) => {
                         onClick={() => handleButtonDelete(row)}
                       >
                         <img
+                          src={folder}
+                          alt="Icon save"
+                          style={{ width: "20px", height: "20px" }}
+                        />
+                      </Button>
+                      <Button
+                        className="icon-button p-2 m-1 p-sm-0"
+                        variant="link"
+                        onClick={() => handleCancelEdit()}
+                      >
+                        <img
+                          src={'./hola'}
+                          alt="Icon cancel"
+                          style={{ width: "20px", height: "20px" }}
+                        />
+                      </Button>
+                    </>
+
+                  ) : (
+                  <>
+                    <Button
+                      className="icon-button p-2 m-1 p-sm-0"
+                      variant="link"
+                      onClick={() => handleButtonView(row)}
+                    >
+                      <img
+                        src={eye}
+                        alt="Icon eye"
+                        style={{ width: "16px", height: "16px" }}
+                      />
+                    </Button>
+
+                    {actionAvailable.includes("update") && (
+                      <Button
+                        className="icon-button p-2 m-1 p-sm-0"
+                        variant="link"
+                        onClick={() => handleButtonEdit(row)}
+                      >
+                        <img
+                          src={pencil}
+                          alt="Icon pencil"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                      </Button>
+                    )}
+                    {actionAvailable.includes("delete") && (
+                      <Button
+                        className="icon-button p-2 m-1 p-sm-0"
+                        variant="link"
+                        onClick={() => handleButtonDelete(row)}
+                      >
+                        <img
                           src={trash}
                           alt="Icon trash "
                           style={{ width: "16px", height: "16px" }}
@@ -188,12 +281,13 @@ const ComponentTable = ({ data, customHeaders }) => {
                       </Button>
                     )}
                   </>
+                  )}
                 </div>
               </td>
             </tr>
           ))}
         </tbody>
-      </Table>
+      </table>
       {/* Modal para confirmar la accion */}
       {confirmAction && (
         <Modal show={confirmAction} onHide={() => setConfirmAction(false)}>
@@ -220,8 +314,8 @@ const ComponentTable = ({ data, customHeaders }) => {
           <Modal.Body>Todo se ha realizado correctamente.</Modal.Body>
         </Modal>
       )}
-    </div>
+    </div >
   );
 };
 
-export default ComponentTable;
+export default Componenttable;

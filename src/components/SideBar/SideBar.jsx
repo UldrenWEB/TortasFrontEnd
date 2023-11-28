@@ -4,6 +4,7 @@ import ButtonSide from "./ButtonSide";
 import ToggleThemeButton from "./ToggleThemeButton";
 import InfoUser from "./InfoUser";
 import '../../styles/SideBar.css';
+import FinalChatProbe from "../Messages/FinalChatProbe";
 const { Sider } = Layout;
 
 const SideBar = ({
@@ -42,6 +43,7 @@ const SideBar = ({
       <MenuList darkTheme={darkTheme} data={infoMethod} navigate={navigate} changeCollapsed={changeCollapsed} collapsed={collapsed} />
 
       <ToggleThemeButton darkTheme={darkTheme} toggleTheme={changeTheme} />
+
     </Sider>
   );
 };

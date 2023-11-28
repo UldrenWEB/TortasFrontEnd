@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import fetcho from "../service/fetcho";
+import "../styles/ButtonReports.css";
 
 const ButtonReports = ({ optionByPath }) => {
   const [inputs, setInputs] = useState([]);
@@ -63,17 +64,17 @@ const ButtonReports = ({ optionByPath }) => {
   };
 
   return (
-    <div className="container">
-      <div>
+    <div className="container-options-reports">
+      <div className="container-options-card">
         {options.map((option, index) => {
           return (
-            <div key={option.label}>
+            <div key={option.label} className="btn-all-products">
               {option.type === "text" ||
               option.type === "number" ||
               option.type === "date" ? (
-                <div>
+                <div className="container-buttons">
                   <input
-                    className="input"
+                    className="input "
                     type={option.type}
                     placeholder={option.placeholder}
                     value={inputs[index] || ""}
