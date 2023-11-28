@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ModalBase = ({ title, content, footer, isClose, setIsModalVisible }) => {
   const [show, setShow] = useState(true);

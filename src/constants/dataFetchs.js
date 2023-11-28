@@ -683,7 +683,7 @@ export const objsFetch = {
     area: "local",
     object: "control",
     method: "getAllOf",
-    params: ["route"],
+    params: {of: "route"},
   },
   objGetAllSellers: {
     area: "seller",

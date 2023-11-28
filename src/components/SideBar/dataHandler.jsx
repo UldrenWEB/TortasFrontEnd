@@ -33,14 +33,18 @@ export const transformData = (data) => {
       []
     );
 
-    acc.push(
-      getItem(
-        moduleKey,
-        moduleKey,
-        enumIcons[moduleKey] || <HomeOutlined />,
-        children
-      )
-    );
+    // Solo agrega el módulo si tiene elementos
+    if (children.length > 0) {
+      acc.push(
+        getItem(
+          moduleKey,
+          moduleKey,
+          enumIcons[moduleKey] || <HomeOutlined />,
+          children
+        )
+      );
+    }
+
     return acc;
   }, []);
 };
