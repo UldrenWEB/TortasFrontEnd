@@ -24,10 +24,7 @@ const Componenttable = ({ data, customHeaders }) => {
   const [confirmAction, setConfirmAction] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
   const [isConfirm, setIsConfirm] = useState(false);
-  const [editingRow, setEditingRow] = useState(null);
   const [actionAvailable, setActionAvailable] = useState([]);
-  const [update, setUpdate] = useState(null);
-  const [originalData, setOriginalData] = useState(null);
 
   const { response, module, object, context } = tableData;
 
@@ -86,7 +83,7 @@ const Componenttable = ({ data, customHeaders }) => {
         if (response?.errorSession) return <ModalSession />;
 
         settableData({
-          response: action === "delete" ? updateData : update,
+          response: action === "delete" ? updateData : "",
           module,
           object,
           context,
@@ -112,31 +109,6 @@ const Componenttable = ({ data, customHeaders }) => {
     }
   }, [isConfirm]);
 
-  const handleButtonView = (rowData) => {
-    setConfirmAction(true);
-  };
-
-  const handleButtonEdit = (rowData) => {
-    const data = tableData["response"].find((obj) => obj.id === rowData.id);
-    setOriginalData(data);
-    setEditingRow(rowData);
-  };
-
-  const handleCancelEdit = () => {
-    if (originalData) {
-      console.log("Paso aqui", tableData);
-      console.log("Data origianl ", originalData);
-      const newData = [...tableData["response"]];
-      console.log("Aquii esta la nueva data", newData);
-      newData[editingRow] = originalData;
-
-      console.log("Aqui extrayendo info con la fila", newData[editingRow]);
-      settableData(newData);
-      setOriginalData(null);
-    }
-    setEditingRow(null);
-  };
-
   const handleButtonDelete = (rowData) => {
     setConfirmAction(true);
 
@@ -157,39 +129,15 @@ const Componenttable = ({ data, customHeaders }) => {
     setIsConfirm(true);
   };
 
-  const handleSaveChanges = (rowData) => {
-    const { id } = rowData;
-    const updateData = response.find((row) => row.id === id);
-    setModifiedData({
-      id,
-      module,
-      object,
-      action: "update",
-      context,
-      updateData,
-    });
-
-    originalData(null);
-    setEditingRow(null);
-  };
-
-  const handleInputChange = (e, rowIndex, columnName) => {
-    const { value } = e.target;
-
-    const updatedResponse = [...response];
-    updatedResponse[rowIndex][columnName] = value;
-
-    setUpdate(updatedResponse);
-  };
-
   return (
     <>
-        <div>Imprimir</div>
       <table className="table table-responsive  table-hover ">
         <thead className="table-danger">
           <tr className="main-tr">
             {headers.map((header) =>
-              header === "id" ? null : <th key={header}>{header.toUpperCase()}</th>
+              header === "id" ? null : (
+                <th key={header}>{header.toUpperCase()}</th>
+              )
             )}
             <th>ACTIONS</th>
           </tr>
@@ -197,99 +145,30 @@ const Componenttable = ({ data, customHeaders }) => {
         <tbody>
           {response.map((row, rowIndex) => (
             <tr key={rowIndex}>
-              {editingRow === row ? (
-                // Campos de edición
-                <>
-                  {Object.entries(row).map(([key, value], columnIndex) =>
-                    key === "id" ? null : (
-                      <td key={columnIndex}>
-                        <input
-                          type="text"
-                          value={value}
-                          onChange={(e) => handleInputChange(e, rowIndex, key)}
-                        />
-                      </td>
-                    )
-                  )}
-                </>
-              ) : (
-                // Campos normales
-                <>
-                  {Object.entries(row).map(([key, value], columnIndex) =>
-                    key === "id" ? null : <td key={columnIndex}>{value}</td>
-                  )}
-                </>
-              )}
+              <>
+                {Object.entries(row).map(([key, value], columnIndex) =>
+                  key === "id" ? null : <td key={columnIndex}>{value}</td>
+                )}
+              </>
               <td>
                 <div className="d-flex flex-column flex-sm-row">
                   {/* Botón de guardar cambios */}
-                  {editingRow === row ? (
-                    <>
+                  <>
+                    {actionAvailable.includes("delete") && (
                       <Button
                         className="icon-button p-2 m-1 p-sm-0"
+                        style={{ backgroundColor: "transparent" }}
                         variant="link"
-                        onClick={() => handleSaveChanges(row)}
+                        onClick={() => handleButtonDelete(row)}
                       >
                         <img
-                          src={folder}
-                          alt="Icon save"
-                          style={{ width: "20px", height: "20px" }}
-                        />
-                      </Button>
-                      <Button
-                        className="icon-button p-2 m-1 p-sm-0"
-                        variant="link"
-                        onClick={() => handleCancelEdit()}
-                      >
-                        <img
-                          src={"./hola"}
-                          alt="Icon cancel"
-                          style={{ width: "20px", height: "20px" }}
-                        />
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <Button
-                        className="icon-button p-2 m-1 p-sm-0"
-                        variant="link"
-                        onClick={() => handleButtonView(row)}
-                      >
-                        <img
-                          src={eye}
-                          alt="Icon eye"
+                          src={trash}
+                          alt="Icon trash "
                           style={{ width: "16px", height: "16px" }}
                         />
                       </Button>
-
-                      {actionAvailable.includes("update") && (
-                        <Button
-                          className="icon-button p-2 m-1 p-sm-0"
-                          variant="link"
-                          onClick={() => handleButtonEdit(row)}
-                        >
-                          <img
-                            src={pencil}
-                            alt="Icon pencil"
-                            style={{ width: "16px", height: "16px" }}
-                          />
-                        </Button>
-                      )}
-                      {actionAvailable.includes("delete") && (
-                        <Button
-                          className="icon-button p-2 m-1 p-sm-0"
-                          variant="link"
-                          onClick={() => handleButtonDelete(row)}
-                        >
-                          <img
-                            src={trash}
-                            alt="Icon trash "
-                            style={{ width: "16px", height: "16px" }}
-                          />
-                        </Button>
-                      )}
-                    </>
-                  )}
+                    )}
+                  </>
                 </div>
               </td>
             </tr>

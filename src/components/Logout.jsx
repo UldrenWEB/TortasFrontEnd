@@ -20,7 +20,7 @@ const Logout = ({ setLogger, isLogged, navigate }) => {
     };
 
     handler();
-  }, []);
+  }, [data]);
 
   return (
     // <section className="container-logout">

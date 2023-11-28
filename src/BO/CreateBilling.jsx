@@ -18,11 +18,11 @@ import {
 const dataTypePay = [
     {
         id: 1,
-        name: 'De contado'
+        name: 'DE CONTADO'
     },
     {
         id: 2,
-        name: 'Credito'
+        name: 'CREDITO'
     }
 ]
 
@@ -107,7 +107,7 @@ const CreateBilling = ({ setLoading }) => {
                 return (
                     <option
                         value={item.id_person}
-                        key={item.id_person}
+                        key={item.id_person }
                     >{`${item.na_person.toUpperCase()} ${item.ln_person.toUpperCase()}`}</option>
                 );
             });
@@ -140,7 +140,7 @@ const CreateBilling = ({ setLoading }) => {
             const dataMap = data.map(item => {
                 return (
                     <option value={item.id_person} key={item.id_person}>
-                        {`${item.na_person} ${item.ln_person}`}
+                        {`${item.na_person.toUpperCase()} ${item.ln_person.toUpperCase()}`}
                     </option>
                 )
             })
@@ -167,10 +167,11 @@ const CreateBilling = ({ setLoading }) => {
             const data = await fetchDataPost({ ...objProducts, setLoading })
             if (data?.errorSession) setIsErrorSession(true)
 
+            console.log(data)
             const dataMap = data.map(item => {
                 return (
                     <option value={item.id_product_sale} key={item.id_product_sale}>
-                        {item.de_product}
+                        {`${item.de_product.toUpperCase()} - ${item.de_presentation.toUpperCase()}`}
                     </option>
                 )
             })

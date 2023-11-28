@@ -47,6 +47,7 @@ const CreateLocal = ({setLoading}) => {
     const objRoute = objsFetch.objGetAllRoutes;
     const handleFetch = async () => {
       const dataRt = await fetchDataPost({...objRoute, setLoading});
+      console.log(dataRt)
       if(dataRt?.errorSession) setIsErrorSession(true)
 
       const dataRtMap = dataRt.map((item) => {

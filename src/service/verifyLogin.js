@@ -16,7 +16,12 @@ export const verifyLoginCookie = ({ setLogger, navigate, location }) => {
   }
 };
 
-export const verifyMethodsNav = ({ setLogger, navigate, setDataNav, setDataUser }) => {
+export const verifyMethodsNav = ({
+  setLogger,
+  navigate,
+  setDataNav,
+  setDataUser,
+}) => {
   const info = localStorage.getItem("permisosNav");
   const infoUser = localStorage.getItem("dataUser");
 
@@ -34,10 +39,10 @@ export const verifyMethodsNav = ({ setLogger, navigate, setDataNav, setDataUser 
 };
 
 export const verifyLogout = ({ setLogger, setData, result }) => {
+  setLogger(false);
   Cookies.remove("connect.sid");
   localStorage.removeItem("permisosNav");
   localStorage.removeItem("dataUser");
-  setLogger(false);
   setData(result.message || "La sesion se cerro correctamente");
 };
 
