@@ -1,27 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 
 import trash from "../icons/basura.svg";
 
 import getMethod from "../service/getMethod";
 import DefaultComponent from "./DefaultComponent";
 import fetcho from "../service/fetcho";
-import ModalSession from "./ModalSession";
-import ButtonVe from "./ButtonVe";
 
-import GeneratorPDF from "./GeneratorPdf";
-import GeneratorExcel from "./GeneratorExcel";
+import GeneratorPDF from '../components/GeneratorPdf'
+import GeneratorExcel from '../components/GeneratorExcel'
 
 import "../styles/table.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ModalSession from "./ModalSession";
-import "../styles/table.css";
-import { Link } from "react-router-dom";
 //Importar css de la tabla
 
 //!Componente el cual Renderiza en una tabla una consulta SQL y muestra cada registro
-const Componenttable = ({ data, customHeaders }) => {
-  const [tableData, setTableData] = useState(data);
+const ComponentTable = ({ data, customHeaders }) => {
+  const [tableData, settableData] = useState(data);
   const [headers, setHeaders] = useState([]);
   const [modifiedData, setModifiedData] = useState(null);
   const [confirmAction, setConfirmAction] = useState(false);
@@ -32,12 +28,6 @@ const Componenttable = ({ data, customHeaders }) => {
   const { response, module, object, context } = tableData;
 
   if (!response || response.error) return <div>Cargando...</div>;
-
-  useEffect(() => {
-    if (!data) return;
-
-    setTableData(data)
-  }, [])
 
   useEffect(() => {
     const array = [];
@@ -55,14 +45,12 @@ const Componenttable = ({ data, customHeaders }) => {
   }, []);
 
   useEffect(() => {
-    if (!tableData) return;
-
     if (customHeaders && customHeaders.length > 0) {
       setHeaders(customHeaders);
     } else if (response.length > 0) {
       setHeaders(Object.keys(response[0]));
     }
-  }, [customHeaders, tableData]);
+  }, [customHeaders, data, tableData]);
 
   useEffect(() => {
     const fetchByFetcho = async () => {
@@ -82,20 +70,19 @@ const Componenttable = ({ data, customHeaders }) => {
             area: module,
             object: object,
             method: method,
-            params: { id },
+            params: [id],
           },
         });
 
         if (response.error) {
-          // setTableData(tableData);
-          setTableData(tableData);
+          settableData(tableData);
           return console.error("Hubo un error al hacer la consulta");
         }
 
         if (response?.errorSession) return <ModalSession />;
 
-        setTableData({
-          response: action === "delete" ? updateData : '',
+        settableData({
+          response: action === "delete" ? updateData : "",
           module,
           object,
           context,
@@ -121,7 +108,6 @@ const Componenttable = ({ data, customHeaders }) => {
     }
   }, [isConfirm]);
 
-
   const handleButtonDelete = (rowData) => {
     setConfirmAction(true);
 
@@ -142,9 +128,8 @@ const Componenttable = ({ data, customHeaders }) => {
     setIsConfirm(true);
   };
 
-
   return (
-    <section>
+    <div>
       <GeneratorPDF
         data={response}
         headers={headers.filter(header => header !== 'id')}
@@ -155,18 +140,20 @@ const Componenttable = ({ data, customHeaders }) => {
         headers={headers}
         titulo={'Genero Excel'}
       />
-      <table className="table table-striped">
-        <thead>
-          <tr>
+      <table className="table table-responsive  table-hover ">
+        <thead className="table-danger">
+          <tr className="main-tr">
             {headers.map((header) =>
-              header === "id" ? null : <th key={header}>{header.toUpperCase()}</th>
+              header === "id" ? null : (
+                <th key={header}>{header.toUpperCase()}</th>
+              )
             )}
+            <th>ACTIONS</th>
           </tr>
         </thead>
         <tbody>
-          {response.map((row, rowIndex) => {
+          {response.map((row, rowIndex) => (
             <tr key={rowIndex}>
-              {/* Campos normales*/}
               <>
                 {Object.entries(row).map(([key, value], columnIndex) =>
                   key === "id" ? null : <td key={columnIndex}>{value}</td>
@@ -174,11 +161,12 @@ const Componenttable = ({ data, customHeaders }) => {
               </>
               <td>
                 <div className="d-flex flex-column flex-sm-row">
-
+                  {/* Botón de guardar cambios */}
                   <>
                     {actionAvailable.includes("delete") && (
                       <Button
                         className="icon-button p-2 m-1 p-sm-0"
+                        style={{ backgroundColor: "transparent" }}
                         variant="link"
                         onClick={() => handleButtonDelete(row)}
                       >
@@ -193,7 +181,7 @@ const Componenttable = ({ data, customHeaders }) => {
                 </div>
               </td>
             </tr>
-          })}
+          ))}
         </tbody>
       </table>
       {/* Modal para confirmar la accion */}
@@ -222,8 +210,9 @@ const Componenttable = ({ data, customHeaders }) => {
           <Modal.Body>Todo se ha realizado correctamente.</Modal.Body>
         </Modal>
       )}
-    </section>
+    </div>
   );
 };
 
-export default Componenttable;
+export default ComponentTable;
+

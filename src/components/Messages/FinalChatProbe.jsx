@@ -33,23 +33,23 @@ const FinalChatProbe = ({ typeChat, userData }) => {
     const { user, profile } = userData;
     const loadMessageInitial = async () => {
       try {
-        const messages = await fetcho({
-          url: "/toProcess",
-          method: "POST",
-          body: {
-            area: "messanger",
-            object: "control",
-            method: "getMessageBy",
-            params: ["typeanduser", typeChat, user],
-          },
-        });
-        if (!messages || messages.error)
-          return console.error(
-            `Hubo un error obtener los mensajes del usuario`,
-            messages.error
-          );
+        // const messages = await fetcho({
+        //   url: "/toProcess",
+        //   method: "POST",
+        //   body: {
+        //     area: "messanger",
+        //     object: "control",
+        //     method: "getMessageBy",
+        //     params: ["typeanduser", typeChat, user],
+        //   },
+        // });
+        // if (!messages || messages.error)
+        //   return console.error(
+        //     `Hubo un error obtener los mensajes del usuario`,
+        //     messages.error
+        //   );
 
-        if (messages?.errorSession) setIsErrorSession(true);
+        // if (messages?.errorSession) setIsErrorSession(true);
 
         setChatMessage(messages);
       } catch (error) {
@@ -70,7 +70,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
             area: "local",
             object: "control",
             method: "getAllOf",
-            params: ["route"],
+            params: { of: 'route' },
           },
         });
 
@@ -100,6 +100,8 @@ const FinalChatProbe = ({ typeChat, userData }) => {
     };
     const loadSocketClient = async () => {
       try {
+        if (!user) return console.error('El usuario es undefined');
+
         const socketClient = iClient.createSocketClient({
           objUser: userData,
         });
@@ -107,28 +109,28 @@ const FinalChatProbe = ({ typeChat, userData }) => {
         if (!socketClient)
           return console.error("Hubo un error al crear el socket del client");
 
-        const route = await fetcho({
-          url: "/toProcess",
-          method: "POST",
-          body: {
-            area: "local",
-            object: "control",
-            method: "getRouteBy",
-            params: {
-              option: "user",
-              params: [user],
-            },
-          },
-        });
+        // const route = await fetcho({
+        //   url: "/toProcess",
+        //   method: "POST",
+        //   body: {
+        //     area: "local",
+        //     object: "control",
+        //     method: "getRouteBy",
+        //     params: {
+        //       option: "user",
+        //       params: [user],
+        //     },
+        //   },
+        // });
 
-        if (!route || route.error) {
-          return console.error(
-            "Hubo un error al intentar obtener la ruta del usuario",
-            route.error
-          );
-        }
+        // if (!route || route.error) {
+        //   return console.error(
+        //     "Hubo un error al intentar obtener la ruta del usuario",
+        //     route.error
+        //   );
+        // }
 
-        console.log("Esta es la ruta a la que se va a unir ese usuario", route);
+        // console.log("Esta es la ruta a la que se va a unir ese usuario", route);
         const joinNamespace = iClient.joinNamespace(socketClient);
         const joinRoom = iClient.joinRoom(socketClient, "el prado");
 
@@ -143,6 +145,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
           );
 
         console.log("El usuario que envia el mensaje es: ", user);
+
 
         const obj = {
           socketEmit: socketClient,
@@ -244,6 +247,8 @@ const FinalChatProbe = ({ typeChat, userData }) => {
     if (typeChatSend.length <= 2)
       return console.error("El tipo de chat ingresado no es valido");
 
+
+    console.log('PASO A ENVIAR MENSAJE', objInfo)
     const success = sendMessageByBeibi({
       socketEmit: objInfo.socketEmit,
       typeChatMessage: typeChatSend,
@@ -311,7 +316,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
               Enviar Imagen
             </Button> */}
             <Input
-            className="input-chat-message"
+              className="input-chat-message"
               type="text"
               value={inputValue}
               onChange={handleInputChange}
