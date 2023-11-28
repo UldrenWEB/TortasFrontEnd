@@ -5,7 +5,7 @@ import SideBar from "./components/Sidebar/SideBar";
 import Content from "./components/Content";
 import "./styles/App.css";
 import { verifyLoginCookie, verifyMethodsNav } from "./service/verifyLogin";
-import SuperLoader from "./components/SuperLoader"
+import SuperLoader from "./components/SuperLoader";
 import FinalChatProbe from "./components/Messages/FinalChatProbe";
 
 function App() {
@@ -60,18 +60,18 @@ function App() {
           setIsLoading={setIsLoading}
         />
 
-        {/* {isLogged && dataUser &&  (
+        {isLogged && dataUser && (
           <div className="contenedor-chats-increible">
-          <FinalChatProbe
-            typeChat={"broadcast"}
-            userData={{ user: dataUser.name, profile: dataUser.profile }}
-          />
-          <FinalChatProbe
-            typeChat={"zones"}
-            userData={{ user: dataUser.name, profile: dataUser.profile }}
-          />
-          </div> */}
-        {/* )} */}
+            <FinalChatProbe
+              typeChat={"broadcast"}
+              userData={{ user: dataUser.name, profile: dataUser.profile }}
+            />
+            <FinalChatProbe
+              typeChat={"zones"}
+              userData={{ user: dataUser.name, profile: dataUser.profile }}
+            />
+          </div>
+        )}
       </Layout>
     </main>
   );
