@@ -129,7 +129,8 @@ const ComponentTable = ({ data, customHeaders }) => {
   };
 
   return (
-    <div>
+    <>
+      <div className="section-reports">
       <GeneratorPDF
         data={response}
         headers={headers.filter(header => header !== 'id')}
@@ -140,7 +141,8 @@ const ComponentTable = ({ data, customHeaders }) => {
         headers={headers}
         titulo={'Genero Excel'}
       />
-      <table className="table table-responsive  table-hover ">
+      </div>
+      <table className="table table-responsive table-hover ">
         <thead className="table-danger">
           <tr className="main-tr">
             {headers.map((header) =>
@@ -210,7 +212,7 @@ const ComponentTable = ({ data, customHeaders }) => {
           <Modal.Body>Todo se ha realizado correctamente.</Modal.Body>
         </Modal>
       )}
-    </div>
+    </>
   );
 };
 

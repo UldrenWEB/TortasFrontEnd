@@ -26,12 +26,7 @@ const HomeLogged = ({
         <div className="content-buttons">
           <div className="content-buttons-card">
             <div className="container-item-button">
-              <ButtonVe content={"Vendedores"} />
-              {/* <h2>23</h2> */}
-            </div>
-            <div className="container-item-button">
-              <ButtonVe content={"Productos"} />
-              {/* <h2>23</h2> */}
+              <ButtonVe content={"REPORTES"} isLink routeIsLink={'/reportsHandler'}/>
             </div>
           </div>
         </div>

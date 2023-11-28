@@ -115,12 +115,16 @@ body{
   z-index: 10000000000;
 }
 
-
-.container-all-chat{
+.contenedor-chats-increible{
   position: fixed;
   right: 0;
   bottom: 0;
-  margin: 2rem;
+  display: flex;
+  z-index: 10000;
+}
+
+.container-all-chat{
+  margin: 1rem;
   z-index: 10000;
   padding: 0.5rem;
   border-radius: 1rem;
