@@ -2,11 +2,7 @@ const objMethods = [
   {
     module: "billing",
     object: {
-      bill: {
-        delete: ["deleteRowBill"],
-      },
       payMethod: {
-        delete: "deletePayMethod",
         update: {
           status: "setStatusPayMethod",
           bank: "editTo",
@@ -58,22 +54,13 @@ const objMethods = [
       assignment: {
         update: {
           state: "updateStateAssignment",
-        },
-        delete: {
-          state: "deleteAssignmentOrState",
-          assignment: "deleteAssignmentOrState",
-        },
+        }
       },
       products: {
         update: {
           presentation: "updateTo",
           product: "updateTo",
           monto: "updateTo",
-        },
-        delete: {
-          presentation: "deleteTo",
-          product: "deleteTo",
-          productsale: "deleteProductSale",
         },
       },
     },

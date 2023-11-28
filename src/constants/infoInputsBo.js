@@ -63,6 +63,10 @@ const infoInputsBo = {
         { type: 'select', label: 'Productos', id: 'inProducto', placeholder: 'Productos a la venta' },
         { type: 'select', label: 'Presentacion', id: 'inPresentacion', placeholder: 'Presentaciones del producto' },
         { type: 'text', label: 'Monto', id: 'inMonto', placeholder: 'Nuevo monto' },
+    ],
+    editLocal: [
+        { type: 'select', label: 'Locales', id: 'inLocal', placeholder: 'Todos los locales' },
+        { type: 'text', label: 'Nuevo nombre', id: 'inNombre', placeholder: 'Ingresar nuevo nombre' }
     ]
 }
 

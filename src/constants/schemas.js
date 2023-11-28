@@ -147,6 +147,24 @@ const chemaEditPerson = object({
     .required("El id es requerido"),
 });
 
+const schemaEditLocal = object({
+  inLocal: number()
+    .required('Debe seleccionar un local'),
+  inNombre: string()
+    .required('Es requerido un nuevo nombre para actualizar el local eligido')
+})
+
+export const validateEditLocal = async ({ data }) => {
+  try {
+    const result = schemaEditLocal.validate(data, {
+      abortEarly: false
+    })
+    return result;
+  } catch (error) {
+    return { error: error.message }
+  }
+}
+
 export const validateEditPerson = async ({ data }) => {
   try {
     const result = await chemaEditPerson.validate(data, {

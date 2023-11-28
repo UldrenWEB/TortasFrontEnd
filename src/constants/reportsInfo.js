@@ -83,12 +83,52 @@ const pathInfo = [
         ]
     },
     {
-        path: 'pays',
+        path: 'billing',
         module: 'billing',
         object: 'bill',
         options: [
             {
-                error: 'Aqui faltan los metodos correspondientes'
+                type: 'select',
+                label: 'Todos las facturas por estado',
+                method: ['billing', 'bill', 'getAll', 'status'],
+                placeholder: 'Selleccion estado',
+                to: '?filter=billing&context=billing&method=seeBillsBy&params=status'
+            },
+            {
+                type: 'text',
+                label: 'Todos las facturas por cliente',
+                placeholder: 'Ingrese nombre',
+                to: '?filter=billing&context=billing&method=seeBillsBy&params=client'
+            },
+            {
+                type: 'text',
+                label: 'Todos las facturas por vendedor',
+                placeholder: 'Ingrese nombre',
+                to: '?filter=billing&context=billing&method=seeBillsBy&params=seller'
+            },
+            {
+                type: 'number',
+                label: 'Todas los pagos de una factura',
+                placeholder: 'Ingrese id de factura',
+                to: '?filter=billing&context=billing&method=getPaysByBill'
+            },
+            {
+                type: 'date',
+                label: 'Fecha especifica',
+                placeholder: 'Ingrese fecha',
+                to: '?filter=billing&context=billing&method=seeBillsBy&params=date'
+            },
+            {
+                type: 'button',
+                label: 'Todos los deudores',
+                placeholder: 'Presione',
+                to: '?filter=billing&context=billing&method=getAll&params=debt'
+            },
+            {
+                type: 'number',
+                label: 'Items de una factura',
+                placeholder: 'Ingrese id de factura',
+                to: '?filter=billing&context=billing&method=getItemsByBill'
             }
         ]
     },
@@ -158,12 +198,6 @@ const pathInfo = [
                 placeholder: 'Ingrese fecha',
                 label: 'Vendedores por ventas fechas',
                 to: '?filter=seller&context=seller&method=getSellersBy&params=sellsByDate'
-            },
-            {
-                type: 'number',
-                placeholder: 'Ingrese rango de fechas',
-                label: 'Vendedores por rango de fechas',
-                to: '?filter=seller&context=seller&method=getSellersBy&params=sellsByRangeDate'
             },
             {
                 type: 'number',
@@ -245,16 +279,6 @@ const pathInfo = [
                 to: '?filter=payMethod&context=methodother&method=getBy&params=methodOthers'
             },
 
-        ]
-    },
-    {
-        path: 'bills',
-        module: 'billing',
-        object: 'bill',
-        options: [
-            {
-                error: 'Faltan metodos para poder indicarlo aqui'
-            }
         ]
     },
     {

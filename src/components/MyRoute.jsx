@@ -5,6 +5,7 @@ import ComponentTable from "./Table";
 import pathInfo from "../constants/reportsInfo";
 import useURLParams from '../customHooks/useURLParams'
 import fetcho from "../service/fetcho";
+
 const datainfo = [
     { id: 1, name: "Estrella", description: "Una brillante estrella en el cielo nocturno", price: 1000, stock: 10, category: "Cosmico" },
     { id: 2, name: "Luna", description: "Un satelite natural de la tierra", price: 2000, stock: 20, category: "Cosmico" },
@@ -48,7 +49,7 @@ const datainfo = [
 const getModuleAndObjectByPath = (typeFilter) => {
     try {
         const route = pathInfo.find((config) => config.path === typeFilter);
-        console.log("Aqui Route", route);
+        // console.log("Aqui Route", route);
         if (!route) {
             return { module: "default", object: "default", options: "default" };
         } //No encontro esa ruta
@@ -62,7 +63,7 @@ const getModuleAndObjectByPath = (typeFilter) => {
     }
 };
 
-const MyRoute = () => {
+const MyRoute = ({ setLoading }) => {
     const [data, setData] = useState(null);
     const [optionsData, setOptions] = useState({});
     const [isMain, setIsMain] = useState(true);
@@ -104,6 +105,7 @@ const MyRoute = () => {
                             params: params.params,
                         },
                     });
+                    console.log('AQUIIIIII LA data que ira a LA TABLA', response)
                     setIsLoading(false);
                     setData({ response: datainfo, module, object, context: params["context"] });
                     setIsMain(false);
@@ -125,11 +127,8 @@ const MyRoute = () => {
     }, [params]);
 
     if (isLoading) {
-        return <div>Cargando en MyRoute...</div>; // Muestra un mensaje de carga mientras los datos se están cargando
+        return setLoading(true);
     }
-
-    //Abajo necesito un arreglo de objeto de prueba para tener los datos de la tabla que tengan propiedades id, name y description
-
     // console.log("AQUIIII DATA", data);
     return (
         <div>

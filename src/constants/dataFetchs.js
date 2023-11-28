@@ -628,6 +628,38 @@ export const getAmountByProductObj = ({ dataFetch }) => {
   }
 }
 
+export const editLocalDataFetch = ({ data }) => {
+  try {
+    const obj = {
+      to: 'local',
+      params: [
+        data?.inLocal,
+        data?.inNombre
+      ]
+    }
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el editLocalDataFetch archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+export const editLocalObj = ({ dataFetch }) => {
+  try {
+    const obj = {
+      area: 'local',
+      object: 'control',
+      method: 'editTo',
+      params: dataFetch
+    }
+    return obj;
+  } catch (error) {
+    console.error(
+      `Existio un error en el editLocalObj archivo dataFetchs.js con el dato ${dataFetch}`
+    );
+  }
+}
+
 export const objsFetch = {
   objGetAllAddress: {
     area: "person",
@@ -706,5 +738,11 @@ export const objsFetch = {
     object: 'products',
     method: 'getAll',
     params: { option: 'presentation' }
+  },
+  objGetAllLocal: {
+    area: 'local',
+    object: 'control',
+    method: 'getAllOf',
+    params: { of: 'local' }
   }
 };

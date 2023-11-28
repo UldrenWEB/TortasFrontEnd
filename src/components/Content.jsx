@@ -25,6 +25,8 @@ import AsingPayToBill from "../BO/payBill";
 import EditPerson from "../BO/EditPerson";
 import AsignarSalarioVendedor from "../BO/AsignarSalarioVendedor";
 import HomeLogged from "./HomeLogged";
+import EditProduct from "../BO/EditProduct";
+import EditLocal from "../BO/EditLocal";
 
 const Content = ({
   dataUser,
@@ -148,7 +150,14 @@ const Content = ({
           path="/person/control/editPerson"
           element={<EditPerson setLoading={setIsLoading} />}
         />
-
+        <Route
+          path="/sales/products/updateToProductSale"
+          element={<EditProduct setLoading={setIsLoading} />}
+        />
+        <Route
+          path="/local/control/editTo"
+          element={<EditLocal setLoading={setIsLoading} />}
+        />
         <Route
           path="/seller/order/asignTypePay"
           element={<AsignarSalarioVendedor setLoading={setIsLoading} />}
