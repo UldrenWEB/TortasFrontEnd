@@ -9,7 +9,7 @@ import fetcho from "../service/fetcho";
 const getModuleAndObjectByPath = (typeFilter) => {
     try {
         const route = pathInfo.find((config) => config.path === typeFilter);
-        console.log("Aqui Route", route);
+        // console.log("Aqui Route", route);
         if (!route) {
             return { module: "default", object: "default", options: "default" };
         } //No encontro esa ruta
@@ -73,6 +73,7 @@ const MyRoute = () => {
                             params: prueba,
                         },
                     });
+                    console.log('HOLAAAA', response)
                     setIsLoading(false);
                     setData({
                         response: response,

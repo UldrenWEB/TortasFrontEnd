@@ -7,14 +7,14 @@ const pathInfo = [
             {
                 type: 'button',
                 label: 'Todas las rutas',
-                to: `?filter=routes&context=route&method=getAllOf&params=route`
+                to: `?filter=routes&context=route&method=getAllOf&params=route&typeParams=of`
             },
             {
                 type: 'select',
                 method: ['local', 'control', 'getAllOf', 'local'],
                 placeHolder: 'Ingrese nombre',
                 label: 'Por nombre de local',
-                to: `?filter=routes&context=route&method=getRouteByLocal`
+                to: `?filter=routes&context=route&method=getRouteBy&params=local&typeParams=option&typeParams=params`
             },
         ]
 
@@ -28,32 +28,32 @@ const pathInfo = [
                 type: 'button',
                 label: 'Todos los productos',
                 typeParam: 'option',
-                to: `?filter=products&context=product&method=getall&params=productsale&typeParam=option`
+                to: `?filter=products&context=product&method=getall&params=productsale&typeParams=option`
             },
             {
                 type: 'select',
                 method: ['sales', 'products', 'getAll', 'presentation'],
                 placeholder: 'Seleccione presentacion',
                 label: 'Producto por presentacion especifica',
-                to: `?filter=products&context=product&method=getAllProductByCondition&params=presentation`
+                to: `?filter=products&context=product&method=getAllProductByCondition&params=presentation&typeParams=condition&typeParams=params`
             },
             {
                 type: 'number',
                 placeholder: 'Ingrese monto',
                 label: 'Producto por monto especifico',
-                to: `?filter=products&context=product&method=getAllProductByCondition&params=amount`
+                to: `?filter=products&context=product&method=getAllProductByCondition&params=amount&typeParams=condition&typeParams=params`
             },
             {
                 type: 'number',
                 placeholder: 'Ingrese monto',
                 label: 'Producto menor al monto',
-                to: `?filter=products&context=product&method=getAllProductByCondition&params=lessthanamount`
+                to: `?filter=products&context=product&method=getAllProductByCondition&params=lessthanamount&typeParams=condition&typeParams=params`
             },
             {
                 type: 'number',
                 placeholder: 'Ingrese monto',
                 label: 'Producto mayor al monto',
-                to: `?filter=products&context=product&method=getAllProductByCondition&params=largerthanamount`
+                to: `?filter=products&context=product&method=getAllProductByCondition&params=largerthanamount&typeParams=condition&typeParams=params`
             },
 
         ]
@@ -66,20 +66,20 @@ const pathInfo = [
             {
                 type: 'button',
                 label: 'Todos los locales',
-                to: `?filter=local&context=local&method=getAllOf&params=local`
+                to: `?filter=local&context=local&method=getAllOf&params=local&typeParams=of`
             },
             {
                 type: 'text',
                 placeholder: 'Ingrese persona',
                 label: 'Local por persona',
-                to: `?filter=local&context=local&method=getLocalBy&params=person`
+                to: `?filter=local&context=local&method=getLocalBy&params=person&typeParams=by&typeParams=params`
             },
             {
                 type: 'select',
                 method: ['local', 'control', 'getAllOf', 'route'],
                 placeholder: 'Ingrese route',
                 label: 'Local por ruta',
-                to: `?filter=local&context=local&method=getLocalBy&params=route`
+                to: `?filter=local&context=local&method=getLocalBy&params=route&typeParams=by&typeParams=params`
             },
         ]
     },
@@ -93,43 +93,43 @@ const pathInfo = [
                 label: 'Todos las facturas por estado',
                 method: ['billing', 'bill', 'getAll', 'status'],
                 placeholder: 'Selleccion estado',
-                to: '?filter=billing&context=billing&method=seeBillsBy&params=status'
+                to: '?filter=billing&context=billing&method=seeBillsBy&params=status&typeParams=option&typeParams=params'
             },
             {
                 type: 'text',
                 label: 'Todos las facturas por cliente',
                 placeholder: 'Ingrese nombre',
-                to: '?filter=billing&context=billing&method=seeBillsBy&params=client'
+                to: '?filter=billing&context=billing&method=seeBillsBy&params=client&typeParams=option&typeParams=params'
             },
             {
                 type: 'text',
                 label: 'Todos las facturas por vendedor',
                 placeholder: 'Ingrese nombre',
-                to: '?filter=billing&context=billing&method=seeBillsBy&params=seller'
+                to: '?filter=billing&context=billing&method=seeBillsBy&params=seller&typeParams=option&typeParams=params'
             },
             {
                 type: 'number',
                 label: 'Todas los pagos de una factura',
                 placeholder: 'Ingrese id de factura',
-                to: '?filter=billing&context=billing&method=getPaysByBill'
+                to: '?filter=billing&context=billing&method=getPaysByBill&typeParams=idBill'
             },
             {
                 type: 'date',
                 label: 'Fecha especifica',
                 placeholder: 'Ingrese fecha',
-                to: '?filter=billing&context=billing&method=seeBillsBy&params=date'
+                to: '?filter=billing&context=billing&method=seeBillsBy&params=date&typeParams=option&typeParams=params'
             },
             {
                 type: 'button',
                 label: 'Todos los deudores',
                 placeholder: 'Presione',
-                to: '?filter=billing&context=billing&method=getAll&params=debt'
+                to: '?filter=billing&context=billing&method=getAll&params=debt&typeParams=option'
             },
             {
                 type: 'number',
                 label: 'Items de una factura',
                 placeholder: 'Ingrese id de factura',
-                to: '?filter=billing&context=billing&method=getItemsByBill'
+                to: '?filter=billing&context=billing&method=getItemsByBill&typeParams=id'
             }
         ]
     },
@@ -161,62 +161,19 @@ const pathInfo = [
             {
                 type: 'button',
                 label: 'Todos los vendendores',
-                to: '?filter=seller&context=seller&method=getSellersBy'
+                to: '?filter=seller&context=seller&method=getSellersBy&params=default&typeParams=option&typeParams=params'
             },
             {
                 type: 'select',
                 method: ['local', 'control', 'getAllOf', 'route'],
                 placeholder: 'Seleccione una ruta',
                 label: 'Vendedores por ruta',
-                to: '?filter=seller&context=seller&method=getSellersBy&params=route'
-            },
-            {
-                type: 'select',
-                method: ['sales', 'assignment', 'getAllAssignment'],
-                placeholder: 'Seleccione asignacion',
-                label: 'Vendedor por asignacion',
-                to: '?filter=seller&context=seller&method=getSellersBy&params=assignment'
+                to: '?filter=seller&context=seller&method=getSellersBy&params=route&typeParams=option&typeParams=params'
             },
             {
                 type: 'button',
                 label: 'Vendedores por venta',
-                to: '?filter=seller&context=seller&method=getSellersBy&params=sells'
-            },
-            {
-                type: 'number',
-                placeholder: 'Ingrese minimo',
-                label: 'Vendedores por ventas minimas',
-                to: '?filter=seller&context=seller&method=getSellersBy&params=sellsMin'
-            },
-            {
-                type: 'number',
-                placeholder: 'Ingrese maximo',
-                label: 'Vendedores por ventas maximas',
-                to: '?filter=seller&context=seller&method=getSellersBy&params=sellsMax'
-            },
-            {
-                type: 'date',
-                placeholder: 'Ingrese fecha',
-                label: 'Vendedores por ventas fechas',
-                to: '?filter=seller&context=seller&method=getSellersBy&params=sellsByDate'
-            },
-            {
-                type: 'number',
-                placeholder: 'Ingrese monto',
-                label: 'Vendedores por monto que han realizado',
-                to: '?filter=seller&context=seller&method=getSellersBy&params=sellsByAmmount'
-            },
-            {
-                type: 'number',
-                placeholder: 'Ingrese monto minimo',
-                label: 'Vendedores por monto minimo',
-                to: '?filter=seller&context=seller&method=getSellersBy&params=sellsByAmmountMin'
-            },
-            {
-                type: 'number',
-                placeholder: 'Ingrese monto maximo',
-                label: 'Vendedores por monto maximo',
-                to: '?filter=seller&context=seller&method=getSellersBy&params=sellsByAmmountMax'
+                to: '?filter=seller&context=seller&method=getSellersBy&params=sells&typeParams=option&typeParams=params'
             },
         ]
     },
@@ -228,24 +185,24 @@ const pathInfo = [
             {
                 type: 'button',
                 label: 'Todos las persona',
-                to: '?filter=person&context=person&method=getAllOf&params=person'
+                to: '?filter=person&context=person&method=getAllOf&params=person&typeParams=option'
             },
             {
                 type: 'select',
                 method: ['directions', 'control', 'getAll', 'address'],
                 placeholder: 'Seleccion direccion',
                 label: 'Persona por direccion',
-                to: '?filter=person&context=person&method=getAllOf&params=getAllPersonWithAddress'
+                to: '?filter=person&context=person&method=getAllOf&params=getAllPersonWithAddress&typeParams=option'
             },
             {
                 type: 'button',
                 label: 'Todos los tipos de persona',
-                to: '?filter=person&context=person&method=getAllOf&params=typePerson'
+                to: '?filter=person&context=person&method=getAllOf&params=typePerson&typeParams=option'
             },
             {
                 type: 'button',
                 label: 'Todos las direcciones de personas',
-                to: '?filter=person&context=person&method=getAllOf&params=address'
+                to: '?filter=person&context=person&method=getAllOf&params=address&typeParams=option'
             },
         ]
     },

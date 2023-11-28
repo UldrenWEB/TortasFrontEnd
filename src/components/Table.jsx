@@ -26,7 +26,7 @@ const ComponentTable = ({ data, customHeaders }) => {
   const [actionAvailable, setActionAvailable] = useState([]);
 
   const { response, module, object, context } = tableData;
-
+  console.log('AQUIII', response)
   if (!response || response.error) return <div>{response.error}</div>;
 
   useEffect(() => {
@@ -148,7 +148,7 @@ const ComponentTable = ({ data, customHeaders }) => {
                 <th key={header}>{header.toUpperCase()}</th>
               )
             )}
-            <th>ACTIONS</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -185,32 +185,36 @@ const ComponentTable = ({ data, customHeaders }) => {
         </tbody>
       </table>
       {/* Modal para confirmar la accion */}
-      {confirmAction && (
-        <Modal show={confirmAction} onHide={() => setConfirmAction(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Confirma tu accion</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>¿Estás seguro de que deseas hacerlo?</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setConfirmAction(false)}>
-              Cancelar
-            </Button>
-            <Button variant="primary" onClick={handleConfirmAction}>
-              Aceptar
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
+      {
+        confirmAction && (
+          <Modal show={confirmAction} onHide={() => setConfirmAction(false)}>
+            <Modal.Header closeButton>
+              <Modal.Title>Confirma tu accion</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>¿Estás seguro de que deseas hacerlo?</Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={() => setConfirmAction(false)}>
+                Cancelar
+              </Button>
+              <Button variant="primary" onClick={handleConfirmAction}>
+                Aceptar
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        )
+      }
       {/* Modal de que todo fue exitosos */}
-      {successMessage && (
-        <Modal show={successMessage} onHide={() => setSuccessMessage(false)}>
-          <Modal.Header closeButton={true}>
-            <Modal.Title>Acción completada</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Todo se ha realizado correctamente.</Modal.Body>
-        </Modal>
-      )}
-    </div>
+      {
+        successMessage && (
+          <Modal show={successMessage} onHide={() => setSuccessMessage(false)}>
+            <Modal.Header closeButton={true}>
+              <Modal.Title>Acción completada</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Todo se ha realizado correctamente.</Modal.Body>
+          </Modal>
+        )
+      }
+    </div >
   );
 };
 
