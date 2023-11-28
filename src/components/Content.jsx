@@ -159,6 +159,7 @@ const Content = ({
           element={<AsignarSalarioVendedor setLoading={setIsLoading} />}
         />
 
+        <Route path="/contacto" element={<Contacto />} />
         <Route
           path="/miPinga"
           element={

@@ -14,7 +14,6 @@ import GeneratorExcel from "./GeneratorExcel";
 
 import "../styles/table.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ColumnGroup from "antd/es/table/ColumnGroup";
 import ModalSession from "./ModalSession";
 import "../styles/table.css";
 import { Link } from "react-router-dom";
@@ -22,7 +21,7 @@ import { Link } from "react-router-dom";
 
 //!Componente el cual Renderiza en una tabla una consulta SQL y muestra cada registro
 const Componenttable = ({ data, customHeaders }) => {
-  const [tableData, settableData] = useState(data);
+  const [tableData, setTableData] = useState(data);
   const [headers, setHeaders] = useState([]);
   const [modifiedData, setModifiedData] = useState(null);
   const [confirmAction, setConfirmAction] = useState(false);
@@ -89,14 +88,14 @@ const Componenttable = ({ data, customHeaders }) => {
 
         if (response.error) {
           // setTableData(tableData);
-          settableData(tableData);
+          setTableData(tableData);
           return console.error("Hubo un error al hacer la consulta");
         }
 
         if (response?.errorSession) return <ModalSession />;
 
-        settableData({
-          response: action === "delete" ? updateData : update,
+        setTableData({
+          response: action === "delete" ? updateData : '',
           module,
           object,
           context,
@@ -122,30 +121,6 @@ const Componenttable = ({ data, customHeaders }) => {
     }
   }, [isConfirm]);
 
-  const handleButtonView = (rowData) => {
-    setConfirmAction(true);
-  };
-
-  const handleButtonEdit = (rowData) => {
-    const data = tableData["response"].find((obj) => obj.id === rowData.id);
-    setOriginalData(data);
-    setEditingRow(rowData);
-  };
-
-  const handleCancelEdit = () => {
-    if (originalData) {
-      console.log("Paso aqui", tableData);
-      console.log("Data origianl ", originalData);
-      const newData = [...tableData["response"]];
-      console.log("Aquii esta la nueva data", newData);
-      newData[editingRow] = originalData;
-
-      console.log("Aqui extrayendo info con la fila", newData[editingRow]);
-      settableData(newData);
-      setOriginalData(null);
-    }
-    setEditingRow(null);
-  };
 
   const handleButtonDelete = (rowData) => {
     setConfirmAction(true);
@@ -167,44 +142,29 @@ const Componenttable = ({ data, customHeaders }) => {
     setIsConfirm(true);
   };
 
-  const handleSaveChanges = (rowData) => {
-    const { id } = rowData;
-    const updateData = response.find((row) => row.id === id);
-    setModifiedData({
-      id,
-      module,
-      object,
-      action: "update",
-      context,
-      updateData,
-    });
-
-    originalData(null);
-    setEditingRow(null);
-  };
-
-  const handleInputChange = (e, rowIndex, columnName) => {
-    const { value } = e.target;
-
-    const updatedResponse = [...response];
-    updatedResponse[rowIndex][columnName] = value;
-
-    setUpdate(updatedResponse);
-  };
 
   return (
-    <>
+    <section>
+      <GeneratorPDF
+        data={response}
+        headers={headers.filter(header => header !== 'id')}
+        titulo={'Genero PDF'}
+      />
+      <GeneratorExcel
+        data={response}
+        headers={headers}
+        titulo={'Genero Excel'}
+      />
       <table className="table table-striped">
         <thead>
           <tr>
             {headers.map((header) =>
               header === "id" ? null : <th key={header}>{header.toUpperCase()}</th>
             )}
-            <th>ACTIONS</th>
           </tr>
         </thead>
         <tbody>
-          {response.map((row, rowIndex) => (
+          {response.map((row, rowIndex) => {
             <tr key={rowIndex}>
               {/* Campos normales*/}
               <>
@@ -214,59 +174,8 @@ const Componenttable = ({ data, customHeaders }) => {
               </>
               <td>
                 <div className="d-flex flex-column flex-sm-row">
-                  <>
-                    {actionAvailable.includes("delete") && (
-                      <Button
-                        className="icon-button p-2 m-1 p-sm-0"
-                        variant="link"
-                        onClick={() => handleButtonDelete(row)}
-                      >
-                        <img
-                          src={folder}
-                          alt="Icon save"
-                          style={{ width: "20px", height: "20px" }}
-                        />
-                      </Button>
-                      <Button
-                        className="icon-button p-2 m-1 p-sm-0"
-                        variant="link"
-                        onClick={() => handleCancelEdit()}
-                      >
-                        <img
-                          src={'./hola'}
-                          alt="Icon cancel"
-                          style={{ width: "20px", height: "20px" }}
-                        />
-                      </Button>
-                    </>
 
-                  ) : (
                   <>
-                    <Button
-                      className="icon-button p-2 m-1 p-sm-0"
-                      variant="link"
-                      onClick={() => handleButtonView(row)}
-                    >
-                      <img
-                        src={eye}
-                        alt="Icon eye"
-                        style={{ width: "16px", height: "16px" }}
-                      />
-                    </Button>
-
-                    {actionAvailable.includes("update") && (
-                      <Button
-                        className="icon-button p-2 m-1 p-sm-0"
-                        variant="link"
-                        onClick={() => handleButtonEdit(row)}
-                      >
-                        <img
-                          src={pencil}
-                          alt="Icon pencil"
-                          style={{ width: "16px", height: "16px" }}
-                        />
-                      </Button>
-                    )}
                     {actionAvailable.includes("delete") && (
                       <Button
                         className="icon-button p-2 m-1 p-sm-0"
@@ -281,11 +190,10 @@ const Componenttable = ({ data, customHeaders }) => {
                       </Button>
                     )}
                   </>
-                  )}
                 </div>
               </td>
             </tr>
-          ))}
+          })}
         </tbody>
       </table>
       {/* Modal para confirmar la accion */}
@@ -314,7 +222,7 @@ const Componenttable = ({ data, customHeaders }) => {
           <Modal.Body>Todo se ha realizado correctamente.</Modal.Body>
         </Modal>
       )}
-    </div >
+    </section>
   );
 };
 
