@@ -22,7 +22,6 @@ const fetcho = async ({ url, method, body }) => {
 
     const response = await fetch(`${URL_BASE}${url}`, config);
 
-
     const data = await response.json();
 
     if (data?.errorSession) {

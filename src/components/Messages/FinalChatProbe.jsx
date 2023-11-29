@@ -311,7 +311,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
   return (
     <div className={showChat ? "container-all-chat" : "container-all-chat chat-not-show"}>
       <Button
-        className="icon-button p-2 m-1 p-sm-0"
+        className={showChat ? "icon-button p-2 m-1 p-sm-0 chat-cerrado" : "icon-button p-2 m-1 p-sm-0"}
         variant="link"
         onClick={toggleChat}
       >

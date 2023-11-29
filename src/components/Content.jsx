@@ -25,6 +25,9 @@ const Contacto = lazy(() => import("./Contacto"));
 const EditProduct = lazy(() => import('../BO/EditProduct'))
 const EditLocal = lazy(() => import('../BO/EditLocal'))
 const ReportsHandler = lazy(() => import('./ReportsHandler'))
+const OlvidoDatos = lazy(() => import('./OlvidoDatos'))
+const Preguntas = lazy(() => import('./Preguntas'))
+const EnvioCorreo = lazy(() => import('./EnvioCorreo.jsx'))
 
 const Content = ({
   dataUser,
@@ -167,6 +170,12 @@ const Content = ({
         />}
 
         <Route path="/contacto" element={<Contacto />} />
+
+        <Route path="/olvidoDatos" element={<OlvidoDatos setLoading={setIsLoading}/>} />
+
+        <Route path="/olvidoDatos/preguntas" element={<Preguntas setLoading={setIsLoading}/>} />
+
+        <Route path="/olvidoDatos/envioCorreo" element={<EnvioCorreo />} />
       </Routes>
     </Suspense>
   );

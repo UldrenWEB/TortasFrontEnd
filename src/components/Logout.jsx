@@ -9,12 +9,12 @@ const Logout = ({ setLogger, isLogged, navigate }) => {
   const [data, setData] = useState("Cerrar sesion");
 
   useEffect(() => {
-    if (!isLogged) return;
+    if (!isLogged) return navigate("/login");
 
     const handler = async () => {
       const result = await fetcho({ url: "/logout", method: "GET" });
       verifyLogout({ setLogger, setData, result });
-      navigate('/login')
+      navigate("/login");
 
       if (result?.error) return setData(result.error);
     };
@@ -22,19 +22,7 @@ const Logout = ({ setLogger, isLogged, navigate }) => {
     handler();
   }, [data]);
 
-  return (
-    // <section className="container-logout">
-    //   <div className="cardLogout">
-    //     <h1>Mensaje</h1> {data}
-    //     <Button className="btnRegresar">
-    //       <Link to="/">Ir a inicio</Link>
-    //     </Button>
-    //   </div>
-    // </section>
-
-    <>
-    </>
-  );
+  return <></>;
 };
 
 export default Logout;
