@@ -61,7 +61,7 @@ class Client {
         // }
         try {
             console.log('Aqui socketEmit', socketEmit);
-            socketEmit.emit('message zone', { room, message });
+            socketEmit.emit('message zone', { room: 'el prado', message });
             return true;
         } catch (error) {
             console.error(error)
