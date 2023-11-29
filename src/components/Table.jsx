@@ -26,7 +26,7 @@ const ComponentTable = ({ data, customHeaders }) => {
   const [actionAvailable, setActionAvailable] = useState([]);
 
   const { response, module, object, context } = tableData;
-  console.log('AQUIII', response)
+  // console.log('AQUIII', response)
   if (!response || response.error) return <div>{response.error}</div>;
 
   useEffect(() => {
@@ -150,7 +150,7 @@ const ComponentTable = ({ data, customHeaders }) => {
                 <th key={header}>{header.toUpperCase()}</th>
               )
             )}
-            <th></th>
+            {/* <th></th> */}
           </tr>
         </thead>
         <tbody>
@@ -161,27 +161,27 @@ const ComponentTable = ({ data, customHeaders }) => {
                   key === "id" ? null : <td key={columnIndex}>{value}</td>
                 )}
               </>
-              <td>
-                <div className="d-flex flex-column flex-sm-row">
-                  {/* Botón de guardar cambios */}
-                  <>
-                    {actionAvailable.includes("delete") && (
-                      <Button
-                        className="icon-button p-2 m-1 p-sm-0"
-                        style={{ backgroundColor: "transparent" }}
-                        variant="link"
-                        onClick={() => handleButtonDelete(row)}
-                      >
-                        <img
-                          src={trash}
-                          alt="Icon trash "
-                          style={{ width: "16px", height: "16px" }}
-                        />
-                      </Button>
-                    )}
-                  </>
-                </div>
-              </td>
+              {/* <td> */}
+              {/* <div className="d-flex flex-column flex-sm-row"> */}
+              {/* Botón de guardar cambios */}
+              {/* <> */}
+              {actionAvailable.includes("Hola") && (
+                <Button
+                  className="icon-button p-2 m-1 p-sm-0"
+                  style={{ backgroundColor: "transparent" }}
+                  variant="link"
+                  onClick={() => handleButtonDelete(row)}
+                >
+                  <img
+                    src={trash}
+                    alt="Icon trash "
+                    style={{ width: "16px", height: "16px" }}
+                  />
+                </Button>
+              )}
+              {/* </> */}
+              {/* </div> */}
+              {/* </td> */}
             </tr>
           ))}
         </tbody>
