@@ -1,4 +1,4 @@
-.container-options-reports{
+.container-options-reports {
     width: 100% !important;
     min-height: 100vh;
     display: flex;
@@ -10,7 +10,7 @@
     overflow: scroll;
 }
 
-.container-options-card{
+.container-options-card {
     width: 30%;
     min-width: 200px;
     height: 60%;
@@ -25,24 +25,24 @@
     box-sizing: border-box;
 }
 
-.btn-all-products:first-child{
+.btn-all-products:first-child {
     background-color: #FB5361;
     border-radius: 10px;
     font-size: 1.5rem;
 }
 
-.btn-all-products .btn{
+.btn-all-products .btn {
     padding: 0.5rem;
     border-radius: 10px;
     color: #fff;
     font-weight: bold;
 }
 
-.btn-all-products div{
+.btn-all-products div {
     text-align: center;
 }
 
-.btn-all-products:nth-child(2){
+.btn-all-products:nth-child(2) {
     display: flex;
     width: 100%;
     justify-content: space-around;
@@ -56,64 +56,64 @@
     margin-right: 10px;
 }
 
-.btn-all-products:nth-child(2) button{
+.btn-all-products:nth-child(2) button {
     background-color: #FB5361;
     padding: 0.5rem;
     border-radius: 10px;
     color: #fff;
 }
 
-.container-buttons{
+.container-buttons {
     display: flex;
     gap: 0.5rem;
 }
 
-.container-buttons > input{
+.container-buttons>input {
     padding: 0.5rem;
     border: 1px solid #FB5361;
     border-radius: 10px;
 }
 
-.container-buttons > button{
+.container-buttons>button {
     background-color: #FB5361;
     padding: 0.5rem;
     border-radius: 10px;
     color: #fff;
 }
 
-@media(max-width: 1100px){
+@media(max-width: 1100px) {
 
     .btn-all-products:nth-child(2) select {
         width: 100%;
     }
 
-    .container-options-card{
+    .container-options-card {
         width: 70% !important;
         min-width: 240px;
     }
 
-    .btn-all-products{
+    .btn-all-products {
         display: block !important;
         min-width: 200px;
         width: 100%;
     }
 
-    .container-buttons{
+    .container-buttons {
         flex-direction: column;
     }
 
-    .btn-all-products:nth-child(2){
+    .btn-all-products:nth-child(2) {
         flex-direction: column;
     }
 
-    .btn-all-products:nth-child(2) button{
+    .btn-all-products:nth-child(2) button {
         width: 100%;
         margin-top: 5px;
     }
 }
 
-@media(max-width: 600px){
-    .container-options-card{
+@media(max-width: 600px) {
+    .container-options-card {
         width: 90% !important;
     }
 }

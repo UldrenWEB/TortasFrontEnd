@@ -1,4 +1,4 @@
-import {lazy} from 'react'
+import { lazy } from 'react'
 
 import { useEffect, useState } from "react";
 import DefaultComponent from "./DefaultComponent";
@@ -81,14 +81,14 @@ const MyRoute = ({ setLoading }) => {
               params: prueba,
             },
           });
-                    console.log('HOLAAAA', response)
+          console.log('HOLAAAA', response)
           setLoading(false);
           if (response?.errorSession) setIsErrorSession(true);
-          if(response?.error){
+          if (response?.error) {
             setDataModal(response.error)
             setIsModalOpen(true)
             return
-          } 
+          }
 
           setData({
             response: response,
@@ -115,7 +115,7 @@ const MyRoute = ({ setLoading }) => {
   }, [params]);
 
   if (isErrorSession) return <ModalSession />;
-  if(isModalOpen) return <ModalBase setIsModalVisible={setIsModalOpen} content={JSON.stringify(dataModal)} />
+  if (isModalOpen) return <ModalBase setIsModalVisible={setIsModalOpen} content={JSON.stringify(dataModal)} />
 
   return (
     <div className="container-all-reports" style={{ width: "100%" }}>

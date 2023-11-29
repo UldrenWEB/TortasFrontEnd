@@ -11,8 +11,8 @@ const pathInfo = [
             },
             {
                 type: 'select',
-                method: ['local', 'control', 'getAllOf', 'local'],
-                placeHolder: 'Ingrese nombre',
+                method: ['local', 'control', 'getAllOf', { of: 'local' }],
+                placeholder: 'Ingrese nombre de local',
                 label: 'Por nombre de local',
                 to: `?filter=routes&context=route&method=getRouteBy&params=local&typeParams=option&typeParams=params`
             },
@@ -32,7 +32,7 @@ const pathInfo = [
             },
             {
                 type: 'select',
-                method: ['sales', 'products', 'getAll', 'presentation'],
+                method: ['sales', 'products', 'getAll', { option: 'presentation' }],
                 placeholder: 'Seleccione presentacion',
                 label: 'Producto por presentacion especifica',
                 to: `?filter=products&context=product&method=getAllProductByCondition&params=presentation&typeParams=condition&typeParams=params`
@@ -76,7 +76,7 @@ const pathInfo = [
             },
             {
                 type: 'select',
-                method: ['local', 'control', 'getAllOf', 'route'],
+                method: ['local', 'control', 'getAllOf', { of: 'route' }],
                 placeholder: 'Ingrese route',
                 label: 'Local por ruta',
                 to: `?filter=local&context=local&method=getLocalBy&params=route&typeParams=by&typeParams=params`
@@ -88,13 +88,6 @@ const pathInfo = [
         module: 'billing',
         object: 'bill',
         options: [
-            {
-                type: 'select',
-                label: 'Todos las facturas por estado',
-                method: ['billing', 'bill', 'getAll', 'status'],
-                placeholder: 'Selleccion estado',
-                to: '?filter=billing&context=billing&method=seeBillsBy&params=status&typeParams=option&typeParams=params'
-            },
             {
                 type: 'text',
                 label: 'Todos las facturas por cliente',
@@ -112,6 +105,13 @@ const pathInfo = [
                 label: 'Todas los pagos de una factura',
                 placeholder: 'Ingrese id de factura',
                 to: '?filter=billing&context=billing&method=getPaysByBill&typeParams=idBill'
+            },
+            {
+                type: 'select',
+                label: 'Todos las facturas por estado',
+                method: ['billing', 'bill', 'getAll', { option: 'status' }],
+                placeholder: 'Seleccione estatus',
+                to: '?filter=billing&context=billing&method=seeBillsBy&params=status&typeParams=option&typeParams=params'
             },
             {
                 type: 'date',
@@ -165,7 +165,7 @@ const pathInfo = [
             },
             {
                 type: 'select',
-                method: ['local', 'control', 'getAllOf', 'route'],
+                method: ['local', 'control', 'getAllOf', { of: 'route' }],
                 placeholder: 'Seleccione una ruta',
                 label: 'Vendedores por ruta',
                 to: '?filter=seller&context=seller&method=getSellersBy&params=route&typeParams=option&typeParams=params'
@@ -189,7 +189,7 @@ const pathInfo = [
             },
             {
                 type: 'select',
-                method: ['directions', 'control', 'getAll', 'address'],
+                method: ['directions', 'control', 'getAll', { direction: 'address' }],
                 placeholder: 'Seleccion direccion',
                 label: 'Persona por direccion',
                 to: '?filter=person&context=person&method=getAllOf&params=getAllPersonWithAddress&typeParams=option'

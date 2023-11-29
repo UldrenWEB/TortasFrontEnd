@@ -19,7 +19,7 @@ const ButtonReports = ({ optionByPath, setLoading }) => {
 
     const fetchSelectOptions = async () => {
       const selectOptionCorrect = options.find((obj) => obj.type === "select");
-      console.log('EPPAAAAS', selectOptionCorrect)
+      // console.log('EPPAAAAS', selectOptionCorrect)
       if (selectOptionCorrect) {
         const [nameModule, nameObject, nameMethod, params] =
           selectOptionCorrect.method;
@@ -38,9 +38,10 @@ const ButtonReports = ({ optionByPath, setLoading }) => {
 
         setLoading(false);
 
-        console.log(result)
+        // console.log(result)
         if (result.errorSession) setIsErrorSession(true);
         // Actualiza el estado con las opciones recibidas
+        console.log('Aqui result', result)
         if (result.error || !result) {
           setModalData("Hubo un error al realizar la consulta", result?.error)
           setIsModalVisible(true)
@@ -53,13 +54,15 @@ const ButtonReports = ({ optionByPath, setLoading }) => {
     // Verifica si alguna opción es de tipo "select"
     const hasSelectOption = options.some((option) => option.type === "select");
 
+    // console.log('Aquiiii', hasSelectOption)
     if (hasSelectOption) {
       console.log('Si existe una opcion de tipo select')
       fetchSelectOptions();
     }
-  }, []);
+  }, [optionByPath]);
 
   const handleInputChange = ({ index, value }) => {
+    // console.log('AQUI SELECT ', value)
     const newInputs = [...inputs];
     newInputs[index] = value;
     setInputs(newInputs);
@@ -67,7 +70,7 @@ const ButtonReports = ({ optionByPath, setLoading }) => {
 
   const handleButtonInput = ({ index, option }) => {
     const inputValue = inputs[index];
-    console.log(`Input ${index} value: ${inputValue}`);
+    // console.log(`Input ${index} value: ${inputValue}`);
 
     navigate(`${option.to}&params=${inputValue}`);
   };
@@ -90,8 +93,8 @@ const ButtonReports = ({ optionByPath, setLoading }) => {
                   option.type === "number" ||
                   option.type === "date" ? (
                   <div className="container-buttons">
-                    <div>{option.label}</div>
-                    <input
+                    <div style={{ fontSize: '16px', fontWeight: 'bold' }}>{option.label}</div>
+                    <input style={{ padding: '0.5rem', border: '1px solid #FB5361', borderRadius: '10px', marginRight: '10px' }}
                       className="input "
                       type={option.type}
                       placeholder={option.placeholder}
@@ -109,7 +112,7 @@ const ButtonReports = ({ optionByPath, setLoading }) => {
                   </div>
                 ) : option.type === "select" ? (
                   <div>
-                    <div>{option.label}</div>
+                    <div style={{ fontSize: '16px', fontWeight: 'bold' }}>{option.label}</div>
                     <select
                       className="select"
                       value={inputs[index] || ""}
