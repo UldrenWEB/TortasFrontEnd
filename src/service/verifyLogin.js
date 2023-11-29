@@ -1,27 +1,23 @@
 import Cookies from "js-cookie";
-import fetchDataPost from "./fetchDataPost";
+
 
 export const verifyLoginCookie = ({ setLogger, navigate, location }) => {
-  const logged = Cookies.get("connect.sid") ? true : false;
-  setLogger(logged);
+    const logged = Cookies.get("connect.sid") ? true : false;
+    setLogger(logged);
+  
+    if (logged) {
+      if (location.pathname === "/") {
+        return navigate("/home");
+      }
+    } else {
+      if (location.pathname !== "/" && location.pathname !== "/login" ) {
+        return navigate("/");
+      }
+    }
 
-  if (logged) {
-    if (location.pathname === "/" && location.pathname !== "/home") {
-      navigate("/home");
-    }
-  } else {
-    if (location.pathname !== "/") {
-      navigate("/");
-    }
-  }
 };
 
-export const verifyMethodsNav = ({
-  setLogger,
-  navigate,
-  setDataNav,
-  setDataUser,
-}) => {
+export const verifyMethodsNav = ({ setLogger, navigate, setDataNav, setDataUser }) => {
   const info = localStorage.getItem("permisosNav");
   const infoUser = localStorage.getItem("dataUser");
 
@@ -39,16 +35,11 @@ export const verifyMethodsNav = ({
 };
 
 export const verifyLogout = ({ setLogger, setData, result }) => {
-  try {
-    setLogger(false);
   Cookies.remove("connect.sid");
   localStorage.removeItem("permisosNav");
   localStorage.removeItem("dataUser");
+  setLogger(false);
   setData(result.message || "La sesion se cerro correctamente");
-  } catch (error) {
-    console.warning(error.message)
-    return true
-  }
 };
 
 export const verifySession = async ({ setLogger, navigate }) => {

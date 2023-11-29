@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-//*CustomHook para obtner los parametros de la url
 const useURLParams = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -27,7 +26,7 @@ const useURLParams = () => {
         } catch (error) {
             console.error('Error al obtener los datos:', error);
         }
-    }, [location.search]);
+    }, [location.search, location.pathname]); // Escucha los cambios en la ruta y la cadena de consulta
 
     return { params };
 };

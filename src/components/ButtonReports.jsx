@@ -3,6 +3,7 @@ import fetcho from "../service/fetcho";
 import "../styles/ButtonReports.css";
 import ModalSession from "./ModalSession";
 import ModalBase from "./ModalBase";
+import { useNavigate } from "react-router";
 
 const ButtonReports = ({ optionByPath, setLoading }) => {
   const [inputs, setInputs] = useState([]);
@@ -11,6 +12,7 @@ const ButtonReports = ({ optionByPath, setLoading }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState("");
   const { options } = optionByPath;
+  const navigate = useNavigate();
 
   useEffect(() => {    
     if (!options){
@@ -68,11 +70,11 @@ const ButtonReports = ({ optionByPath, setLoading }) => {
     const inputValue = inputs[index];
     console.log(`Input ${index} value: ${inputValue}`);
 
-    window.location.href = `${option.to}&params=${inputValue}`;
+   navigate(`${option.to}&params=${inputValue}`);
   };
 
   const handleButtonClick = ({ option }) => {
-    window.location.href = option.to;
+    navigate(option.to);
   };
 
   if(isModalVisible) return <ModalBase setIsModalVisible={setIsModalVisible} content={modalData}/>

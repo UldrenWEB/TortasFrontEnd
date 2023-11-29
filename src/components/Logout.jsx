@@ -9,11 +9,9 @@ const Logout = ({ setLogger, isLogged, navigate }) => {
   const [data, setData] = useState("Cerrar sesion");
 
   useEffect(() => {
-    if (!isLogged) return navigate("/login");
-
     const handler = async () => {
       const result = await fetcho({ url: "/logout", method: "GET" });
-      verifyLogout({ setLogger, setData, result });
+      verifyLogout({setLogger,  setData, result });
       navigate("/login");
 
       if (result?.error) return setData(result.error);
