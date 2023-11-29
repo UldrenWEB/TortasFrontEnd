@@ -39,11 +39,16 @@ export const verifyMethodsNav = ({
 };
 
 export const verifyLogout = ({ setLogger, setData, result }) => {
-  setLogger(false);
+  try {
+    setLogger(false);
   Cookies.remove("connect.sid");
   localStorage.removeItem("permisosNav");
   localStorage.removeItem("dataUser");
   setData(result.message || "La sesion se cerro correctamente");
+  } catch (error) {
+    console.warning(error.message)
+    return true
+  }
 };
 
 export const verifySession = async ({ setLogger, navigate }) => {

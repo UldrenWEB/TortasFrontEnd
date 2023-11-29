@@ -1,22 +1,30 @@
 import React, { useState, useEffect } from "react";
 import fetcho from "../service/fetcho";
 import "../styles/ButtonReports.css";
+import ModalSession from "./ModalSession";
+import ModalBase from "./ModalBase";
 
-const ButtonReports = ({ optionByPath }) => {
+const ButtonReports = ({ optionByPath, setLoading }) => {
   const [inputs, setInputs] = useState([]);
   const [selectOptions, setSelectOptions] = useState([]);
+  const [isErrorSession, setIsErrorSession] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalData, setModalData] = useState("");
   const { options } = optionByPath;
 
-  useEffect(() => {
-    const fetchSelectOptions = async () => {
-      // Realiza la solicitud para obtener las opciones del select
+  useEffect(() => {    
+    if (!options){
+      return
+    }
 
+    const fetchSelectOptions = async () => {
       const selectOptionCorrect = options.find((obj) => obj.type === "select");
 
       if (selectOptionCorrect) {
         const [nameModule, nameObject, nameMethod, params] =
           selectOptionCorrect.method;
 
+        setLoading(true);
         const result = await fetcho({
           url: "/toProcess",
           method: "POST",
@@ -28,10 +36,14 @@ const ButtonReports = ({ optionByPath }) => {
           },
         });
 
+        setLoading(false);
+
+        console.log(result)
+        if (result.errorSession) setIsErrorSession(true);
         // Actualiza el estado con las opciones recibidas
         if (result.error || !result) {
-          console.log("Hubo un error al realizar la consulta", result.error);
-          return null;
+          setModalData("Hubo un error al realizar la consulta", result?.error)
+          setIsModalVisible(true)
         }
 
         setSelectOptions(result);
@@ -63,72 +75,77 @@ const ButtonReports = ({ optionByPath }) => {
     window.location.href = option.to;
   };
 
+  if(isModalVisible) return <ModalBase setIsModalVisible={setIsModalVisible} content={modalData}/>
+  if (isErrorSession) return <ModalSession />;
+
   return (
-    <div className="container-options-reports">
-      <div className="container-options-card">
-        {options.map((option, index) => {
-          return (
-            <div key={option.label} className="btn-all-products">
-              {option.type === "text" ||
-              option.type === "number" ||
-              option.type === "date" ? (
-                <div className="container-buttons">
-                  <input
-                    className="input "
-                    type={option.type}
-                    placeholder={option.placeholder}
-                    value={inputs[index] || ""}
-                    onChange={(e) =>
-                      handleInputChange({ index, value: e.target.value })
-                    }
-                  />
-                  <button
-                    className="btn-input"
-                    onClick={() => handleButtonInput({ index, option })}
-                  >
-                    Enviar
-                  </button>
-                </div>
-              ) : option.type === "select" ? (
-                <div>
-                  <select
-                    className="select"
-                    value={inputs[index] || ""}
-                    onChange={(e) =>
-                      handleInputChange({ index, value: e.target.value })
-                    }
-                  >
-                    <option disabled value="">
-                      {option.placeholder}
-                    </option>
-                    {selectOptions.map((selectOption) => (
-                      <option key={selectOption.id} value={selectOption.id}>
-                        {selectOption["descripcion"]}
+    options && (
+      <div className="container-options-reports">
+        <div className="container-options-card">
+          {options.map((option, index) => {
+            return (
+              <div key={option.label} className="btn-all-products">
+                {option.type === "text" ||
+                option.type === "number" ||
+                option.type === "date" ? (
+                  <div className="container-buttons">
+                    <input
+                      className="input "
+                      type={option.type}
+                      placeholder={option.placeholder}
+                      value={inputs[index] || ""}
+                      onChange={(e) =>
+                        handleInputChange({ index, value: e.target.value })
+                      }
+                    />
+                    <button
+                      className="btn-input"
+                      onClick={() => handleButtonInput({ index, option })}
+                    >
+                      Enviar
+                    </button>
+                  </div>
+                ) : option.type === "select" ? (
+                  <div>
+                    <select
+                      className="select"
+                      value={inputs[index] || ""}
+                      onChange={(e) =>
+                        handleInputChange({ index, value: e.target.value })
+                      }
+                    >
+                      <option disabled value="">
+                        {option.placeholder}
                       </option>
-                    ))}
-                  </select>
-                  <button
-                    className="btn-input"
-                    onClick={() => handleButtonInput({ index, option })}
-                  >
-                    Enviar
-                  </button>
-                </div>
-              ) : (
-                <div>
-                  <button
-                    onClick={() => handleButtonClick({ option })}
-                    className="btn"
-                  >
-                    {option.label}
-                  </button>
-                </div>
-              )}
-            </div>
-          );
-        })}
+                      {selectOptions && selectOptions.map((selectOption) => (
+                        <option key={selectOption.id} value={selectOption.id}>
+                          {selectOption["descripcion"]}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      className="btn-input"
+                      onClick={() => handleButtonInput({ index, option })}
+                    >
+                      Enviar
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <button
+                      onClick={() => handleButtonClick({ option })}
+                      className="btn"
+                    >
+                      {option.label}
+                    </button>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    )
   );
 };
 

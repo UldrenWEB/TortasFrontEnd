@@ -660,6 +660,7 @@ export const editLocalObj = ({ dataFetch }) => {
   }
 }
 
+
 export const objsFetch = {
   objGetAllAddress: {
     area: "person",

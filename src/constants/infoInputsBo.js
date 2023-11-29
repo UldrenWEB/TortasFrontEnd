@@ -67,7 +67,10 @@ const infoInputsBo = {
     editLocal: [
         { type: 'select', label: 'Locales', id: 'inLocal', placeholder: 'Todos los locales' },
         { type: 'text', label: 'Nuevo nombre', id: 'inNombre', placeholder: 'Ingresar nuevo nombre' }
-    ]
+    ],
+    olvidoDatos: [
+        { type: 'text', label: 'Usuario', id: 'inUsuario', placeholder: 'Ingresa tu nombre de usuario' },
+    ],
 }
 
 export default infoInputsBo

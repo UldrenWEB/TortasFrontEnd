@@ -22,9 +22,9 @@ const InfoUser = ({
               <Link to={"/home"}>
                 <HomeFilled key="home" style={{ color: "green" }} />
               </Link>,
-              <Link to={"/editUser"}>
-                <EditOutlined key="edit" style={{ color: "blue" }} />
-              </Link>,
+              // <Link to={"/editUser"}>
+              //   <EditOutlined key="edit" style={{ color: "blue" }} />
+              // </Link>,
               <Link to={"/logout"}>
                 <LogoutOutlined key="logout" style={{ color: "red" }} />
               </Link>,
