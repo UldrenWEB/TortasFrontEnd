@@ -34,7 +34,7 @@ const sendMessageByBeibi = ({
       }
     }
 
-    if (objChat["zones"].includes(typeChatMessage)) {
+    if (typeChatMessage === 'zones') {
       console.log('En sendMessage se ejecuta un mensaje de room');
       const send = iClient.sendMessage({
         socketEmit: socketEmit,
