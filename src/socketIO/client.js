@@ -54,6 +54,7 @@ class Client {
     // Envía un mensaje a un room dentro de un namespace
     sendMessage = ({ socketEmit, room, message }) => {
 
+        console.log('AQUIIIII ENTRO', room)
         if (!this.rooms[room]) {
             console.log('No se encuentra el room');
             return false;
