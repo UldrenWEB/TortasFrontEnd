@@ -11,60 +11,51 @@ const ReportsHandler = ({ profile }) => {
             <>
               <ButtonVe
                 content={"Rutas"}
-                click={() =>
-                  (window.location.href = "/reports?filter=routes&main=true")
-                }
+                isLink
+                routeIsLink={"/reports?filter=routes&main=true"}
               />
               <ButtonVe
                 content={"Productos"}
-                click={() =>
-                  (window.location.href = "/reports?filter=products&main=true")
-                }
+                isLink={true}
+                routeIsLink={"/reports?filter=products&main=true"}
               />
               <ButtonVe
                 content={"Locales"}
-                click={() =>
-                  (window.location.href = "/reports?filter=local&main=true")
-                }
+                isLink
+                routeIsLink={"/reports?filter=local&main=true"}
               />
               <ButtonVe
                 content={"Facturas"}
-                click={() =>
-                  (window.location.href = "/reports?filter=billing&main=true")
-                }
+                isLink
+                routeIsLink={"/reports?filter=billing&main=true"}
               />
               <ButtonVe
                 content={"Vendedores"}
-                click={() =>
-                  (window.location.href = "/reports?filter=seller&main=true")
-                }
+                isLink
+                routeIsLink={"/reports?filter=seller&main=true"}
               />
               <ButtonVe
                 content={"Personas"}
-                click={() =>
-                  (window.location.href = "/reports?filter=person&main=true")
-                }
+                isLink
+                routeIsLink={"/reports?filter=person&main=true"}
               />
             </>
           ) : (
             <>
               <ButtonVe
                 content={"Vendedores"}
-                click={() =>
-                  (window.location.href = "/reports?filter=seller&main=true")
-                }
+                isLink
+                routeIsLink={"/reports?filter=seller&main=true"}
               />
               <ButtonVe
+                isLink
                 content={"Facturas"}
-                click={() =>
-                  (window.location.href = "/reports?filter=billing&main=true")
-                }
+                routeIsLink={"/reports?filter=billing&main=true"}
               />
               <ButtonVe
                 content={"Productos"}
-                click={() =>
-                  (window.location.href = "/reports?filter=products&main=true")
-                }
+                isLink
+                routeIsLink={"/reports?filter=products&main=true"}
               />
             </>
           )}

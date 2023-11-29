@@ -19,7 +19,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    verifyLoginCookie({ setLogger: setIsLogged, navigate, location });
+
+    // verifyLoginCookie({ setLogger: setIsLogged, navigate, location });
 
     verifyMethodsNav({
       setLogger: setIsLogged,
@@ -27,7 +28,7 @@ function App() {
       setDataNav,
       setDataUser,
     });
-  }, []);
+  }, [isLogged]);
 
   const changeTheme = () => setDrakTheme(!darkTheme);
   const changeCollapsed = () => setCollapsed(!collapsed);

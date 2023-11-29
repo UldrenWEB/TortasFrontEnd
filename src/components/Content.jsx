@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useFetcher } from "react-router-dom";
 import { verifyLoginCookie, verifyMethodsNav } from "../service/verifyLogin";
 import SuperLoader from "./SuperLoader";
 const Home = lazy(() => import("./Home"));
@@ -41,8 +41,9 @@ const Content = ({
   isLoading,
   setIsLoading,
 }) => {
+
   useEffect(() => {
-    verifyLoginCookie({ setLogger, navigate, isLogged, location });
+    verifyLoginCookie({ navigate, setLogger, location });
     verifyMethodsNav({ setLogger, navigate, setDataNav, setDataUser });
   }, []);
 
