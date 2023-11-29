@@ -1,3 +1,3 @@
 // export const URL_BASE = 'https://venta-tortas-dev-htaz.4.us-1.fl0.io';
 
-export const URL_BASE = "http://localhost:7878"
+export const URL_BASE = "https://dmk9vstb-7878.use2.devtunnels.ms"

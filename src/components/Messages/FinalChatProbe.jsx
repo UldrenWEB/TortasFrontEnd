@@ -239,6 +239,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
 
     console.log("Aqui el evento segun el tipo de chat es ->: ", typeEvent);
     socket.on(typeEvent, (data) => {
+      console.log(`EVENTO`)
       console.log(`Mesaje recibido`, data);
       const isImg = validateImage(data);
       if (isImg) return setNewMessage({ data, image: isImg });

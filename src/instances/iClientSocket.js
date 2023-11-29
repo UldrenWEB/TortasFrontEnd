@@ -5,7 +5,7 @@ import Client from "../socketIO/client";
 
 
 const iClient = new Client({
-    url: 'http://localhost:7878',
+    url: 'https://dmk9vstb-7878.use2.devtunnels.ms/',
     rooms: ['el prado', 'sur', 'prolongacion']
 })
 
