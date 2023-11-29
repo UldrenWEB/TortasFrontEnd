@@ -146,9 +146,16 @@ body {
   opacity: 0.6;
 }
 
-.container-group-chats:first-child {
-  overflow: scroll;
+.container-group-chats{
+  overflow-y: scroll;
+  box-sizing: border-box;
 }
+
+.container-group-chats::-webkit-scrollbar {
+  width: 0;
+}
+
+
 
 .container-group-chats-buttons {
   display: flex;
