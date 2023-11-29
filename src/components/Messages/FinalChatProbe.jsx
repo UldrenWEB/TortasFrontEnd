@@ -133,28 +133,28 @@ const FinalChatProbe = ({ typeChat, userData }) => {
         if (!socketClient)
           return console.error("Hubo un error al crear el socket del client");
 
-        // const route = await fetcho({
-        //   url: "/toProcess",
-        //   method: "POST",
-        //   body: {
-        //     area: "local",
-        //     object: "control",
-        //     method: "getRouteBy",
-        //     params: {
-        //       option: "user",
-        //       params: [user],
-        //     },
-        //   },
-        // });
+        const route = await fetcho({
+          url: "/toProcess",
+          method: "POST",
+          body: {
+            area: "local",
+            object: "control",
+            method: "getRouteBy",
+            params: {
+              option: "user",
+              params: [user],
+            },
+          },
+        });
 
-        // if (!route || route.error) {
-        //   return console.error(
-        //     "Hubo un error al intentar obtener la ruta del usuario",
-        //     route.error
-        //   );
-        // }
+        if (!route || route.error) {
+          return console.error(
+            "Hubo un error al intentar obtener la ruta del usuario",
+            route.error
+          );
+        }
 
-        // console.log("Esta es la ruta a la que se va a unir ese usuario", route);
+        console.log("Esta es la ruta a la que se va a unir ese usuario", route);
         const joinNamespace = iClient.joinNamespace(socketClient);
         const joinRoom = iClient.joinRoom(socketClient, "el prado");
 
