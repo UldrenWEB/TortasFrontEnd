@@ -14,14 +14,12 @@ const ButtonReports = ({ optionByPath, setLoading }) => {
   const { options } = optionByPath;
   const navigate = useNavigate();
 
-  useEffect(() => {    
-    if (!options){
-      return
-    }
+  useEffect(() => {
+    if (!options) return;
 
     const fetchSelectOptions = async () => {
       const selectOptionCorrect = options.find((obj) => obj.type === "select");
-
+      console.log('EPPAAAAS', selectOptionCorrect)
       if (selectOptionCorrect) {
         const [nameModule, nameObject, nameMethod, params] =
           selectOptionCorrect.method;
@@ -56,6 +54,7 @@ const ButtonReports = ({ optionByPath, setLoading }) => {
     const hasSelectOption = options.some((option) => option.type === "select");
 
     if (hasSelectOption) {
+      console.log('Si existe una opcion de tipo select')
       fetchSelectOptions();
     }
   }, []);
@@ -70,14 +69,14 @@ const ButtonReports = ({ optionByPath, setLoading }) => {
     const inputValue = inputs[index];
     console.log(`Input ${index} value: ${inputValue}`);
 
-   navigate(`${option.to}&params=${inputValue}`);
+    navigate(`${option.to}&params=${inputValue}`);
   };
 
   const handleButtonClick = ({ option }) => {
     navigate(option.to);
   };
 
-  if(isModalVisible) return <ModalBase setIsModalVisible={setIsModalVisible} content={modalData}/>
+  if (isModalVisible) return <ModalBase setIsModalVisible={setIsModalVisible} content={modalData} />
   if (isErrorSession) return <ModalSession />;
 
   return (
@@ -88,9 +87,10 @@ const ButtonReports = ({ optionByPath, setLoading }) => {
             return (
               <div key={option.label} className="btn-all-products">
                 {option.type === "text" ||
-                option.type === "number" ||
-                option.type === "date" ? (
+                  option.type === "number" ||
+                  option.type === "date" ? (
                   <div className="container-buttons">
+                    <div>{option.label}</div>
                     <input
                       className="input "
                       type={option.type}
@@ -109,6 +109,7 @@ const ButtonReports = ({ optionByPath, setLoading }) => {
                   </div>
                 ) : option.type === "select" ? (
                   <div>
+                    <div>{option.label}</div>
                     <select
                       className="select"
                       value={inputs[index] || ""}

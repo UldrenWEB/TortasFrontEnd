@@ -154,7 +154,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
           );
         }
 
-        console.log("Esta es la ruta a la que se va a unir ese usuario", route['de_route']);
+        // console.log("Esta es la ruta a la que se va a unir ese usuario", route['de_route']);
         const joinNamespace = iClient.joinNamespace(socketClient);
         const joinRoom = iClient.joinRoom(socketClient, route['de_route']);
 
