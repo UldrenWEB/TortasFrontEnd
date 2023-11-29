@@ -55,10 +55,10 @@ class Client {
     sendMessage = ({ socketEmit, room, message }) => {
 
         console.log('AQUIIIII ENTRO', room)
-        if (!this.rooms[room]) {
-            console.log('No se encuentra el room');
-            return false;
-        }
+        // if (!this.rooms[room]) {
+        //     console.log('No se encuentra el room');
+        //     return false;
+        // }
         try {
             console.log('Aqui socketEmit', socketEmit);
             socketEmit.emit('message zone', { room, message });
