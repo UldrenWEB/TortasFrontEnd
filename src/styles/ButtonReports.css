@@ -11,9 +11,10 @@
 }
 
 .container-options-card {
-    width: 30%;
+    width: 60%;
     min-width: 200px;
-    height: 60%;
+    min-height: 400px;
+    height: 80%;
     background-color: #fff;
     border-radius: 20px;
     display: flex;
@@ -116,4 +117,32 @@
     .container-options-card {
         width: 90% !important;
     }
+}
+
+.btn-all-products div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1rem !important;
+}
+
+.btn-all-products div select{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #FB5361;
+}
+
+.btn-all-products div .btn-input{
+    background-color: #FB5361;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+}
+
+.container-options-card .btn-all-products .container-buttons{
+    background-color: #fff;
 }

@@ -12,18 +12,18 @@ const MensajesComponent = ({ infoMessage, userProperty }) => {
 
   return (
     <div className={`message-container ${!verifyReceiving ? "received" : "sent"}`}>
-      <div className="message-info">
-        <p>Fecha: {fecha}</p>
-        <p>{!verifyReceiving ? "Recibiendo" : "Enviando"}</p>
-        <p>to: {usuario}</p>
+      <div className={verifyReceiving ? "message-info enviando" : " message-info recibiendo"}>
+        {/* <p>Fecha: {fecha}</p> */}
+        {/* <p>{!verifyReceiving ? "Recibiendo" : "Enviando"}</p> */}
+        <p>{usuario.toUpperCase()}</p>
       </div>
       {hasImage && (
-        <div className="message-content">
+        <div className={verifyReceiving ? "message-content recibiendo" : "enviando message-content"}>
           <img src={imagen.url} alt="image" />
           {hasDescription && <p>{imagen.descripcion}</p>}
         </div>
       )}
-      <p className="message-content">Contenido del mensaje: {contenido}</p>
+      <p className={verifyReceiving ? "message-content enviando" : " message-content recibiendo"}>{contenido}</p>
     </div>
   );
 };

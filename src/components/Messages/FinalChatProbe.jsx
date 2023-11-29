@@ -11,6 +11,7 @@ import messageIcon from "../../icons/comentario-alt.svg";
 import groupIcon from "../../icons/usuarios-alt.svg";
 import twoIcon from "../../icons/usuarios.svg";
 import ModalSession from "../ModalSession";
+import { useRef } from "react";
 
 const FinalChatProbe = ({ typeChat, userData }) => {
   const [icon, setIcon] = useState(null);
@@ -26,7 +27,21 @@ const FinalChatProbe = ({ typeChat, userData }) => {
   const [socket, setSocket] = useState(null);
   const [showChat, setShowChat] = useState(false);
   const [isErrorSession, setIsErrorSession] = useState(false);
+  const chatsEndRef = useRef(null);
 
+
+  useEffect(() => {
+    setTimeout(() => {
+
+    if(!newMessage) return
+      if(!chatsEndRef) return 
+      const scrollElement = chatsEndRef.current;
+  
+      if(!scrollElement) return;
+      scrollElement.scrollTop = scrollElement.scrollHeight;
+
+    }, 100);
+  }, [newMessage]);
 
   useEffect(() => {
     if (!typeChat || !objChat) return;
@@ -326,13 +341,16 @@ const FinalChatProbe = ({ typeChat, userData }) => {
         />
       </Button>
       {showChat && (
-        <div className="container-group-chats">
+        <div className="container-group-chats" ref={chatsEndRef}>
           <ChatProbe
             messageInitial={chatMessage}
             onNewMessage={newMessage}
             userProperty={userData.user}
           />
-          <div className="container-group-chats-buttons">
+          
+        </div>
+      )}
+      <div className="container-group-chats-buttons">
             {/* <Button
               className="send-image-button button-chat"
               onClick={handleSendImageMessage}
@@ -353,8 +371,6 @@ const FinalChatProbe = ({ typeChat, userData }) => {
               Enviar
             </Button>
           </div>
-        </div>
-      )}
     </div>
   );
 };

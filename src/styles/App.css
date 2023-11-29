@@ -2,8 +2,6 @@
 @import url("https://fonts.cdnfonts.com/css/inter");
 
 * {
-  margin: 0;
-  padding: 0;
   border: none;
   outline: none;
   list-style: none;
@@ -132,14 +130,16 @@ body {
   gap: 1rem;
   box-sizing: border-box;
   min-width: 300px;
-  max-height: 400px;
+  max-height: 500px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
   transition: cubic-bezier(0.755, 0.05, 0.855, 0.06) 0.05s;
+  max-width: 250px;
 }
 
 .icon-button {
   cursor: pointer;
   background-color: #fff;
+  /* max-height: 25px; */
 }
 
 .icon-button:hover {
@@ -221,6 +221,7 @@ body {
 .container-all-chat.chat-not-show {
   margin-top: auto;
   max-height: 70px !important;
+  max-width: 70px;
 }
 
 @media (max-width: 800px) {
@@ -236,4 +237,12 @@ body {
 
 .table-striped {
   background-color: #121212 !important;
+}
+
+.btn-all-products select, .btn-all-products button {
+  width: 70%;
+}
+
+.btn-all-products{
+  width: 50%;
 }
