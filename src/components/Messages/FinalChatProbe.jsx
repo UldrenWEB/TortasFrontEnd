@@ -210,11 +210,15 @@ const FinalChatProbe = ({ typeChat, userData }) => {
 
     if (objChat[typeChat] === "direct") return setTypeEvent("direct_message");
 
-    if (objChat[typeChat] === "namespace")
+    if (objChat[typeChat] === "namespace") {
+      console.log('ESSSS UN BROADCAST')
       return setTypeEvent("broadcast_message");
+    }
 
-    if (typeChat === 'zones')
+    if (typeChat === 'zones') {
+      console.log('ESSSS UN ROOM')
       return setTypeEvent("room_message");
+    }
 
     return console.error("Tipo de chat invalido");
   }, [objChat]);
@@ -235,7 +239,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
   };
 
   useEffect(() => {
-    if (!socket || typeEvent) return;
+    if (!socket || !typeEvent) return;
 
     console.log("Aqui el evento segun el tipo de chat es ->: ", typeEvent);
     socket.on(typeEvent, (data) => {

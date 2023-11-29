@@ -505,9 +505,9 @@ export const editProductSaleDataFetch = ({ data }) => {
     const obj = {
       option: 'amountproduct',
       params: [
-        data?.inMonto ?? null,
         data?.inProducto ?? null,
-        data?.inPresentacion ?? null
+        data?.inPresentacion ?? null,
+        data?.inMonto ?? null,
       ]
     }
 
@@ -684,7 +684,7 @@ export const objsFetch = {
     area: "local",
     object: "control",
     method: "getAllOf",
-    params: {of: "route"},
+    params: { of: "route" },
   },
   objGetAllSellers: {
     area: "seller",
