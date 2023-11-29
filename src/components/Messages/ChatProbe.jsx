@@ -5,7 +5,8 @@ import { useState, useEffect } from "react";
 import MensajesComponent from "./Message";
 const ChatProbe = ({
     messageInitial,
-    onNewMessage
+    onNewMessage,
+    userProperty
 }) => {
     const [renderedMessage, setRenderedMessages] = useState([]);
     const [haveNotMessage, setHaveNotMessage] = useState(null);
@@ -20,7 +21,7 @@ const ChatProbe = ({
         // Mapear los mensajes iniciales a componentes de mensajes
         const messageComponents = messageInitial.map((obj) => {
             keyCont++;
-            return <MensajesComponent key={keyCont} infoMessage={obj} />;
+            return <MensajesComponent key={keyCont} userProperty={userProperty} infoMessage={obj} />;
         });
         setRenderedMessages(messageComponents);
     }, [messageInitial]);
@@ -35,7 +36,7 @@ const ChatProbe = ({
 
         setRenderedMessages(prevMessages => [
             ...prevMessages,
-            <MensajesComponent key={prevMessages.length + 1} infoMessage={onNewMessage} />
+            <MensajesComponent userProperty={userProperty} key={prevMessages.length + 1} infoMessage={onNewMessage} />
         ]);
     }, [onNewMessage]);
 

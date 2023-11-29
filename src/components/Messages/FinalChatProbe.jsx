@@ -54,10 +54,11 @@ const FinalChatProbe = ({ typeChat, userData }) => {
             method: "getMessageBy",
             params: {
               option: "typeanduser",
-              params: [typeChatReal, user]
+              params: [typeChatReal, user.toLowerCase()]
             },
           },
         });
+        // console.log(typeChatReal, 'Aqui mensajes', messages)
         if (!messages || messages.error)
           return console.error(
             `Hubo un error obtener los mensajes del usuario`,
@@ -133,7 +134,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
         if (!socketClient)
           return console.error("Hubo un error al crear el socket del client");
 
-        const route = await fetcho({
+        const [route] = await fetcho({
           url: "/toProcess",
           method: "POST",
           body: {
@@ -142,11 +143,10 @@ const FinalChatProbe = ({ typeChat, userData }) => {
             method: "getRouteBy",
             params: {
               option: "user",
-              params: [user],
+              params: [user.toLowerCase()],
             },
           },
         });
-
         if (!route || route.error) {
           return console.error(
             "Hubo un error al intentar obtener la ruta del usuario",
@@ -154,9 +154,9 @@ const FinalChatProbe = ({ typeChat, userData }) => {
           );
         }
 
-        console.log("Esta es la ruta a la que se va a unir ese usuario", route);
+        console.log("Esta es la ruta a la que se va a unir ese usuario", route['de_route']);
         const joinNamespace = iClient.joinNamespace(socketClient);
-        const joinRoom = iClient.joinRoom(socketClient, "el prado");
+        const joinRoom = iClient.joinRoom(socketClient, route['de_route']);
 
         if (
           !joinNamespace ||
@@ -211,12 +211,10 @@ const FinalChatProbe = ({ typeChat, userData }) => {
     if (objChat[typeChat] === "direct") return setTypeEvent("direct_message");
 
     if (objChat[typeChat] === "namespace") {
-      console.log('ESSSS UN BROADCAST')
       return setTypeEvent("broadcast_message");
     }
 
     if (typeChat === 'zones') {
-      console.log('ESSSS UN ROOM')
       return setTypeEvent("room_message");
     }
 
@@ -241,7 +239,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
   useEffect(() => {
     if (!socket || !typeEvent) return;
 
-    console.log("Aqui el evento segun el tipo de chat es ->: ", typeEvent);
+    // console.log("Aqui el evento segun el tipo de chat es ->: ", typeEvent);
     socket.on(typeEvent, (data) => {
       console.log(`EVENTO`)
       console.log(`Mesaje recibido`, data);
@@ -332,6 +330,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
           <ChatProbe
             messageInitial={chatMessage}
             onNewMessage={newMessage}
+            userProperty={userData.user}
           />
           <div className="container-group-chats-buttons">
             {/* <Button

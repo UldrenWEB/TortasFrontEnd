@@ -21,7 +21,6 @@ const fetcho = async ({ url, method, body }) => {
     const config = method.toLowerCase() === "post" ? configPost : configGet;
 
     const response = await fetch(`${URL_BASE}${url}`, config);
-
     const data = await response.json();
 
     if (data?.errorSession) {

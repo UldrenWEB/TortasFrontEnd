@@ -9,7 +9,7 @@ const sendMessageByBeibi = ({
 }) => {
   if (inputValue.trim() !== "") {
     if (typeChatMessage === "direct") {
-      console.log('En sendMessage se ejecuta el mensaje directo')
+      // console.log('En sendMessage se ejecuta el mensaje directo')
       const send = iClient.sendDirectMessage({
         socketEmit: socketEmit,
         user: sendToUser,
@@ -21,7 +21,7 @@ const sendMessageByBeibi = ({
     }
 
     if (objChat[typeChatMessage] === "namespace") {
-      console.log('En sendMessage se ejecuta un mensaje de broadcast')
+      // console.log('En sendMessage se ejecuta un mensaje de broadcast')
       const send = iClient.sendMessageBroadcast({
         socket: socketEmit,
         message: inputValue,
@@ -35,7 +35,7 @@ const sendMessageByBeibi = ({
     }
 
     if (typeChatMessage === 'by zone') {
-      console.log('En sendMessage se ejecuta un mensaje de room');
+      // console.log('En sendMessage se ejecuta un mensaje de room');
       const send = iClient.sendMessage({
         socketEmit: socketEmit,
         room: typeChatMessage,

@@ -2,11 +2,13 @@
 import { io } from 'socket.io-client'
 
 class Client {
-    constructor({ url, rooms }) {
+    constructor({ url }) {
         this.rooms = {}
-        rooms.forEach(room => {
-            this.rooms[room] = true
-        });
+        // let arrayRooms = funct()
+        // console.log('Aqui rooms', arrayRooms)
+        // arrayRooms.forEach(room => {
+        //     this.rooms[room] = true
+        // });
         this.url = url;
         this.io = io;
         this.namespace = 'myNamespace';
@@ -40,9 +42,9 @@ class Client {
     }
 
     joinRoom = (socket, room) => {
-        if (!this.rooms[room]) {
-            return false;
-        }
+        // if (!this.rooms[room]) {
+        //     return false;
+        // }
         try {
             socket.emit('join_room', room)
             return true;
@@ -54,14 +56,13 @@ class Client {
     // Envía un mensaje a un room dentro de un namespace
     sendMessage = ({ socketEmit, room, message }) => {
 
-        console.log('AQUIIIII ENTRO', room)
         // if (!this.rooms[room]) {
         //     console.log('No se encuentra el room');
         //     return false;
         // }
         try {
-            console.log('Aqui socketEmit', socketEmit);
-            socketEmit.emit('message zone', { room: 'el prado', message });
+            // console.log('Aqui socketEmit', socketEmit);
+            socketEmit.emit('message zone', { room, message });
             return true;
         } catch (error) {
             console.error(error)
