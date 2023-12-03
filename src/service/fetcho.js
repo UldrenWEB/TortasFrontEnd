@@ -22,6 +22,7 @@ const fetcho = async ({ url, method, body }) => {
 
     const response = await fetch(`${URL_BASE}${url}`, config);
     const data = await response.json();
+    console.log(data)
 
     if (data?.errorSession) {
       console.log('No hay sesion activa')

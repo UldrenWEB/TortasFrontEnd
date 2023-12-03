@@ -218,15 +218,15 @@ const CreateBilling = ({ setLoading }) => {
     }, [dataIdProduct])
 
     //Cargar presentacion
-    useEffect(() => {
-        if (!mapaInfo || !dataPresentaciones) return;
+    // useEffect(() => {
+    //     if (!mapaInfo || !dataPresentaciones) return;
 
-        mapaInfo.get('inPresentacion').setInfo({
-            value: '',
-            options: dataPresentaciones
-        })
+    //     mapaInfo.get('inPresentacion').setInfo({
+    //         value: '',
+    //         options: dataPresentaciones
+    //     })
 
-    }, [mapaInfo, dataPresentaciones])
+    // }, [mapaInfo, dataPresentaciones])
 
     useEffect(() => {
         const typePay = dataTypePay.map(obj => {
@@ -264,7 +264,7 @@ const CreateBilling = ({ setLoading }) => {
         const idProduct = e.target.value;
         console.log('El id actual del producto es: ', idProduct)
         setDataIdProducts(Number(idProduct));
-        mapaInfo.get('inPresentacion').setIsNotVisible(false);
+        // mapaInfo.get('inPresentacion').setIsNotVisible(false);
     }
 
     const handleChangeTipoPago = (e) => {

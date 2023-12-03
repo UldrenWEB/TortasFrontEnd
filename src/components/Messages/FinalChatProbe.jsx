@@ -73,7 +73,6 @@ const FinalChatProbe = ({ typeChat, userData }) => {
             },
           },
         });
-        // console.log(typeChatReal, 'Aqui mensajes', messages)
         if (!messages || messages.error)
           return console.error(
             `Hubo un error obtener los mensajes del usuario`,
@@ -254,7 +253,7 @@ const FinalChatProbe = ({ typeChat, userData }) => {
   useEffect(() => {
     if (!socket || !typeEvent) return;
 
-    // console.log("Aqui el evento segun el tipo de chat es ->: ", typeEvent);
+    console.log("Aqui el evento segun el tipo de chat es ->: ", typeEvent);
     socket.on(typeEvent, (data) => {
       console.log(`EVENTO`)
       console.log(`Mesaje recibido`, data);
