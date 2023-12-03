@@ -1,6 +1,6 @@
 import { Button } from "antd";
 import { Link } from "react-router-dom";
-import "./styles/ButtonVe.css";
+import "../styles/ButtonVe.css";
 
 const ButtonVe = ({ content, click, ide, isLink, routeIsLink, className }) => {
   const handleClick = () => click ? click() : null;

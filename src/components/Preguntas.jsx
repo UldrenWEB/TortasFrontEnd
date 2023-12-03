@@ -4,7 +4,7 @@ import MagicForms from "./MagicForms";
 import ButtonVe from "./ButtonVe";
 import getMapInputs from "../service/getMapInputs";
 import fetcho from "../service/fetcho";
-import "../stytles/Preguntas.css";
+import "../styles/Preguntas.css";
 import ModalBase from "./ModalBase";
 import ModalSession from "./ModalSession";
 import { useNavigate } from "react-router-dom";
